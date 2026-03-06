@@ -18,17 +18,18 @@ SOUL.md 是 OpenClaw 的人格配置文件，它定义了你的 AI 助手的：
 
 ### 🎯 工作助手
 - [敏捷项目经理](./community/work/agile-pm.md) - 精通 Scrum 和看板方法
-- [技术文档专家](./community/work/tech-writer.md) - 擅长撰写清晰的技术文档
 
 ### 💻 开发专家
-- [软件架构师](./translated/architect.md) - 系统思维，长远设计 ⭐ 翻译
-- [代码审查官](./translated/code-reviewer.md) - 严格但友善的代码审查 ⭐ 翻译
+- [软件架构师](./translated/architect.md) - 系统思维，长远设计 `翻译`
+- [代码审查官](./translated/code-reviewer.md) - 严格但友善的代码审查 `翻译`
 
 ### 🎓 学习伙伴
 - [苏格拉底导师](./community/learning/socratic.md) - 用提问引导你思考
 
-### 🎭 趣味人格
-- [海盗船长](./translated/pirate-captain.md) - 用海盗方式解决技术问题 ⭐ 翻译
+### 🎭 个性人格 🔥
+- [暴躁老王](./community/creative/grumpy-wang.md) - 满嘴脏话但技术过硬的编程搭档 `原创` `热门`
+- [猫娘 Nova](./community/creative/catgirl-nova.md) - 傲娇可爱的二次元猫娘助手 `原创` `热门`
+- [海盗船长](./translated/pirate-captain.md) - 用海盗方式解决技术问题 `翻译`
 
 ### 🌐 更多翻译精选
 来自国际社区的优质人格（已标注来源和协议）：
