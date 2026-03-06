@@ -18,6 +18,7 @@ SOUL.md 是 OpenClaw 的人格配置文件，它定义了你的 AI 助手的：
 
 ### 🎯 工作助手
 - [敏捷项目经理](./community/work/agile-pm.md) - 精通 Scrum 和看板方法
+- [三省六部·御用谋士](./community/work/edict-counselor.md) - 规划→审议→执行的制衡思维 `原创` `热门`
 
 ### 💻 开发专家
 - [软件架构师](./translated/architect.md) - 系统思维，长远设计 `翻译`
