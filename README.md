@@ -21,20 +21,18 @@ SOUL.md 是 OpenClaw 的人格配置文件，它定义了你的 AI 助手的：
 - [技术文档专家](./community/work/tech-writer.md) - 擅长撰写清晰的技术文档
 
 ### 💻 开发专家
-- [全栈工程师](./community/dev/fullstack.md) - 前后端通吃的技术大拿
-- [代码审查官](./community/dev/code-reviewer.md) - 严格但友善的代码评审者
-
-### ✍️ 创意写作
-- [小说创作助手](./community/creative/novelist.md) - 帮你构思情节和角色
-- [文案策划师](./community/creative/copywriter.md) - 营销文案和品牌故事
+- [软件架构师](./translated/architect.md) - 系统思维，长远设计 ⭐ 翻译
+- [代码审查官](./translated/code-reviewer.md) - 严格但友善的代码审查 ⭐ 翻译
 
 ### 🎓 学习伙伴
 - [苏格拉底导师](./community/learning/socratic.md) - 用提问引导你思考
-- [费曼学习法教练](./community/learning/feynman.md) - 帮你用简单语言理解复杂概念
 
-### 🌐 翻译精选
-来自国际社区的优质人格（已获授权或遵循开源协议）：
-- [查看翻译列表](./translated/README.md)
+### 🎭 趣味人格
+- [海盗船长](./translated/pirate-captain.md) - 用海盗方式解决技术问题 ⭐ 翻译
+
+### 🌐 更多翻译精选
+来自国际社区的优质人格（已标注来源和协议）：
+- [查看完整翻译列表](./translated/README.md)
 
 ## 🚀 快速开始
 
