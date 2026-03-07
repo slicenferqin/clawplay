@@ -124,7 +124,7 @@ pre {
 .header-cta,
 .search-form__submit,
 .copy-button,
-.featured-soul-card__detail-link,
+.spotlight-soul-card__detail-link,
 .text-action-link,
 .section-link {
   transition: transform 160ms ease, background-color 160ms ease, color 160ms ease, border-color 160ms ease;
@@ -147,7 +147,7 @@ pre {
 .header-cta:hover,
 .search-form__submit:hover,
 .copy-button:hover,
-.featured-soul-card__detail-link:hover,
+.spotlight-soul-card__detail-link:hover,
 .text-action-link:hover,
 .section-link:hover {
   transform: translateY(-1px);
@@ -155,7 +155,7 @@ pre {
 
 .header-cta__icon,
 .copy-button__icon,
-.featured-soul-card__command-icon {
+.spotlight-soul-card__command-icon {
   width: 14px;
   height: 14px;
 }
@@ -178,7 +178,7 @@ pre {
 .eyebrow,
 .breadcrumb,
 .detail-panel__eyebrow,
-.featured-soul-card__eyebrow,
+.spotlight-soul-card__eyebrow,
 .result-card__meta,
 .soul-card__meta {
   color: var(--text-soft);
@@ -204,7 +204,7 @@ pre {
 .detail-panel__body,
 .result-card__summary,
 .soul-card__summary,
-.featured-soul-card__summary,
+.spotlight-soul-card__summary,
 .prose-page p,
 .prose-page li {
   color: var(--text-muted);
@@ -247,7 +247,7 @@ pre {
 
 .search-form__submit,
 .copy-button,
-.featured-soul-card__detail-link,
+.spotlight-soul-card__detail-link,
 .text-action-link,
 .soul-card__link,
 .result-card__footer a,
@@ -284,7 +284,7 @@ pre {
 }
 
 .copy-button--dark,
-.featured-soul-card__detail-link {
+.spotlight-soul-card__detail-link {
   background: rgba(255, 255, 255, 0.08);
   color: var(--panel-text);
   border-color: rgba(255, 255, 255, 0.14);
@@ -300,7 +300,7 @@ pre {
   font-size: 0.84rem;
 }
 
-.featured-soul-card,
+.spotlight-soul-card,
 .install-panel {
   display: flex;
   flex-direction: column;
@@ -313,23 +313,23 @@ pre {
   box-shadow: 0 18px 42px rgba(18, 20, 18, 0.18);
 }
 
-.featured-soul-card__title,
+.spotlight-soul-card__title,
 .install-panel__command {
   margin: 0;
 }
 
-.featured-soul-card__title {
+.spotlight-soul-card__title {
   font-size: 2rem;
   line-height: 1.08;
 }
 
-.featured-soul-card__meta,
+.spotlight-soul-card__meta,
 .install-panel__eyebrow,
 .install-panel__steps {
   color: rgba(247, 242, 232, 0.78);
 }
 
-.featured-soul-card__command {
+.spotlight-soul-card__command {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -340,7 +340,7 @@ pre {
   padding: 14px 16px;
 }
 
-.featured-soul-card__command code,
+.spotlight-soul-card__command code,
 .command-block {
   overflow-wrap: anywhere;
 }
@@ -354,7 +354,7 @@ pre {
   color: var(--text);
 }
 
-.featured-soul-card__actions {
+.spotlight-soul-card__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;

@@ -10,18 +10,18 @@ interface FeaturedSoulCardProps {
 
 export function FeaturedSoulCard({ soul }: FeaturedSoulCardProps) {
   return (
-    <aside className="featured-soul-card">
-      <div className="featured-soul-card__eyebrow">精选灵魂</div>
-      <h2 className="featured-soul-card__title">{soul.title}</h2>
-      <p className="featured-soul-card__summary">{soul.summary}</p>
-      <div className="featured-soul-card__meta">标签：{soul.tags.join(' / ')}</div>
-      <div className="featured-soul-card__command">
-        <InstallCommand slug={soul.slug} codeClassName="featured-soul-card__command-code" />
-        <DownloadIcon className="featured-soul-card__command-icon" />
+    <aside className="spotlight-soul-card">
+      <div className="spotlight-soul-card__eyebrow">精选灵魂</div>
+      <h2 className="spotlight-soul-card__title">{soul.title}</h2>
+      <p className="spotlight-soul-card__summary">{soul.summary}</p>
+      <div className="spotlight-soul-card__meta">标签：{soul.tags.join(' / ')}</div>
+      <div className="spotlight-soul-card__command">
+        <InstallCommand slug={soul.slug} codeClassName="spotlight-soul-card__command-code" />
+        <DownloadIcon className="spotlight-soul-card__command-icon" />
       </div>
-      <div className="featured-soul-card__actions">
+      <div className="spotlight-soul-card__actions">
         <InstallCommand slug={soul.slug} showCode={false} showCopyButton copyLabel="复制安装" copyVariant="dark" />
-        <Link href={`/souls/${soul.slug}`} className="featured-soul-card__detail-link">
+        <Link href={`/souls/${soul.slug}`} className="spotlight-soul-card__detail-link">
           看预览
         </Link>
       </div>
