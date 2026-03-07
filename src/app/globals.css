@@ -804,8 +804,8 @@ pre {
   }
 
   .site-nav__link {
-    min-height: 40px;
-    padding: 0 6px;
+    min-height: 44px;
+    padding: 0 8px;
   }
 
   .hero-grid__title,
