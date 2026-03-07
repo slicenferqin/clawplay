@@ -195,7 +195,6 @@ pre {
   max-width: 42rem;
 }
 
-.hero-grid__title,
 .page-heading__title,
 .detail-heading__title {
   margin: 0;
@@ -206,8 +205,14 @@ pre {
 }
 
 .hero-grid__title {
+  margin: 0;
   width: 100%;
-  max-width: 34rem;
+  max-width: 30rem;
+  font-size: clamp(1.85rem, 2.6vw, 2.45rem);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  text-wrap: balance;
 }
 
 .hero-grid__description,
@@ -820,7 +825,12 @@ pre {
     padding: 0 8px;
   }
 
-  .hero-grid__title,
+  .hero-grid__title {
+    max-width: none;
+    font-size: 1.85rem;
+    line-height: 1.16;
+  }
+
   .page-heading__title,
   .detail-heading__title {
     font-size: 2rem;
