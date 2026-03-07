@@ -188,14 +188,26 @@ pre {
   text-transform: uppercase;
 }
 
+.hero-grid__content {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+  max-width: 42rem;
+}
+
 .hero-grid__title,
 .page-heading__title,
 .detail-heading__title {
   margin: 0;
-  font-size: clamp(2.3rem, 4.4vw, 3.35rem);
-  line-height: 1.1;
-  letter-spacing: -0.04em;
+  font-size: clamp(2.05rem, 3.65vw, 2.9rem);
+  line-height: 1.16;
+  letter-spacing: -0.03em;
   text-wrap: balance;
+}
+
+.hero-grid__title {
+  width: 100%;
+  max-width: 34rem;
 }
 
 .hero-grid__description,
