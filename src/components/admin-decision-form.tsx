@@ -1,11 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
+
+import type { SubmissionContentAssessment } from '@/lib/content-rules';
 
 interface AdminDecisionFormProps {
   submissionId: string;
   initialSlug: string;
+  contentAssessment: SubmissionContentAssessment;
 }
 
 type AdminAction = 'needs_revision' | 'reject' | 'approve' | 'publish';
@@ -17,14 +20,25 @@ const actionLabels: Record<AdminAction, string> = {
   publish: '发布入站',
 };
 
-export function AdminDecisionForm({ submissionId, initialSlug }: AdminDecisionFormProps) {
+export function AdminDecisionForm({ submissionId, initialSlug, contentAssessment }: AdminDecisionFormProps) {
   const router = useRouter();
   const [note, setNote] = useState('');
   const [slug, setSlug] = useState(initialSlug);
   const [submittingAction, setSubmittingAction] = useState<AdminAction | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const blockingChecks = useMemo(
+    () => contentAssessment.checks.filter((check) => check.status === 'blocking'),
+    [contentAssessment.checks],
+  );
+  const publishBlocked = blockingChecks.length > 0;
+
   async function submit(action: AdminAction) {
+    if (action === 'publish' && publishBlocked) {
+      setErrorMessage('当前稿件还不满足发布规范，请先处理下面的阻断项后再发布。');
+      return;
+    }
+
     setSubmittingAction(action);
     setErrorMessage('');
 
@@ -138,12 +152,27 @@ export function AdminDecisionForm({ submissionId, initialSlug }: AdminDecisionFo
             <p className="admin-decision-panel__hint">确认内容与 slug 都无误后，再执行最终发布，站点会立即读取该 Soul。</p>
           </div>
         </div>
+
+        <div className={`admin-decision-panel__publish-readiness ${publishBlocked ? 'is-blocked' : 'is-ready'}`}>
+          <strong>{publishBlocked ? '还有阻断项未处理，当前不能发布' : '发布门槛已满足，可以执行最终发布'}</strong>
+          <p>
+            {publishBlocked
+              ? `当前有 ${blockingChecks.length} 个阻断项，建议先在右侧“内容检查”里逐项补齐。`
+              : `当前无阻断项${contentAssessment.warningCount > 0 ? `，但仍有 ${contentAssessment.warningCount} 个建议优化项。` : '。'}`}
+          </p>
+          {publishBlocked ? (
+            <ul className="admin-decision-panel__publish-list">
+              {blockingChecks.map((check) => <li key={check.id}>{check.label}</li>)}
+            </ul>
+          ) : null}
+        </div>
+
         <div className="admin-decision-panel__actions">
           <button
             type="button"
             className="submission-form__submit admin-decision-panel__button admin-decision-panel__button--publish"
             onClick={() => submit('publish')}
-            disabled={isSubmitting}
+            disabled={isSubmitting || publishBlocked}
           >
             {submittingAction === 'publish' ? '发布中…' : actionLabels.publish}
           </button>

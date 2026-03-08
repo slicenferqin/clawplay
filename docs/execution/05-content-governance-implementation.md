@@ -222,3 +222,26 @@
 - `npm run build` 通过
 - 翻译稿缺来源时发布返回 `submission_not_ready_for_publish`
 - 后台详情页已展示内容检查清单
+
+第二阶段已落地：
+
+- `src/lib/content-rules.ts`
+  - 新增推荐标签词表与同义词映射
+  - 新增文本长度 hint helper
+  - 新增标签词表 review helper
+- `src/components/soul-submission-form.tsx`
+  - 已从‘重审核表单’重构为‘轻量首稿表单’
+  - 首屏只保留核心必填项，补充展示信息改为折叠区
+  - revision 模式继续展示发布阻断摘要，兼顾补资料效率
+- `src/components/admin-decision-form.tsx`
+  - 新增发布前阻断摘要
+  - 有阻断项时前端直接禁用发布按钮
+- `docs/content/metadata-spec.md`
+- `docs/content/tag-dictionary.md`
+
+第二阶段验证目标：
+
+1. 投稿页在不阻断提交的前提下，能实时展示内容质量提示。
+2. 标签词表与同义词提示能被投稿人直接看见并复用。
+3. 后台在发布动作前，能明确展示阻断项并减少误点发布。
+4. `npm run build` 继续通过。

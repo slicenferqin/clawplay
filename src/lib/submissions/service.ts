@@ -186,6 +186,35 @@ function normalizeStringArray(value: unknown, fieldName: string, minimumLength =
   return Array.from(new Set(items));
 }
 
+function normalizeOptionalStringArray(value: unknown, fieldName: string) {
+  if (value == null) {
+    return [];
+  }
+
+  if (!Array.isArray(value)) {
+    throw new Error(`invalid_${fieldName}`);
+  }
+
+  return Array.from(new Set(
+    value
+      .filter((item): item is string => typeof item === 'string')
+      .map((item) => item.trim())
+      .filter(Boolean),
+  ));
+}
+
+function normalizeLooseText(value: unknown, fieldName: string) {
+  if (value == null) {
+    return '';
+  }
+
+  if (typeof value !== 'string') {
+    throw new Error(`invalid_${fieldName}`);
+  }
+
+  return normalizeText(value);
+}
+
 export function parseSubmissionInput(payload: Record<string, unknown>): SubmissionInput {
   const submissionType = ensureNonEmptyText(payload.submissionType, 'submission_type');
   if (!submissionTypeSet.has(submissionType)) {
@@ -212,16 +241,16 @@ export function parseSubmissionInput(payload: Record<string, unknown>): Submissi
     title: ensureNonEmptyText(payload.title, 'title'),
     summary: ensureNonEmptyText(payload.summary, 'summary'),
     category,
-    tags: normalizeStringArray(payload.tags, 'tags'),
-    tones: normalizeStringArray(payload.tones, 'tones'),
-    useCases: normalizeStringArray(payload.useCases, 'use_cases'),
-    compatibleModels: normalizeStringArray(payload.compatibleModels, 'compatible_models'),
-    previewHook: ensureNonEmptyText(payload.previewHook, 'preview_hook'),
-    previewPrompt: ensureNonEmptyText(payload.previewPrompt, 'preview_prompt'),
-    previewResponse: ensureNonEmptyText(payload.previewResponse, 'preview_response'),
-    intro: ensureNonEmptyText(payload.intro, 'intro'),
-    features: normalizeStringArray(payload.features, 'features'),
-    suggestions: normalizeStringArray(payload.suggestions, 'suggestions'),
+    tags: normalizeOptionalStringArray(payload.tags, 'tags'),
+    tones: normalizeOptionalStringArray(payload.tones, 'tones'),
+    useCases: normalizeOptionalStringArray(payload.useCases, 'use_cases'),
+    compatibleModels: normalizeOptionalStringArray(payload.compatibleModels, 'compatible_models'),
+    previewHook: normalizeLooseText(payload.previewHook, 'preview_hook'),
+    previewPrompt: normalizeLooseText(payload.previewPrompt, 'preview_prompt'),
+    previewResponse: normalizeLooseText(payload.previewResponse, 'preview_response'),
+    intro: normalizeLooseText(payload.intro, 'intro'),
+    features: normalizeOptionalStringArray(payload.features, 'features'),
+    suggestions: normalizeOptionalStringArray(payload.suggestions, 'suggestions'),
     rawSoul,
     authorName: ensureNonEmptyText(payload.authorName, 'author_name'),
     contactMethod: contactMethod as ContactMethod | null,

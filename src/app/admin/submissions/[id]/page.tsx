@@ -100,7 +100,7 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
                 </div>
                 <p className="detail-panel__body">把审核备注、状态流转与发布动作放在同一个工作区，减少来回切换和误操作。</p>
               </div>
-              <AdminDecisionForm submissionId={detail.submission.id} initialSlug={detail.submission.title} />
+              <AdminDecisionForm submissionId={detail.submission.id} initialSlug={detail.submission.title} contentAssessment={contentAssessment} />
             </article>
 
             <article className="detail-panel">
