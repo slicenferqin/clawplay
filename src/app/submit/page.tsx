@@ -1,10 +1,18 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 import { AnalyticsViewTracker } from '@/components/analytics-view-tracker';
 import { SiteHeader } from '@/components/site-header';
 import { SoulSubmissionForm } from '@/components/soul-submission-form';
+import { buildPageMetadata } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
+export const metadata: Metadata = buildPageMetadata({
+  title: '投稿你的 Soul',
+  description: '把你调教好的 OpenClaw Soul 投稿到 ClawPlay，提交后可通过私密管理链接跟踪审核状态。',
+  pathname: '/submit',
+  keywords: ['投稿', 'Soul 收录', '匿名投稿', 'OpenClaw 社区'],
+});
 
 export default function SubmitPage() {
   return (

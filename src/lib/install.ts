@@ -1,6 +1,8 @@
+import { PUBLIC_SITE_URL } from '@/lib/site-config';
+
 export const INSTALL_TARGET_PATH = '~/.openclaw/workspace/SOUL.md';
 export const BACKUP_TARGET_PATH = '~/.openclaw/workspace/SOUL.backup.md';
-export const SITE_URL_PLACEHOLDER = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://your-clawplay-domain.com';
+export const SITE_URL_PLACEHOLDER = PUBLIC_SITE_URL;
 
 interface RawSoulPathOptions {
   baseUrl?: string;

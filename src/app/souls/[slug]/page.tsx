@@ -8,9 +8,11 @@ import { DownloadIcon } from '@/components/icons';
 import { InstallCommand } from '@/components/install-command';
 import { SiteHeader } from '@/components/site-header';
 import { getBackupCommand, getRawSoulPath } from '@/lib/install';
+import { buildNoIndexMetadata, buildSoulMetadata } from '@/lib/seo';
 import { getAllSouls, getRelatedSouls, getSoulBySlug } from '@/lib/souls';
 
 export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
   const souls = await getAllSouls();
   return souls.map((soul) => ({ slug: soul.slug }));
@@ -21,13 +23,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const soul = await getSoulBySlug(slug);
 
   if (!soul) {
-    return { title: 'Soul 不存在 - ClawPlay' };
+    return buildNoIndexMetadata({
+      title: 'Soul 不存在',
+      description: '你访问的 Soul 可能还未收录，或 slug 已发生变化。',
+    });
   }
 
-  return {
-    title: `${soul.title} - ClawPlay`,
-    description: soul.summary,
-  };
+  return buildSoulMetadata(soul);
 }
 
 export default async function SoulDetailPage({ params }: { params: Promise<{ slug: string }> }) {

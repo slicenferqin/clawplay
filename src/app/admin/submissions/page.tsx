@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
@@ -5,10 +6,15 @@ import { SiteHeader } from '@/components/site-header';
 import { SubmissionStatusBadge } from '@/components/submission-status-badge';
 import { CATEGORY_LABELS } from '@/lib/souls-types';
 import { isAdminAuthenticated } from '@/lib/submissions/admin';
+import { buildNoIndexMetadata } from '@/lib/seo';
 import { getSubmissionStatusSummary, listSubmissions } from '@/lib/submissions/service';
 import type { SubmissionStatus } from '@/lib/submissions/schema';
 
 export const dynamic = 'force-dynamic';
+export const metadata: Metadata = buildNoIndexMetadata({
+  title: '投稿审核队列',
+  description: 'ClawPlay 审核后台队列页不应被搜索引擎索引。',
+});
 
 const statusOptions: Array<{ value?: SubmissionStatus; label: string; description: string }> = [
   { label: '全部', description: '看整体队列节奏与体量' },

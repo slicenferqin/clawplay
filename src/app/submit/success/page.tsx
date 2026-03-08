@@ -1,10 +1,16 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 import { AnalyticsViewTracker } from '@/components/analytics-view-tracker';
 import { CopyButton } from '@/components/copy-button';
 import { SiteHeader } from '@/components/site-header';
+import { buildNoIndexMetadata } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
+export const metadata: Metadata = buildNoIndexMetadata({
+  title: '投稿已进入队列',
+  description: '投稿成功页包含私密管理链接，不应被搜索引擎索引。',
+});
 
 export default async function SubmitSuccessPage({ searchParams }: { searchParams: Promise<{ publicId?: string; manageUrl?: string }> }) {
   const { publicId = '', manageUrl = '' } = await searchParams;

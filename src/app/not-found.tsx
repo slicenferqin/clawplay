@@ -1,6 +1,13 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 import { SiteHeader } from '@/components/site-header';
+import { buildNoIndexMetadata } from '@/lib/seo';
+
+export const metadata: Metadata = buildNoIndexMetadata({
+  title: '页面不存在',
+  description: '你访问的页面不存在或已经移动。',
+});
 
 export default function NotFound() {
   return (

@@ -1,12 +1,18 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { AnalyticsViewTracker } from '@/components/analytics-view-tracker';
 import { SiteHeader } from '@/components/site-header';
 import { SoulSubmissionForm, type SubmissionFormValues } from '@/components/soul-submission-form';
 import { SubmissionStatusBadge } from '@/components/submission-status-badge';
+import { buildNoIndexMetadata } from '@/lib/seo';
 import { getPublicSubmissionView } from '@/lib/submissions/service';
 
 export const dynamic = 'force-dynamic';
+export const metadata: Metadata = buildNoIndexMetadata({
+  title: '投稿状态',
+  description: '投稿状态页包含私密信息和管理令牌，不应被搜索引擎索引。',
+});
 
 function createInitialValues(view: NonNullable<ReturnType<typeof getPublicSubmissionView>>['submission']): SubmissionFormValues {
   return {

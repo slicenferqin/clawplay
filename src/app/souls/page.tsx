@@ -1,10 +1,19 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 import { SiteHeader } from '@/components/site-header';
 import { SiteSearchForm } from '@/components/site-search-form';
+import { buildPageMetadata } from '@/lib/seo';
 import { filterSouls, getAllSouls, getCategoryCounts } from '@/lib/souls';
 
 export const dynamic = 'force-dynamic';
+export const metadata: Metadata = buildPageMetadata({
+  title: '全部灵魂',
+  description: '按标题、标签、场景和兼容模型浏览 ClawPlay 收录的全部 Soul。',
+  pathname: '/souls',
+  keywords: ['全部灵魂', 'SOUL 列表', '标签筛选', 'OpenClaw Soul'],
+});
+
 export default async function SoulsPage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   const params = ((await searchParams) ?? {}) as Record<string, string | string[] | undefined>;
   const query = typeof params.q === 'string' ? params.q : '';

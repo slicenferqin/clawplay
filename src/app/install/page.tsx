@@ -1,9 +1,18 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 import { CopyButton } from '@/components/copy-button';
 import { InstallCommand } from '@/components/install-command';
 import { SiteHeader } from '@/components/site-header';
 import { getBackupCommand } from '@/lib/install';
+import { buildPageMetadata } from '@/lib/seo';
+
+export const metadata: Metadata = buildPageMetadata({
+  title: '安装说明',
+  description: '查看 ClawPlay Soul 的 curl 安装方式、备份命令、手动替换步骤和回滚建议。',
+  pathname: '/install',
+  keywords: ['安装说明', 'curl 安装', 'SOUL.md', 'OpenClaw 安装'],
+});
 
 export default function InstallPage() {
   const backupCommand = getBackupCommand();

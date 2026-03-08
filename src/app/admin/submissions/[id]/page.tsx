@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 
@@ -6,9 +7,14 @@ import { SiteHeader } from '@/components/site-header';
 import { SubmissionStatusBadge } from '@/components/submission-status-badge';
 import { CATEGORY_LABELS } from '@/lib/souls-types';
 import { isAdminAuthenticated } from '@/lib/submissions/admin';
+import { buildNoIndexMetadata } from '@/lib/seo';
 import { getSubmissionDetailForAdmin } from '@/lib/submissions/service';
 
 export const dynamic = 'force-dynamic';
+export const metadata: Metadata = buildNoIndexMetadata({
+  title: '投稿审核详情',
+  description: 'ClawPlay 审核后台详情页不应被搜索引擎索引。',
+});
 
 const actorLabels = {
   submitter: '投稿人',

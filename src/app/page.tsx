@@ -1,11 +1,20 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 import { HeroShowcase } from '@/components/hero-showcase';
 import { SiteHeader } from '@/components/site-header';
 import { SoulCard } from '@/components/soul-card';
+import { buildPageMetadata } from '@/lib/seo';
 import { getAllSouls, getCategoryCounts, getFeaturedSouls } from '@/lib/souls';
 
 export const dynamic = 'force-dynamic';
+export const metadata: Metadata = buildPageMetadata({
+  title: 'OpenClaw 中文 SOUL 灵魂库',
+  description: '浏览热门 Soul、查看预览卡、复制安装命令，并挑选适合自己 OpenClaw 的灵魂角色。',
+  pathname: '/',
+  keywords: ['灵魂库', 'SOUL 目录', '安装命令', '投稿收录'],
+});
+
 export default async function HomePage() {
   const [allSouls, featuredSouls, collections] = await Promise.all([getAllSouls(), getFeaturedSouls(), getCategoryCounts()]);
   const heroSoulDefinitions = [
