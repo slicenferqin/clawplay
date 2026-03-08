@@ -7,6 +7,7 @@ import { SiteHeader } from '@/components/site-header';
 import { SubmissionStatusBadge } from '@/components/submission-status-badge';
 import { CATEGORY_LABELS } from '@/lib/souls-types';
 import { isAdminAuthenticated } from '@/lib/submissions/admin';
+import { assessSubmissionContent } from '@/lib/content-rules';
 import { buildNoIndexMetadata } from '@/lib/seo';
 import { getSubmissionDetailForAdmin } from '@/lib/submissions/service';
 
@@ -43,6 +44,8 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
   if (!detail) {
     notFound();
   }
+
+  const contentAssessment = assessSubmissionContent(detail.submission);
 
   return (
     <>
@@ -191,6 +194,33 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
           </div>
 
           <aside className="admin-detail-layout__side">
+            <article className="detail-panel detail-panel--side">
+              <div className="detail-panel__header">
+                <div>
+                  <p className="detail-panel__eyebrow">Publish Readiness</p>
+                  <h2 className="detail-panel__title detail-panel__title--small">内容检查</h2>
+                </div>
+              </div>
+
+              <div className={`content-audit-summary ${contentAssessment.readyForPublish ? 'is-ready' : 'is-blocked'}`}>
+                <strong>{contentAssessment.readyForPublish ? '已满足发布最低规范' : '还有阻断项未处理'}</strong>
+                <span>阻断 {contentAssessment.blockingCount} · 警告 {contentAssessment.warningCount} · 通过 {contentAssessment.passCount}</span>
+              </div>
+
+              <ul className="content-check-list">
+                {contentAssessment.checks.map((check) => (
+                  <li key={check.id} className={`content-check-list__item is-${check.status}`}>
+                    <span className="content-check-list__badge">
+                      {check.status === 'pass' ? '通过' : check.status === 'warning' ? '警告' : '阻断'}
+                    </span>
+                    <div className="content-check-list__body">
+                      <strong>{check.label}</strong>
+                      <p>{check.description}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </article>
             <article className="detail-panel detail-panel--side">
               <div className="detail-panel__header">
                 <div>

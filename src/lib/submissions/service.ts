@@ -3,6 +3,7 @@ import 'server-only';
 import { randomUUID } from 'node:crypto';
 
 import { getAnalyticsDatabase } from '@/lib/analytics/db';
+import { assessSubmissionContent } from '@/lib/content-rules';
 import { CATEGORY_LABELS, type SoulDocument, type SoulSourceType } from '@/lib/souls-types';
 import { STATIC_SOUL_SLUGS } from '@/lib/static-soul-refs';
 import { createManageToken, createPublicId, hashManageToken } from '@/lib/submissions/auth';
@@ -821,6 +822,11 @@ export function decideSubmission(
 
   if (submission.status !== 'approved') {
     throw new Error('invalid_status_transition');
+  }
+
+  const contentAssessment = assessSubmissionContent(submission);
+  if (!contentAssessment.readyForPublish) {
+    throw new Error('submission_not_ready_for_publish');
   }
 
   const slug = findAvailableSlug(submission.title, submission.publicId, slugInput);

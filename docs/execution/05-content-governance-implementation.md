@@ -1,6 +1,6 @@
 # 05 Content Governance Implementation
 
-- Status: Ready
+- Status: In Progress
 - Depends On: `docs/execution/05-content-governance.md`
 - Owner: Codex + slicenfer
 - Last Updated: 2026-03-08
@@ -207,3 +207,18 @@
 
 - 只先做高价值字段
 - 后续再逐步补细项
+
+## 10. 结果记录
+
+第一阶段已落地：
+
+- `src/lib/content-rules.ts`
+- `src/lib/submissions/service.ts` 发布前内容阻断
+- `src/app/admin/submissions/[id]/page.tsx` 内容检查卡片
+- `src/components/admin-decision-form.tsx` 发布阻断错误提示
+
+已验证：
+
+- `npm run build` 通过
+- 翻译稿缺来源时发布返回 `submission_not_ready_for_publish`
+- 后台详情页已展示内容检查清单

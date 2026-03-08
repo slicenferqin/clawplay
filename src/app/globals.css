@@ -2037,3 +2037,100 @@ textarea {
   color: var(--text);
   font-size: 0.95rem;
 }
+
+.content-audit-summary {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: #fffdf8;
+}
+
+.content-audit-summary strong {
+  font-size: 1rem;
+}
+
+.content-audit-summary span {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.content-audit-summary.is-ready {
+  background: rgba(220, 235, 211, 0.46);
+  border-color: rgba(79, 99, 48, 0.18);
+}
+
+.content-audit-summary.is-blocked {
+  background: rgba(248, 231, 199, 0.52);
+  border-color: rgba(160, 118, 48, 0.22);
+}
+
+.content-check-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.content-check-list__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 0 0;
+  border-top: 1px dashed var(--border);
+}
+
+.content-check-list__item:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.content-check-list__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  background: #fffdf8;
+}
+
+.content-check-list__body {
+  display: grid;
+  gap: 6px;
+}
+
+.content-check-list__body strong {
+  font-size: 0.96rem;
+}
+
+.content-check-list__body p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.content-check-list__item.is-pass .content-check-list__badge {
+  background: rgba(220, 235, 211, 0.75);
+  color: #4f6330;
+  border-color: rgba(79, 99, 48, 0.16);
+}
+
+.content-check-list__item.is-warning .content-check-list__badge {
+  background: rgba(248, 231, 199, 0.8);
+  color: #8a6423;
+  border-color: rgba(138, 100, 35, 0.16);
+}
+
+.content-check-list__item.is-blocking .content-check-list__badge {
+  background: rgba(242, 215, 210, 0.78);
+  color: #8d2f1f;
+  border-color: rgba(141, 47, 31, 0.16);
+}

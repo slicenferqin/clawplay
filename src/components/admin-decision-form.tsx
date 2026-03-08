@@ -39,7 +39,13 @@ export function AdminDecisionForm({ submissionId, initialSlug }: AdminDecisionFo
     const payload = (await response.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
 
     if (!response.ok || !payload?.ok) {
-      setErrorMessage(payload?.error === 'unauthorized' ? '登录已失效，请重新登录。' : '操作失败，请检查状态流转或 slug。');
+      if (payload?.error === 'unauthorized') {
+        setErrorMessage('登录已失效，请重新登录。');
+      } else if (payload?.error === 'submission_not_ready_for_publish') {
+        setErrorMessage('当前稿件还不满足发布规范，请先查看右侧内容检查清单并补齐阻断项。');
+      } else {
+        setErrorMessage('操作失败，请检查状态流转或 slug。');
+      }
       setSubmittingAction(null);
       return;
     }

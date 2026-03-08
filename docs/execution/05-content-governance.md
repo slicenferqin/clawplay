@@ -1,6 +1,6 @@
 # 05 Content Governance
 
-- Status: Draft
+- Status: In Progress
 - Depends On: `docs/execution/02-submission-flow.md`
 - Owner: Codex + slicenfer
 - Last Updated: 2026-03-08
@@ -287,9 +287,14 @@ ClawPlay 现在只有少量 Soul，看起来还“差不多都能人工兜住”
 
 ## 11. 结果记录
 
-待实施后补充：
+第一阶段已落地：
 
-- 最终采用的分类架构
-- 实际标签词表
-- 翻译 / 改编发布判定规则
-- 投稿流程改动对转化的影响
+- `src/lib/content-rules.ts` 内容规则常量与发布评估 helper
+- 发布前阻断：翻译 / 改编缺来源、协议占位、预览三件套过弱等内容将不能直接发布
+- 后台审核详情新增“内容检查”卡片，明确阻断 / 警告 / 通过项
+
+待继续落地：
+
+- 分类架构是否保留 `translated` 的最终决策
+- 投稿前台软约束提示
+- 标签词表与同义词收敛
