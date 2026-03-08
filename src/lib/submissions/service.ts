@@ -587,6 +587,32 @@ function normalizePageSize(value?: number) {
   return value && value > 0 ? Math.min(Math.floor(value), 100) : 20;
 }
 
+export function getSubmissionStatusSummary(): {
+  total: number;
+  counts: Record<SubmissionStatus, number>;
+} {
+  const counts = submissionStatuses.reduce<Record<SubmissionStatus, number>>((result, status) => {
+    result[status] = 0;
+    return result;
+  }, {} as Record<SubmissionStatus, number>);
+
+  const rows = database().prepare(`
+    SELECT status, COUNT(*) AS count
+    FROM soul_submissions
+    GROUP BY status
+  `).all() as Array<{ status: SubmissionStatus; count: number }>;
+
+  let total = 0;
+  for (const row of rows) {
+    if (row.status in counts) {
+      counts[row.status] = row.count;
+      total += row.count;
+    }
+  }
+
+  return { total, counts };
+}
+
 export function listSubmissions(options: SubmissionListOptions = {}): SubmissionListResult {
   const page = normalizePage(options.page);
   const pageSize = normalizePageSize(options.pageSize);
