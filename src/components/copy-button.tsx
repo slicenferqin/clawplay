@@ -1,13 +1,20 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { CopyIcon } from '@/components/icons';
+import { trackClientEvent } from '@/lib/analytics/client';
+import type { AnalyticsEventName, AnalyticsMeta, AnalyticsSource } from '@/lib/analytics/schema';
 
 interface CopyButtonProps {
   text: string;
   label?: string;
   variant?: 'light' | 'dark';
+  analyticsEventName?: AnalyticsEventName;
+  analyticsSource?: AnalyticsSource;
+  analyticsPlacement?: string;
+  analyticsSlug?: string;
+  analyticsMeta?: AnalyticsMeta;
 }
 
 type CopyState = 'idle' | 'success' | 'error';
@@ -34,9 +41,26 @@ function fallbackCopyText(text: string): boolean {
   }
 }
 
-export function CopyButton({ text, label = '复制', variant = 'light' }: CopyButtonProps) {
+export function CopyButton({
+  text,
+  label = '复制',
+  variant = 'light',
+  analyticsEventName,
+  analyticsSource,
+  analyticsPlacement,
+  analyticsSlug,
+  analyticsMeta,
+}: CopyButtonProps) {
   const [copyState, setCopyState] = useState<CopyState>('idle');
   const timeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   function resetLater() {
     if (timeoutRef.current) {
@@ -57,6 +81,16 @@ export function CopyButton({ text, label = '复制', variant = 'light' }: CopyBu
       }
     } catch {
       copied = fallbackCopyText(text);
+    }
+
+    if (copied && analyticsEventName && analyticsSource) {
+      trackClientEvent({
+        eventName: analyticsEventName,
+        slug: analyticsSlug,
+        source: analyticsSource,
+        placement: analyticsPlacement,
+        meta: analyticsMeta,
+      });
     }
 
     setCopyState(copied ? 'success' : 'error');

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { CopyButton } from '@/components/copy-button';
 import { SITE_URL_PLACEHOLDER, getQuickInstallCommand } from '@/lib/install';
+import type { AnalyticsEventName, AnalyticsMeta, AnalyticsSource } from '@/lib/analytics/schema';
 
 interface InstallCommandProps {
   slug: string;
@@ -12,6 +13,10 @@ interface InstallCommandProps {
   codeClassName?: string;
   copyLabel?: string;
   copyVariant?: 'light' | 'dark';
+  analyticsEventName?: AnalyticsEventName;
+  analyticsSource?: AnalyticsSource;
+  analyticsPlacement?: string;
+  analyticsMeta?: AnalyticsMeta;
 }
 
 export function InstallCommand({
@@ -21,6 +26,10 @@ export function InstallCommand({
   codeClassName,
   copyLabel = '复制命令',
   copyVariant = 'light',
+  analyticsEventName,
+  analyticsSource,
+  analyticsPlacement,
+  analyticsMeta,
 }: InstallCommandProps) {
   const [origin, setOrigin] = useState(SITE_URL_PLACEHOLDER);
 
@@ -33,7 +42,18 @@ export function InstallCommand({
   return (
     <>
       {showCode ? <code className={codeClassName}>{command}</code> : null}
-      {showCopyButton ? <CopyButton text={command} label={copyLabel} variant={copyVariant} /> : null}
+      {showCopyButton ? (
+        <CopyButton
+          text={command}
+          label={copyLabel}
+          variant={copyVariant}
+          analyticsEventName={analyticsEventName}
+          analyticsSource={analyticsSource}
+          analyticsPlacement={analyticsPlacement}
+          analyticsSlug={slug}
+          analyticsMeta={analyticsMeta}
+        />
+      ) : null}
     </>
   );
 }

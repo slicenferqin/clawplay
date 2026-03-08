@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { FeaturedSoulCardContent } from '@/components/featured-soul-card';
 import { SiteSearchForm } from '@/components/site-search-form';
+import { trackClientEventOnce } from '@/lib/analytics/client';
 
 export interface HeroShowcaseSoul {
   slug: string;
@@ -42,6 +43,14 @@ export function HeroShowcase({ soulCount, souls }: HeroShowcaseProps) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [spotlightSoul, setSpotlightSoul] = useState<HeroShowcaseSoul | null>(items[0] ?? null);
   const [incomingSoul, setIncomingSoul] = useState<HeroShowcaseSoul | null>(null);
+
+  useEffect(() => {
+    trackClientEventOnce('home_hero_view', {
+      eventName: 'home_hero_view',
+      source: 'home_hero',
+      placement: 'hero_module',
+    });
+  }, []);
 
   useEffect(() => {
     setActiveIndex(0);

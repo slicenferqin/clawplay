@@ -1,7 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 
 import { InstallCommand } from '@/components/install-command';
 import { DownloadIcon } from '@/components/icons';
+import { trackClientEvent } from '@/lib/analytics/client';
 import type { SoulDocument } from '@/lib/souls';
 
 export type FeaturedSoulCardSoul = Pick<SoulDocument, 'slug' | 'title' | 'summary' | 'tags'>;
@@ -50,8 +53,28 @@ export function FeaturedSoulCardContent({ soul }: FeaturedSoulCardContentProps) 
           <DownloadIcon className="spotlight-soul-card__command-icon" />
         </div>
         <div className="spotlight-soul-card__actions">
-          <InstallCommand slug={soul.slug} showCode={false} showCopyButton copyLabel="复制安装" copyVariant="dark" />
-          <Link href={`/souls/${soul.slug}`} className="spotlight-soul-card__detail-link">
+          <InstallCommand
+            slug={soul.slug}
+            showCode={false}
+            showCopyButton
+            copyLabel="复制安装"
+            copyVariant="dark"
+            analyticsEventName="hero_install_copy"
+            analyticsSource="home_hero"
+            analyticsPlacement="spotlight_install"
+          />
+          <Link
+            href={`/souls/${soul.slug}`}
+            className="spotlight-soul-card__detail-link"
+            onClick={() => {
+              trackClientEvent({
+                eventName: 'hero_soul_preview_click',
+                slug: soul.slug,
+                source: 'home_hero',
+                placement: 'spotlight_preview',
+              });
+            }}
+          >
             看预览
           </Link>
         </div>

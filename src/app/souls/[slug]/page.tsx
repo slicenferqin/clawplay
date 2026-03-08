@@ -2,11 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { AnalyticsViewTracker } from '@/components/analytics-view-tracker';
 import { CopyButton } from '@/components/copy-button';
 import { DownloadIcon } from '@/components/icons';
 import { InstallCommand } from '@/components/install-command';
 import { SiteHeader } from '@/components/site-header';
-import { getBackupCommand } from '@/lib/install';
+import { getBackupCommand, getRawSoulPath } from '@/lib/install';
 import { getAllSouls, getRelatedSouls, getSoulBySlug } from '@/lib/souls';
 
 export async function generateStaticParams() {
@@ -38,13 +39,37 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
 
   const relatedSouls = await getRelatedSouls(soul.slug);
   const backupCommand = getBackupCommand();
-  const rawSoulUrl = `/api/raw/${soul.slug}`;
-  const rawSoulDownloadUrl = `${rawSoulUrl}?download=1`;
+  const rawSoulUrl = getRawSoulPath(soul.slug, {
+    source: 'soul_detail',
+    placement: 'header_raw_link',
+  });
+  const rawSoulDownloadUrl = getRawSoulPath(soul.slug, {
+    download: true,
+    source: 'soul_detail_raw_panel',
+    placement: 'inline_download',
+  });
+  const sidebarRawSoulUrl = getRawSoulPath(soul.slug, {
+    source: 'soul_detail_raw_panel',
+    placement: 'sidebar_raw_link',
+  });
+  const sidebarRawSoulDownloadUrl = getRawSoulPath(soul.slug, {
+    download: true,
+    source: 'soul_detail_raw_panel',
+    placement: 'sidebar_download',
+  });
 
   return (
     <>
       <SiteHeader />
       <main className="page-shell detail-page">
+        <AnalyticsViewTracker
+          eventName="soul_detail_view"
+          slug={soul.slug}
+          source="soul_detail"
+          placement="page_view"
+          storageKey={`soul_detail_view:${soul.slug}`}
+        />
+
         <p className="breadcrumb">灵魂库 / {soul.categoryLabel} / {soul.title}</p>
 
         <section className="detail-heading">
@@ -57,10 +82,18 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
             </p>
           </div>
           <div className="detail-heading__actions">
-            <InstallCommand slug={soul.slug} showCode={false} showCopyButton copyLabel="复制安装命令" />
-            <Link href={rawSoulUrl} className="text-action-link">
+            <InstallCommand
+              slug={soul.slug}
+              showCode={false}
+              showCopyButton
+              copyLabel="复制安装命令"
+              analyticsEventName="detail_install_copy"
+              analyticsSource="soul_detail"
+              analyticsPlacement="header_install"
+            />
+            <a href={rawSoulUrl} className="text-action-link">
               查看原始 SOUL
-            </Link>
+            </a>
           </div>
         </section>
 
@@ -112,7 +145,14 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
             <details className="raw-details">
               <summary>展开查看原始 SOUL 内容</summary>
               <div className="raw-details__actions">
-                <CopyButton text={soul.rawSoul} label="复制原文" />
+                <CopyButton
+                  text={soul.rawSoul}
+                  label="复制原文"
+                  analyticsEventName="detail_raw_copy"
+                  analyticsSource="soul_detail_raw_panel"
+                  analyticsPlacement="inline_raw_copy"
+                  analyticsSlug={soul.slug}
+                />
                 <a href={rawSoulDownloadUrl} className="text-action-link" download>
                   <DownloadIcon className="text-action-link__icon" />
                   <span>下载 SOUL.md</span>
@@ -134,7 +174,16 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
                 <li>执行 curl 安装命令</li>
                 <li>重启 OpenClaw 并试跑一个会话</li>
               </ol>
-              <InstallCommand slug={soul.slug} showCode={false} showCopyButton copyLabel="复制命令" copyVariant="dark" />
+              <InstallCommand
+                slug={soul.slug}
+                showCode={false}
+                showCopyButton
+                copyLabel="复制命令"
+                copyVariant="dark"
+                analyticsEventName="detail_install_copy"
+                analyticsSource="soul_detail"
+                analyticsPlacement="sidebar_install"
+              />
             </article>
 
             <article className="detail-panel detail-panel--side">
@@ -148,11 +197,18 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
               <h2 className="detail-panel__title detail-panel__title--small">原始内容</h2>
               <p className="detail-panel__body">可以直接查看原始 <code>SOUL.md</code>，核对提示结构，或复制、下载到本地后手动替换。</p>
               <div className="detail-panel__actions">
-                <Link href={rawSoulUrl} className="text-action-link">
+                <a href={sidebarRawSoulUrl} className="text-action-link">
                   打开原始 SOUL
-                </Link>
-                <CopyButton text={soul.rawSoul} label="复制原文" />
-                <a href={rawSoulDownloadUrl} className="text-action-link" download>
+                </a>
+                <CopyButton
+                  text={soul.rawSoul}
+                  label="复制原文"
+                  analyticsEventName="detail_raw_copy"
+                  analyticsSource="soul_detail_raw_panel"
+                  analyticsPlacement="sidebar_raw_copy"
+                  analyticsSlug={soul.slug}
+                />
+                <a href={sidebarRawSoulDownloadUrl} className="text-action-link" download>
                   <DownloadIcon className="text-action-link__icon" />
                   <span>下载 SOUL.md</span>
                 </a>
