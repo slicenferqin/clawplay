@@ -2,39 +2,10 @@ import { cache } from 'react';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-export type SoulCategoryKey = 'work' | 'dev' | 'learning' | 'creative' | 'translated';
-export type SoulSourceType = '原创' | '翻译';
+import { getPublishedSoulBySlug, getPublishedSoulDocuments } from '@/lib/submissions/service';
+import { CATEGORY_ORDER, type SoulCategoryKey, type SoulDocument, type SoulMeta, type SoulSourceType } from '@/lib/souls-types';
 
-export interface SoulMeta {
-  slug: string;
-  filePath: string;
-  title: string;
-  summary: string;
-  category: SoulCategoryKey;
-  categoryLabel: string;
-  sourceType: SoulSourceType;
-  featured?: boolean;
-  tags: string[];
-  tones: string[];
-  useCases: string[];
-  compatibleModels: string[];
-  author: string;
-  license: string;
-  updatedAt: string;
-  previewHook: string;
-  previewPrompt: string;
-  previewResponse: string;
-  relatedSlugs: string[];
-}
-
-export interface SoulDocument extends SoulMeta {
-  intro: string;
-  features: string[];
-  suggestions: string[];
-  authorLines: string[];
-  rawMarkdown: string;
-  rawSoul: string;
-}
+export type { SoulCategoryKey, SoulDocument, SoulMeta, SoulSourceType } from '@/lib/souls-types';
 
 const SOULS: SoulMeta[] = [
   {
@@ -202,8 +173,6 @@ const SOULS: SoulMeta[] = [
   },
 ];
 
-const CATEGORY_ORDER: SoulCategoryKey[] = ['work', 'creative', 'translated', 'learning', 'dev'];
-
 function stripMarkdown(value: string): string {
   return value
     .replace(/\\`\\`\\`/g, '')
@@ -287,7 +256,7 @@ async function readSoul(meta: SoulMeta): Promise<SoulDocument> {
   };
 }
 
-export const getAllSouls = cache(async (): Promise<SoulDocument[]> => {
+const getStaticSouls = cache(async (): Promise<SoulDocument[]> => {
   const docs = await Promise.all(SOULS.map(readSoul));
 
   return docs.sort((left, right) => {
@@ -308,14 +277,51 @@ export const getAllSouls = cache(async (): Promise<SoulDocument[]> => {
   });
 });
 
+function sortSouls(left: SoulDocument, right: SoulDocument) {
+  if (left.featured && !right.featured) {
+    return -1;
+  }
+
+  if (!left.featured && right.featured) {
+    return 1;
+  }
+
+  const categoryGap = CATEGORY_ORDER.indexOf(left.category) - CATEGORY_ORDER.indexOf(right.category);
+  if (categoryGap !== 0) {
+    return categoryGap;
+  }
+
+  return left.title.localeCompare(right.title, 'zh-Hans-CN');
+}
+
+export async function getAllSouls(): Promise<SoulDocument[]> {
+  const [staticSouls, publishedSouls] = await Promise.all([getStaticSouls(), Promise.resolve(getPublishedSoulDocuments())]);
+  const mergedSouls = new Map<string, SoulDocument>();
+
+  for (const soul of publishedSouls) {
+    mergedSouls.set(soul.slug, soul);
+  }
+
+  for (const soul of staticSouls) {
+    mergedSouls.set(soul.slug, soul);
+  }
+
+  return Array.from(mergedSouls.values()).sort(sortSouls);
+}
+
 export async function getFeaturedSouls(): Promise<SoulDocument[]> {
   const souls = await getAllSouls();
   return souls.filter((soul) => soul.featured).slice(0, 3);
 }
 
 export async function getSoulBySlug(slug: string): Promise<SoulDocument | undefined> {
-  const souls = await getAllSouls();
-  return souls.find((soul) => soul.slug === slug);
+  const staticSouls = await getStaticSouls();
+  const staticSoul = staticSouls.find((soul) => soul.slug === slug);
+  if (staticSoul) {
+    return staticSoul;
+  }
+
+  return getPublishedSoulBySlug(slug);
 }
 
 export async function getRelatedSouls(slug: string): Promise<SoulDocument[]> {

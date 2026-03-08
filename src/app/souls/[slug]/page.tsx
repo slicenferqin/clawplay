@@ -10,6 +10,7 @@ import { SiteHeader } from '@/components/site-header';
 import { getBackupCommand, getRawSoulPath } from '@/lib/install';
 import { getAllSouls, getRelatedSouls, getSoulBySlug } from '@/lib/souls';
 
+export const dynamic = 'force-dynamic';
 export async function generateStaticParams() {
   const souls = await getAllSouls();
   return souls.map((soul) => ({ slug: soul.slug }));

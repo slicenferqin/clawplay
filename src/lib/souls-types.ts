@@ -1,0 +1,43 @@
+export type SoulCategoryKey = 'work' | 'dev' | 'learning' | 'creative' | 'translated';
+export type SoulSourceType = '原创' | '翻译' | '改编';
+
+export interface SoulMeta {
+  slug: string;
+  filePath: string;
+  title: string;
+  summary: string;
+  category: SoulCategoryKey;
+  categoryLabel: string;
+  sourceType: SoulSourceType;
+  featured?: boolean;
+  tags: string[];
+  tones: string[];
+  useCases: string[];
+  compatibleModels: string[];
+  author: string;
+  license: string;
+  updatedAt: string;
+  previewHook: string;
+  previewPrompt: string;
+  previewResponse: string;
+  relatedSlugs: string[];
+}
+
+export interface SoulDocument extends SoulMeta {
+  intro: string;
+  features: string[];
+  suggestions: string[];
+  authorLines: string[];
+  rawMarkdown: string;
+  rawSoul: string;
+}
+
+export const CATEGORY_ORDER: SoulCategoryKey[] = ['work', 'creative', 'translated', 'learning', 'dev'];
+
+export const CATEGORY_LABELS: Record<SoulCategoryKey, string> = {
+  work: '工作助手',
+  creative: '个性人格',
+  translated: '翻译精选',
+  learning: '学习伙伴',
+  dev: '开发专家',
+};

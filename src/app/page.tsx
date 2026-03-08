@@ -5,6 +5,7 @@ import { SiteHeader } from '@/components/site-header';
 import { SoulCard } from '@/components/soul-card';
 import { getAllSouls, getCategoryCounts, getFeaturedSouls } from '@/lib/souls';
 
+export const dynamic = 'force-dynamic';
 export default async function HomePage() {
   const [allSouls, featuredSouls, collections] = await Promise.all([getAllSouls(), getFeaturedSouls(), getCategoryCounts()]);
   const heroSoulDefinitions = [

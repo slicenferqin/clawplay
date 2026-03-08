@@ -1,40 +1,45 @@
 import Link from 'next/link';
 
+import { AnalyticsViewTracker } from '@/components/analytics-view-tracker';
 import { SiteHeader } from '@/components/site-header';
+import { SoulSubmissionForm } from '@/components/soul-submission-form';
+
+export const dynamic = 'force-dynamic';
 
 export default function SubmitPage() {
   return (
     <>
       <SiteHeader />
-      <main className="page-shell prose-page">
-        <h1>投稿说明</h1>
-        <p>当前版本先走轻量投稿流，不做开放式账号发布。优先保证内容质量、版权清晰和安装体验。</p>
+      <main className="page-shell submit-page">
+        <AnalyticsViewTracker
+          eventName="submission_page_view"
+          source="submission"
+          placement="submit_page"
+          storageKey="submission_page_view"
+        />
 
-        <section>
-          <h2>投稿需要提供什么</h2>
-          <ul>
-            <li>人格名称和一句话简介</li>
-            <li>适用场景、特色功能、使用建议</li>
-            <li>原始 SOUL.md 内容</li>
-            <li>作者信息、来源和协议</li>
-          </ul>
+        <section className="submit-hero">
+          <div className="submit-hero__content">
+            <p className="eyebrow">投稿入口</p>
+            <h1 className="page-heading__title">把你调教好的 Soul 正式投进 ClawPlay</h1>
+            <p className="page-heading__description">
+              现在开始，不会 GitHub PR 也能投稿。你提交后会拿到一条私密管理链接，用来查看审核状态、补充资料和跟进发布进度。
+            </p>
+          </div>
+          <div className="submit-hero__aside detail-panel detail-panel--side">
+            <h2 className="detail-panel__title detail-panel__title--small">投稿前建议</h2>
+            <ul className="detail-panel__list detail-panel__list--compact">
+              <li>先把标题、简介、适用场景和示例对话写完整</li>
+              <li>翻译或改编内容请明确原作者、来源和协议</li>
+              <li>原始 SOUL.md 尽量贴可直接安装的最终版本</li>
+            </ul>
+            <div className="detail-panel__actions">
+              <Link href="/souls" className="text-action-link">先看看现有灵魂</Link>
+            </div>
+          </div>
         </section>
 
-        <section>
-          <h2>当前推荐方式</h2>
-          <p>
-            先通过 GitHub 仓库提交 PR，或者在仓库里开 Issue 说明投稿意向。后续如果内容量上来，再补网页表单和审核后台。
-          </p>
-        </section>
-
-        <div className="prose-page__actions">
-          <Link href="https://github.com/slicenferqin/clawplay" target="_blank" rel="noreferrer" className="text-action-link">
-            打开 GitHub 仓库
-          </Link>
-          <Link href="/souls" className="text-action-link">
-            先看现有灵魂
-          </Link>
-        </div>
+        <SoulSubmissionForm />
       </main>
     </>
   );

@@ -9,9 +9,25 @@ export const analyticsEventNames = [
   'detail_raw_open',
   'detail_raw_download',
   'detail_raw_copy',
+  'submission_page_view',
+  'submission_started',
+  'submission_submitted',
+  'submission_success_view',
+  'submission_status_view',
+  'submission_revision_submitted',
+  'admin_submission_reviewed',
+  'admin_submission_published',
 ] as const;
 
-export const analyticsSources = ['home_hero', 'soul_detail', 'soul_detail_raw_panel', 'unknown'] as const;
+export const analyticsSources = [
+  'home_hero',
+  'soul_detail',
+  'soul_detail_raw_panel',
+  'submission',
+  'submission_status',
+  'admin_submission',
+  'unknown',
+] as const;
 
 export type AnalyticsEventName = (typeof analyticsEventNames)[number];
 export type AnalyticsSource = (typeof analyticsSources)[number];

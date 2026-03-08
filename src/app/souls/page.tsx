@@ -4,6 +4,7 @@ import { SiteHeader } from '@/components/site-header';
 import { SiteSearchForm } from '@/components/site-search-form';
 import { filterSouls, getAllSouls, getCategoryCounts } from '@/lib/souls';
 
+export const dynamic = 'force-dynamic';
 export default async function SoulsPage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   const params = ((await searchParams) ?? {}) as Record<string, string | string[] | undefined>;
   const query = typeof params.q === 'string' ? params.q : '';

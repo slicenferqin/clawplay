@@ -1078,3 +1078,356 @@ pre {
     justify-content: flex-start;
   }
 }
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.submit-page,
+.admin-page,
+.admin-detail-page,
+.submission-status-page,
+.admin-login-page,
+.success-page {
+  padding-top: 42px;
+  padding-bottom: 72px;
+}
+
+.submit-hero,
+.submission-status-header,
+.submission-status-layout,
+.admin-detail-layout {
+  display: grid;
+  gap: 24px;
+}
+
+.submit-hero,
+.submission-status-header {
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  align-items: start;
+  margin-bottom: 28px;
+}
+
+.submission-status-layout,
+.admin-detail-layout {
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  align-items: start;
+}
+
+.submit-hero__content,
+.submission-status-layout__main,
+.admin-detail-layout__main {
+  min-width: 0;
+}
+
+.submission-form {
+  display: grid;
+  gap: 24px;
+}
+
+.submission-form__section,
+.admin-table-card,
+.admin-decision-panel,
+.success-panel {
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 2px);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.submission-form__section {
+  padding: 28px;
+}
+
+.submission-form__section-header {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.submission-form__section-header h2 {
+  margin: 0;
+  font-size: 1.28rem;
+}
+
+.submission-form__section-header p,
+.submission-form__hint,
+.success-panel__meta,
+.admin-table__meta,
+.timeline-list span,
+.timeline-list p {
+  color: var(--text-muted);
+}
+
+.submission-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.submission-form__group {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.submission-form__group--full {
+  grid-column: 1 / -1;
+}
+
+.submission-form__label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.submission-form__input,
+.submission-form__textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #fffdf8;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.submission-form__textarea--code,
+.success-panel__command,
+.admin-table,
+.timeline-list,
+.command-block,
+.raw-details__pre {
+  font-family: 'JetBrains Mono', 'SFMono-Regular', 'SF Mono', Consolas, 'Liberation Mono', monospace;
+}
+
+.submission-form__input:focus,
+.submission-form__textarea:focus {
+  outline: 2px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  outline-offset: 2px;
+  border-color: var(--accent);
+}
+
+.submission-form__footer,
+.admin-decision-panel__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.submission-form__submit,
+.submission-form__secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.submission-form__submit {
+  background: var(--panel);
+  color: var(--panel-text);
+}
+
+.submission-form__secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.submission-form__submit:disabled,
+.submission-form__secondary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.submission-form__error {
+  margin: 0;
+  color: #8d2f1f;
+  font-size: 0.92rem;
+}
+
+.submission-form__honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.success-panel {
+  padding: 28px;
+  display: grid;
+  gap: 16px;
+}
+
+.success-panel__command {
+  display: block;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #fffdf8;
+  border: 1px solid var(--border);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.status-badge--pending_review {
+  background: color-mix(in srgb, var(--accent-soft) 60%, #fff);
+}
+
+.status-badge--needs_revision {
+  background: #f8e7c7;
+}
+
+.status-badge--approved {
+  background: #dcebd3;
+}
+
+.status-badge--published {
+  background: #d4e1f7;
+}
+
+.status-badge--rejected {
+  background: #f2d7d2;
+}
+
+.timeline-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline-list li {
+  display: grid;
+  gap: 6px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+}
+
+.timeline-list li:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.timeline-list strong {
+  font-size: 0.94rem;
+}
+
+.admin-toolbar-row {
+  justify-content: space-between;
+}
+
+.admin-filter-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-filter-pills a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+}
+
+.admin-filter-pills a.is-active {
+  background: var(--panel);
+  color: var(--panel-text);
+  border-color: var(--panel);
+}
+
+.admin-table-card {
+  overflow: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-table th {
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.admin-table__title {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.admin-login-card {
+  max-width: 34rem;
+  margin: 0 auto;
+}
+
+.breadcrumb-row {
+  margin-bottom: 18px;
+}
+
+@media (max-width: 1100px) {
+  .submit-hero,
+  .submission-status-header,
+  .submission-status-layout,
+  .admin-detail-layout,
+  .submission-form__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .submission-form__section,
+  .success-panel {
+    padding: 22px 18px;
+  }
+
+  .submission-form__footer,
+  .admin-decision-panel__actions {
+    align-items: stretch;
+  }
+
+  .submission-form__submit,
+  .submission-form__secondary {
+    width: 100%;
+  }
+}
