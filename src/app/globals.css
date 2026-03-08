@@ -1188,6 +1188,77 @@ textarea {
   color: var(--text);
 }
 
+.submission-form__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.submission-form__inline-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(79, 99, 48, 0.16);
+  background: rgba(220, 235, 211, 0.5);
+  color: #4f6330;
+  cursor: pointer;
+}
+
+.submission-form__inline-action:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.submission-form__file-input {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.submission-form__file-dropzone {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px dashed rgba(160, 118, 48, 0.24);
+  background: rgba(255, 252, 245, 0.92);
+  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.submission-form__file-dropzone.is-active {
+  border-color: rgba(79, 99, 48, 0.34);
+  background: rgba(223, 231, 207, 0.42);
+  transform: translateY(-1px);
+}
+
+.submission-form__file-dropzone-head {
+  display: grid;
+  gap: 4px;
+}
+
+.submission-form__file-dropzone-title,
+.submission-form__file-dropzone-meta {
+  margin: 0;
+}
+
+.submission-form__file-dropzone-title {
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.submission-form__file-dropzone-meta {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
 .submission-form__input,
 .submission-form__textarea {
   width: 100%;
@@ -1646,6 +1717,11 @@ textarea {
     flex-direction: column;
   }
 
+  .submission-form__label-row {
+    align-items: stretch;
+  }
+
+  .submission-form__inline-action,
   .submission-form__submit,
   .submission-form__secondary {
     width: 100%;

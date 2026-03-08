@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { trackClientEvent, trackClientEventOnce } from '@/lib/analytics/client';
@@ -41,6 +41,8 @@ export interface SubmissionFormValues {
 }
 
 const DEFAULT_RIGHTS_STATEMENT = '我确认自己有权提交这份 Soul，且来源、协议与标注信息真实有效。';
+const RAW_SOUL_ACCEPT = '.md,.markdown,.txt,text/markdown,text/plain';
+const RAW_SOUL_MAX_FILE_BYTES = 512 * 1024;
 
 const defaultValues: SubmissionFormValues = {
   submissionType: '原创',
@@ -118,13 +120,31 @@ function appendListValue(currentValue: string, nextValue: string) {
   return [...items, nextValue].join('\n');
 }
 
+function isSupportedRawSoulFile(file: File) {
+  if (/\.(md|markdown|txt)$/i.test(file.name)) {
+    return true;
+  }
+
+  return file.type === 'text/markdown' || file.type === 'text/plain' || file.type === '';
+}
+
+function normalizeRawSoulText(value: string) {
+  return value.replace(/\r\n/g, '\n');
+}
+
 export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, initialValues }: SoulSubmissionFormProps) {
   const router = useRouter();
+  const rawSoulFileInputRef = useRef<HTMLInputElement>(null);
+  const rawSoulDragDepthRef = useRef(0);
+
   const [values, setValues] = useState<SubmissionFormValues>(mapInitialValues(initialValues));
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [hasTrackedStart, setHasTrackedStart] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(mode === 'revision');
+  const [rawSoulImportError, setRawSoulImportError] = useState('');
+  const [rawSoulImportedFileName, setRawSoulImportedFileName] = useState('');
+  const [isRawSoulDragActive, setIsRawSoulDragActive] = useState(false);
 
   const endpoint = useMemo(() => {
     if (mode === 'revision' && publicId) {
@@ -159,7 +179,99 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
       setHasTrackedStart(true);
     }
 
+    if (key === 'rawSoul') {
+      setRawSoulImportError('');
+    }
+
     setValues((current) => ({ ...current, [key]: value }));
+  }
+
+  async function importRawSoulFile(file: File) {
+    if (!isSupportedRawSoulFile(file)) {
+      setRawSoulImportError('目前只支持导入 `.md`、`.markdown` 或纯文本文件。');
+      return;
+    }
+
+    if (file.size > RAW_SOUL_MAX_FILE_BYTES) {
+      setRawSoulImportError('文件有点大，先控制在 512 KB 内，再上传会更稳。');
+      return;
+    }
+
+    try {
+      const text = normalizeRawSoulText(await file.text());
+      if (!text.trim()) {
+        setRawSoulImportError('文件内容是空的，换一个有实际内容的 SOUL.md 再试试。');
+        return;
+      }
+
+      updateValue('rawSoul', text);
+      setRawSoulImportedFileName(file.name);
+      setRawSoulImportError('');
+    } catch {
+      setRawSoulImportError('文件读取失败了，可能是编码异常。你也可以直接把内容粘贴进文本框。');
+    }
+  }
+
+  function triggerRawSoulFilePicker() {
+    rawSoulFileInputRef.current?.click();
+  }
+
+  async function handleRawSoulFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.currentTarget.value = '';
+    if (!file) {
+      return;
+    }
+
+    await importRawSoulFile(file);
+  }
+
+  function handleRawSoulDragEnter(event: React.DragEvent<HTMLDivElement>) {
+    if (!Array.from(event.dataTransfer.types).includes('Files')) {
+      return;
+    }
+
+    event.preventDefault();
+    rawSoulDragDepthRef.current += 1;
+    setIsRawSoulDragActive(true);
+  }
+
+  function handleRawSoulDragOver(event: React.DragEvent<HTMLDivElement>) {
+    if (!Array.from(event.dataTransfer.types).includes('Files')) {
+      return;
+    }
+
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'copy';
+  }
+
+  function handleRawSoulDragLeave(event: React.DragEvent<HTMLDivElement>) {
+    if (!Array.from(event.dataTransfer.types).includes('Files')) {
+      return;
+    }
+
+    event.preventDefault();
+    rawSoulDragDepthRef.current = Math.max(rawSoulDragDepthRef.current - 1, 0);
+    if (rawSoulDragDepthRef.current === 0) {
+      setIsRawSoulDragActive(false);
+    }
+  }
+
+  async function handleRawSoulDrop(event: React.DragEvent<HTMLDivElement>) {
+    if (!Array.from(event.dataTransfer.types).includes('Files')) {
+      return;
+    }
+
+    event.preventDefault();
+    rawSoulDragDepthRef.current = 0;
+    setIsRawSoulDragActive(false);
+
+    const file = event.dataTransfer.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    await importRawSoulFile(file);
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -315,9 +427,43 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
           ) : null}
 
           <div className="submission-form__group submission-form__group--full">
-            <label className="submission-form__label" htmlFor="raw-soul">原始 SOUL.md</label>
-            <textarea id="raw-soul" className="submission-form__textarea submission-form__textarea--code" rows={16} value={values.rawSoul} onChange={(event) => updateValue('rawSoul', event.target.value)} required />
-            <p className="submission-form__assist submission-form__assist--neutral">尽量贴接近最终安装态的版本。预览示例和标签这次没写全也没关系。</p>
+            <div className="submission-form__label-row">
+              <label className="submission-form__label" htmlFor="raw-soul">原始 SOUL.md</label>
+              <button type="button" className="submission-form__inline-action" onClick={triggerRawSoulFilePicker} disabled={isSubmitting}>
+                导入 .md 文件
+              </button>
+            </div>
+
+            <input
+              ref={rawSoulFileInputRef}
+              type="file"
+              accept={RAW_SOUL_ACCEPT}
+              className="submission-form__file-input"
+              onChange={handleRawSoulFileChange}
+              tabIndex={-1}
+            />
+
+            <div
+              className={`submission-form__file-dropzone ${isRawSoulDragActive ? 'is-active' : ''}`}
+              onDragEnter={handleRawSoulDragEnter}
+              onDragOver={handleRawSoulDragOver}
+              onDragLeave={handleRawSoulDragLeave}
+              onDrop={handleRawSoulDrop}
+            >
+              <div className="submission-form__file-dropzone-head">
+                <p className="submission-form__file-dropzone-title">支持直接拖拽 `.md` 文件，或点击上方按钮导入</p>
+                <p className="submission-form__file-dropzone-meta">
+                  {rawSoulImportedFileName
+                    ? `已导入 ${rawSoulImportedFileName}，现在还可以继续手动编辑。`
+                    : '导入后会自动填充到下方文本框，省掉复制粘贴。'}
+                </p>
+              </div>
+              <textarea id="raw-soul" className="submission-form__textarea submission-form__textarea--code" rows={16} value={values.rawSoul} onChange={(event) => updateValue('rawSoul', event.target.value)} required />
+            </div>
+
+            <p className={`submission-form__assist submission-form__assist--${rawSoulImportError ? 'warning' : 'neutral'}`}>
+              {rawSoulImportError || '尽量贴接近最终安装态的版本。预览示例和标签这次没写全也没关系。'}
+            </p>
           </div>
         </div>
       </section>

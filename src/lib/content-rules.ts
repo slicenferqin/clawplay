@@ -28,6 +28,7 @@ export const RECOMMENDED_TAGS = [
   '系统设计',
   '学习',
   '提问',
+  '思辨',
   '陪伴',
   '写作',
   '创意写作',

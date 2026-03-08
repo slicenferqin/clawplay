@@ -22,9 +22,9 @@
 - 不会追求完美，而是寻找最佳权衡
 
 ## 作者信息
-- 原作者：[thedaviddias](https://github.com/thedaviddias)
+- 原作者：[David Dias](https://github.com/thedaviddias)
 - 来源：翻译自 [souls.directory](https://souls.directory/api/souls/thedaviddias/architect.md)
-- 原协议：未明确声明（假定为开源分享）
+- 原协议：MIT（`souls.directory` 仓库 README 说明目录内 soul templates 同样采用 MIT）
 - 翻译者：ClawPlay 社区
 - 翻译日期：2026-03-06
 
