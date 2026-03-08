@@ -4,6 +4,15 @@ import { ADMIN_SESSION_COOKIE_NAME, createAdminSessionToken, getAdminPassword, g
 
 export const runtime = 'nodejs';
 
+function shouldUseSecureCookie(request: NextRequest) {
+  const forwardedProto = request.headers.get('x-forwarded-proto');
+  if (forwardedProto) {
+    return forwardedProto.split(',')[0]?.trim() === 'https';
+  }
+
+  return request.nextUrl.protocol === 'https:';
+}
+
 export async function POST(request: NextRequest) {
   let payload: Record<string, unknown>;
   try {
@@ -27,7 +36,7 @@ export async function POST(request: NextRequest) {
     value: createAdminSessionToken(),
     httpOnly: true,
     sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
+    secure: shouldUseSecureCookie(request),
     path: '/',
     maxAge: getAdminSessionMaxAge(),
   });
