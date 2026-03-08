@@ -32,6 +32,54 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+@keyframes hero-cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+
+@keyframes spotlight-pane-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spotlight-pane-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .rotating-soul-name__cursor {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -170,9 +218,9 @@ pre {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(380px, 0.9fr);
-  gap: 32px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1.28fr) minmax(340px, 0.82fr);
+  gap: 44px;
+  align-items: center;
 }
 
 .eyebrow,
@@ -190,9 +238,9 @@ pre {
 
 .hero-grid__content {
   display: grid;
-  gap: 18px;
-  align-content: start;
-  max-width: 42rem;
+  gap: 20px;
+  align-content: center;
+  max-width: 44rem;
 }
 
 .page-heading__title,
@@ -207,12 +255,51 @@ pre {
 .hero-grid__title {
   margin: 0;
   width: 100%;
-  max-width: 30rem;
-  font-size: clamp(1.85rem, 2.6vw, 2.45rem);
-  line-height: 1.18;
-  letter-spacing: -0.025em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.08em 0.18em;
+  align-items: baseline;
+  font-size: clamp(1.95rem, 3vw, 2.95rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
   font-weight: 700;
-  text-wrap: balance;
+}
+
+.hero-grid__title-prefix {
+  color: var(--text);
+}
+
+.hero-grid__title-dynamic {
+  display: inline-flex;
+  align-items: baseline;
+  min-height: 1.12em;
+  min-width: 5.4em;
+  color: var(--text);
+}
+
+.hero-grid__title-punctuation {
+  color: var(--text);
+}
+
+.rotating-soul-name,
+.rotating-soul-name__visual {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.rotating-soul-name__text {
+  color: var(--accent);
+}
+
+.rotating-soul-name__cursor {
+  width: 2px;
+  height: 0.92em;
+  margin-left: 0.08em;
+  border-radius: 999px;
+  transform: translateY(0.06em);
+  background: currentColor;
+  color: var(--accent);
+  animation: hero-cursor-blink 1.05s steps(1, end) infinite;
 }
 
 .hero-grid__description,
@@ -289,6 +376,7 @@ pre {
   background: var(--accent-soft);
   border-color: #cad8ae;
   font-weight: 600;
+  box-shadow: none;
 }
 
 .copy-button {
@@ -321,13 +409,13 @@ pre {
 .install-panel {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 24px;
-  border-radius: 26px;
+  gap: 14px;
+  padding: 22px;
+  border-radius: 24px;
   background: var(--panel);
   color: var(--panel-text);
   border: 1px solid var(--panel-border);
-  box-shadow: 0 18px 42px rgba(18, 20, 18, 0.18);
+  box-shadow: 0 16px 34px rgba(18, 20, 18, 0.14);
 }
 
 .spotlight-soul-card__title,
@@ -336,30 +424,131 @@ pre {
 }
 
 .spotlight-soul-card__title {
-  font-size: 2rem;
-  line-height: 1.08;
+  font-size: 1.82rem;
+  line-height: 1.1;
+  min-height: calc(1.1em * 2);
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
-.spotlight-soul-card__meta,
 .install-panel__eyebrow,
 .install-panel__steps {
   color: rgba(247, 242, 232, 0.78);
 }
 
+.hero-grid__spotlight {
+  min-width: 0;
+  align-self: stretch;
+}
+
+.hero-grid__spotlight .spotlight-soul-card {
+  min-height: clamp(31rem, 56vh, 36rem);
+  height: 100%;
+}
+
+.spotlight-soul-card__viewport {
+  display: grid;
+  min-height: 100%;
+}
+
+.spotlight-soul-card__pane {
+  grid-area: 1 / 1;
+  min-width: 0;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 18px;
+}
+
+.spotlight-soul-card__pane--leaving {
+  pointer-events: none;
+  animation: spotlight-pane-out 220ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.spotlight-soul-card__pane--incoming {
+  pointer-events: none;
+  animation: spotlight-pane-in 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.spotlight-soul-card__header {
+  display: grid;
+  gap: 12px;
+}
+
+.spotlight-soul-card__body {
+  display: grid;
+  align-content: start;
+}
+
+.spotlight-soul-card__footer {
+  display: grid;
+  gap: 18px;
+  margin-top: auto;
+}
+
+.spotlight-soul-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 28px;
+}
+
+.spotlight-soul-card__tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(247, 242, 232, 0.84);
+  font-size: 0.8rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.spotlight-soul-card__tag--primary {
+  border-color: rgba(112, 138, 68, 0.42);
+  background: rgba(112, 138, 68, 0.16);
+  color: #d8e7b3;
+}
+
+.spotlight-soul-card__tag--more {
+  color: rgba(247, 242, 232, 0.7);
+}
+
+.spotlight-soul-card__summary {
+  margin: 0;
+  line-height: 1.62;
+  min-height: calc(1.62em * 3);
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .spotlight-soul-card__command {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
+  min-height: 8.75rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
-  padding: 14px 16px;
+  padding: 12px 14px;
 }
 
 .spotlight-soul-card__command code,
 .command-block {
   overflow-wrap: anywhere;
+}
+
+.spotlight-soul-card__command-code {
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 
 .command-block {
@@ -375,6 +564,7 @@ pre {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  padding-top: 2px;
 }
 
 .content-section {
@@ -826,9 +1016,44 @@ pre {
   }
 
   .hero-grid__title {
-    max-width: none;
-    font-size: 1.85rem;
-    line-height: 1.16;
+    font-size: 1.92rem;
+    line-height: 1.14;
+    gap: 0.08em 0.14em;
+  }
+
+  .hero-grid__title-dynamic {
+    min-height: 1.18em;
+  }
+
+  .hero-grid__spotlight .spotlight-soul-card {
+    min-height: auto;
+  }
+
+  .spotlight-soul-card__pane {
+    gap: 16px;
+  }
+
+  .spotlight-soul-card__title {
+    min-height: auto;
+  }
+
+  .spotlight-soul-card__summary {
+    min-height: auto;
+    -webkit-line-clamp: 4;
+  }
+
+  .spotlight-soul-card__command {
+    min-height: auto;
+  }
+
+  .spotlight-soul-card__tags {
+    gap: 6px;
+  }
+
+  .spotlight-soul-card__tag {
+    min-height: 26px;
+    padding: 0 9px;
+    font-size: 0.76rem;
   }
 
   .page-heading__title,

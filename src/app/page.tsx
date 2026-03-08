@@ -1,35 +1,42 @@
 import Link from 'next/link';
 
-import { FeaturedSoulCard } from '@/components/featured-soul-card';
+import { HeroShowcase } from '@/components/hero-showcase';
 import { SiteHeader } from '@/components/site-header';
-import { SiteSearchForm } from '@/components/site-search-form';
 import { SoulCard } from '@/components/soul-card';
-import { getCategoryCounts, getFeaturedSouls } from '@/lib/souls';
+import { getAllSouls, getCategoryCounts, getFeaturedSouls } from '@/lib/souls';
 
 export default async function HomePage() {
-  const [featuredSouls, collections] = await Promise.all([getFeaturedSouls(), getCategoryCounts()]);
-  const heroSoul = featuredSouls[0];
+  const [allSouls, featuredSouls, collections] = await Promise.all([getAllSouls(), getFeaturedSouls(), getCategoryCounts()]);
+  const heroSoulDefinitions = [
+    { slug: 'edict-counselor', displayName: '御用谋士' },
+    { slug: 'grumpy-wang', displayName: '暴躁老王' },
+    { slug: 'code-reviewer', displayName: '代码审查官' },
+    { slug: 'catgirl-nova', displayName: '猫娘 Nova' },
+    { slug: 'architect', displayName: '软件架构师' },
+  ];
+  const soulsBySlug = new Map(allSouls.map((soul) => [soul.slug, soul]));
+  const heroSouls = heroSoulDefinitions
+    .map(({ slug, displayName }) => {
+      const soul = soulsBySlug.get(slug);
+      if (!soul) {
+        return null;
+      }
+
+      return {
+        slug: soul.slug,
+        title: soul.title,
+        summary: soul.summary,
+        tags: soul.tags,
+        displayName,
+      };
+    })
+    .filter((soul): soul is NonNullable<typeof soul> => Boolean(soul));
 
   return (
     <>
       <SiteHeader />
       <main className="page-shell home-page">
-        <section className="hero-grid">
-          <div className="hero-grid__content">
-            <p className="eyebrow">为 OpenClaw 精选的中文 Soul</p>
-            <h1 className="hero-grid__title">先看感觉，再决定装哪个灵魂。</h1>
-            <p className="hero-grid__description">
-              ClawPlay 把零散的 <code>SOUL.md</code> 整理成可浏览、可比较、可安装的中文目录站。
-            </p>
-            <SiteSearchForm placeholder="搜索灵魂、角色、使用场景" />
-            <div className="hero-stats">
-              <span>8 个已收录灵魂</span>
-              <span>3 条核心路径</span>
-              <span>curl 安装</span>
-            </div>
-          </div>
-          {heroSoul ? <FeaturedSoulCard soul={heroSoul} /> : null}
-        </section>
+        <HeroShowcase soulCount={allSouls.length} souls={heroSouls} />
 
         <section className="content-section">
           <div className="section-heading-row">
