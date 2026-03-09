@@ -134,7 +134,6 @@ function initializeAnalyticsDatabase(database: Database.Database) {
       category_label TEXT NOT NULL,
       source_type TEXT NOT NULL,
       tags_json TEXT NOT NULL,
-      proposed_tags_json TEXT NOT NULL DEFAULT '[]',
       tones_json TEXT NOT NULL,
       use_cases_json TEXT NOT NULL,
       compatible_models_json TEXT NOT NULL,
