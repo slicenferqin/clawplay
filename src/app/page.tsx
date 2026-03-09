@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
+import { ArrowRightIcon } from '@/components/icons';
 import { HeroShowcase } from '@/components/hero-showcase';
 import { SiteHeader } from '@/components/site-header';
 import { SoulCard } from '@/components/soul-card';
@@ -62,14 +63,20 @@ export default async function HomePage() {
               <span className="journey-card__eyebrow">01 先浏览</span>
               <h3 className="journey-card__title">不用再靠群聊翻历史消息找 Soul</h3>
               <p className="journey-card__description">先看简介、标签、用途和来源类型，把零散的 Soul 放回一个能浏览的目录里。</p>
-              <Link href="/souls" className="text-action-link">去灵魂库</Link>
+              <Link href="/souls" className="text-action-link">
+                <span>去灵魂库</span>
+                <ArrowRightIcon className="text-action-link__icon" />
+              </Link>
             </article>
 
             <article className="journey-card">
               <span className="journey-card__eyebrow">02 再比较</span>
               <h3 className="journey-card__title">先看预览和原文，再决定它是不是你的菜</h3>
               <p className="journey-card__description">不是先装了再碰运气，而是先看风格、能力和原始 SOUL 内容，再做选择。</p>
-              <Link href="/souls/code-reviewer" className="text-action-link">看一个示例</Link>
+              <Link href="/souls/code-reviewer" className="text-action-link">
+                <span>看一个示例</span>
+                <ArrowRightIcon className="text-action-link__icon" />
+              </Link>
             </article>
 
             <article className="journey-card">
@@ -77,8 +84,14 @@ export default async function HomePage() {
               <h3 className="journey-card__title">喜欢就复制命令安装，调教好了也能继续分享</h3>
               <p className="journey-card__description">支持直接拉取原始 SOUL，也支持上传 `.md` 文件投稿，把好内容继续沉淀回站里。</p>
               <div className="journey-card__actions">
-                <Link href="/install" className="text-action-link">看安装</Link>
-                <Link href="/submit" className="text-action-link">去投稿</Link>
+                <Link href="/install" className="text-action-link">
+                  <span>看安装</span>
+                  <ArrowRightIcon className="text-action-link__icon" />
+                </Link>
+                <Link href="/submit" className="text-action-link">
+                  <span>去投稿</span>
+                  <ArrowRightIcon className="text-action-link__icon" />
+                </Link>
               </div>
             </article>
           </div>

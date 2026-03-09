@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { AnalyticsViewTracker } from '@/components/analytics-view-tracker';
 import { CopyButton } from '@/components/copy-button';
-import { DownloadIcon } from '@/components/icons';
+import { ArrowRightIcon, DownloadIcon } from '@/components/icons';
 import { InstallCommand } from '@/components/install-command';
 import { SiteHeader } from '@/components/site-header';
 import { getBackupCommand, getRawSoulPath } from '@/lib/install';
@@ -95,7 +95,8 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
               analyticsPlacement="header_install"
             />
             <a href={rawSoulUrl} className="text-action-link">
-              查看原始 SOUL
+              <span>查看原始 SOUL</span>
+              <ArrowRightIcon className="text-action-link__icon" />
             </a>
           </div>
         </section>
@@ -146,7 +147,13 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
             </article>
 
             <details className="raw-details">
-              <summary>展开查看原始 SOUL 内容</summary>
+              <summary className="raw-details__summary">
+                <span className="raw-details__summary-main">
+                  <ArrowRightIcon className="raw-details__summary-icon" />
+                  <span>展开查看原始 SOUL 内容</span>
+                </span>
+                <span className="raw-details__summary-note">复制前先核对结构</span>
+              </summary>
               <div className="raw-details__actions">
                 <CopyButton
                   text={soul.rawSoul}
@@ -201,7 +208,8 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
               <p className="detail-panel__body">可以直接查看原始 <code>SOUL.md</code>，核对提示结构，或复制、下载到本地后手动替换。</p>
               <div className="detail-panel__actions">
                 <a href={sidebarRawSoulUrl} className="text-action-link">
-                  打开原始 SOUL
+                  <span>打开原始 SOUL</span>
+                  <ArrowRightIcon className="text-action-link__icon" />
                 </a>
                 <CopyButton
                   text={soul.rawSoul}
@@ -220,10 +228,17 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
 
             <article className="detail-panel detail-panel--side">
               <h2 className="detail-panel__title detail-panel__title--small">相似灵魂</h2>
-              <ul className="detail-panel__list detail-panel__list--compact">
+              <ul className="detail-related-list">
                 {relatedSouls.map((item) => (
                   <li key={item.slug}>
-                    <Link href={`/souls/${item.slug}`}>{item.title}</Link>
+                    <Link href={`/souls/${item.slug}`} className="detail-related-link">
+                      <span className="detail-related-link__meta">{item.categoryLabel} · {item.sourceType}</span>
+                      <span className="detail-related-link__row">
+                        <span className="detail-related-link__title">{item.title}</span>
+                        <ArrowRightIcon className="detail-related-link__icon" />
+                      </span>
+                      <span className="detail-related-link__summary">{item.summary}</span>
+                    </Link>
                   </li>
                 ))}
               </ul>

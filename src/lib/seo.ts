@@ -43,6 +43,13 @@ export function getBaseMetadata(): Metadata {
     applicationName: SITE_NAME,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    icons: {
+      icon: [
+        { url: '/favicon.ico' },
+        { url: '/icon.svg', type: 'image/svg+xml' },
+      ],
+      shortcut: ['/favicon.ico'],
+    },
     openGraph: {
       type: 'website',
       locale: 'zh_CN',
