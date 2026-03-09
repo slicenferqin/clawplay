@@ -2781,3 +2781,75 @@ textarea {
     align-items: stretch;
   }
 }
+
+.tag-governance-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.tag-governance-panel__header {
+  display: grid;
+  gap: 8px;
+}
+
+.tag-governance-list {
+  display: grid;
+  gap: 14px;
+}
+
+.tag-governance-item {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.tag-governance-item__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.tag-governance-item__label {
+  display: block;
+  color: var(--text-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tag-governance-item__value {
+  display: block;
+  margin-top: 6px;
+  font-size: 1rem;
+}
+
+.tag-governance-item__merge {
+  display: grid;
+  gap: 8px;
+}
+
+.tag-governance-item__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag-governance-empty {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px dashed var(--border);
+  background: rgba(255, 253, 248, 0.9);
+}
+
+.tag-governance-empty p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.68;
+}

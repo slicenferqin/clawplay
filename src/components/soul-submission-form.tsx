@@ -20,6 +20,7 @@ export interface SubmissionFormValues {
   summary: string;
   category: SoulCategoryKey;
   tags: string;
+  proposedTags: string;
   tones: string;
   useCases: string;
   compatibleModels: string;
@@ -51,6 +52,7 @@ const defaultValues: SubmissionFormValues = {
   summary: '',
   category: 'creative',
   tags: '',
+  proposedTags: '',
   tones: '',
   useCases: '',
   compatibleModels: 'Claude Sonnet\nClaude Opus',
@@ -86,6 +88,7 @@ function buildPayload(values: SubmissionFormValues) {
     summary: values.summary,
     category: values.category,
     tags: parseList(values.tags),
+    proposedTags: parseList(values.proposedTags),
     tones: parseList(values.tones),
     useCases: parseList(values.useCases),
     compatibleModels: parseList(values.compatibleModels),
@@ -165,6 +168,7 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
   const titleHint = useMemo(() => getTextRangeHint(values.title, 4, 28), [values.title]);
   const summaryHint = useMemo(() => getTextRangeHint(values.summary, 24, 100), [values.summary]);
   const selectedTags = useMemo(() => new Set(draftPayload.tags), [draftPayload.tags]);
+  const proposedTagList = useMemo(() => parseList(values.proposedTags), [values.proposedTags]);
   const requiresSourceAttribution = values.submissionType !== '原创';
   const isLegacyTranslatedCategory = values.category === 'translated';
   const requiredItemsText = requiresSourceAttribution
@@ -494,9 +498,13 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
           <div className="submission-form__advanced">
             <div className="submission-form__grid">
               <div className="submission-form__group submission-form__group--full">
-                <label className="submission-form__label" htmlFor="tags">标签</label>
-                <textarea id="tags" className="submission-form__textarea" rows={4} value={values.tags} onChange={(event) => updateValue('tags', event.target.value)} placeholder="每行一个，或用逗号分隔" />
-                <p className={`submission-form__assist submission-form__assist--${tagHint.tone}`}>{tagHint.message}</p>
+                <label className="submission-form__label" htmlFor="tags">正式标签（可选）</label>
+                <textarea id="tags" className="submission-form__textarea" rows={4} value={values.tags} onChange={(event) => updateValue('tags', event.target.value)} placeholder="优先填写推荐词表里的标签，每行一个或用逗号分隔" />
+                <p className={`submission-form__assist submission-form__assist--${tagHint.tone}`}>
+                  {tagHint.review.offDictionaryTags.length > 0
+                    ? `${tagHint.message} 如果这些是你想提议的新标签，建议改填到下面的“新标签建议”。`
+                    : tagHint.message}
+                </p>
                 <div className="submission-form__tag-suggestions">
                   {RECOMMENDED_TAGS.map((tag) => (
                     <button
@@ -510,6 +518,23 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
                     </button>
                   ))}
                 </div>
+              </div>
+
+              <div className="submission-form__group submission-form__group--full">
+                <label className="submission-form__label" htmlFor="proposed-tags">新标签建议（选填）</label>
+                <textarea
+                  id="proposed-tags"
+                  className="submission-form__textarea"
+                  rows={3}
+                  value={values.proposedTags}
+                  onChange={(event) => updateValue('proposedTags', event.target.value)}
+                  placeholder="如果你觉得这份 Soul 还需要新的标签词，填在这里，每行一个或用逗号分隔"
+                />
+                <p className={`submission-form__assist submission-form__assist--${proposedTagList.length > 0 ? 'warning' : 'neutral'}`}>
+                  {proposedTagList.length > 0
+                    ? `已记录 ${proposedTagList.length} 个新标签建议，后台会决定归并、收录或驳回。`
+                    : '这里专门用来提议词表外的新标签，不建议直接把它们塞进正式标签。'}
+                </p>
               </div>
 
               <div className="submission-form__group submission-form__group--full">

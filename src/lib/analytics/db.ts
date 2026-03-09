@@ -20,6 +20,13 @@ export function getAnalyticsDatabasePath() {
   return path.join(getDataDirectory(), DATABASE_FILE_NAME);
 }
 
+function ensureColumnExists(database: Database.Database, tableName: string, columnName: string, definition: string) {
+  const columns = database.prepare(`PRAGMA table_info(${tableName})`).all() as Array<{ name: string }>;
+  if (!columns.some((column) => column.name === columnName)) {
+    database.exec(`ALTER TABLE ${tableName} ADD COLUMN ${columnName} ${definition}`);
+  }
+}
+
 function initializeAnalyticsDatabase(database: Database.Database) {
   database.pragma('journal_mode = WAL');
   database.pragma('busy_timeout = 5000');
@@ -59,6 +66,7 @@ function initializeAnalyticsDatabase(database: Database.Database) {
       summary TEXT NOT NULL,
       category TEXT NOT NULL,
       tags_json TEXT NOT NULL,
+      proposed_tags_json TEXT NOT NULL DEFAULT '[]',
       tones_json TEXT NOT NULL,
       use_cases_json TEXT NOT NULL,
       compatible_models_json TEXT NOT NULL,
@@ -126,6 +134,7 @@ function initializeAnalyticsDatabase(database: Database.Database) {
       category_label TEXT NOT NULL,
       source_type TEXT NOT NULL,
       tags_json TEXT NOT NULL,
+      proposed_tags_json TEXT NOT NULL DEFAULT '[]',
       tones_json TEXT NOT NULL,
       use_cases_json TEXT NOT NULL,
       compatible_models_json TEXT NOT NULL,
@@ -148,6 +157,8 @@ function initializeAnalyticsDatabase(database: Database.Database) {
     CREATE INDEX IF NOT EXISTS idx_published_souls_published_at
       ON published_souls (published_at);
   `);
+
+  ensureColumnExists(database, 'soul_submissions', 'proposed_tags_json', "TEXT NOT NULL DEFAULT '[]'");
 }
 
 export function getAnalyticsDatabase() {

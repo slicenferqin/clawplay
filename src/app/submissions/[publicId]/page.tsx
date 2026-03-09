@@ -22,6 +22,7 @@ function createInitialValues(view: NonNullable<ReturnType<typeof getPublicSubmis
     summary: view.summary,
     category: view.category,
     tags: view.tags.join('\n'),
+    proposedTags: view.proposedTags.join('\n'),
     tones: view.tones.join('\n'),
     useCases: view.useCases.join('\n'),
     compatibleModels: view.compatibleModels.join('\n'),

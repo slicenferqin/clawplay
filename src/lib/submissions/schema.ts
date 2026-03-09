@@ -14,6 +14,7 @@ export interface SubmissionInput {
   summary: string;
   category: SoulCategoryKey;
   tags: string[];
+  proposedTags: string[];
   tones: string[];
   useCases: string[];
   compatibleModels: string[];
@@ -43,6 +44,7 @@ export interface SubmissionRecord {
   summary: string;
   category: SoulCategoryKey;
   tags: string[];
+  proposedTags: string[];
   tones: string[];
   useCases: string[];
   compatibleModels: string[];

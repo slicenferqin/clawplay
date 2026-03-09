@@ -95,6 +95,7 @@ type SubmissionContentSource = Pick<
   | 'title'
   | 'summary'
   | 'tags'
+  | 'proposedTags'
   | 'tones'
   | 'useCases'
   | 'compatibleModels'
@@ -149,7 +150,7 @@ function normalizeTagKey(value: string) {
   return normalizeText(value).toLowerCase();
 }
 
-function normalizeTagDisplay(value: string) {
+export function normalizeTagDisplay(value: string) {
   return normalizeText(value).replace(/\s+/g, ' ');
 }
 
@@ -335,12 +336,25 @@ export function assessSubmissionContent(submission: SubmissionContentSource | Su
     status: isLengthInRange(submission.summary, CONTENT_RULES.summary.recommendedMin, CONTENT_RULES.summary.recommendedMax) ? 'pass' : 'warning',
   });
 
+  const proposedTags = Array.isArray(submission.proposedTags)
+    ? submission.proposedTags.map((tag) => normalizeTagDisplay(tag)).filter(Boolean)
+    : [];
+
   addCheck(checks, {
     id: 'tag-count',
     label: '标签数量与词表',
     description: tagHint.message,
     status: tagHint.tone === 'pass' ? 'pass' : 'warning',
   });
+
+  if (proposedTags.length > 0) {
+    addCheck(checks, {
+      id: 'proposed-tags',
+      label: '标签建议待处理',
+      description: `当前还有 ${proposedTags.length} 个新标签建议待后台判断：${proposedTags.slice(0, 4).join('，')}。`,
+      status: 'warning',
+    });
+  }
 
   addCheck(checks, {
     id: 'preview-pack',

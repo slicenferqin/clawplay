@@ -37,6 +37,7 @@ interface SubmissionRow {
   summary: string;
   category: SoulCategoryKey;
   tags_json: string;
+  proposed_tags_json: string;
   tones_json: string;
   use_cases_json: string;
   compatible_models_json: string;
@@ -243,6 +244,7 @@ export function parseSubmissionInput(payload: Record<string, unknown>): Submissi
     summary: ensureNonEmptyText(payload.summary, 'summary'),
     category,
     tags: normalizeOptionalStringArray(payload.tags, 'tags'),
+    proposedTags: normalizeOptionalStringArray(payload.proposedTags, 'proposed_tags'),
     tones: normalizeOptionalStringArray(payload.tones, 'tones'),
     useCases: normalizeOptionalStringArray(payload.useCases, 'use_cases'),
     compatibleModels: normalizeOptionalStringArray(payload.compatibleModels, 'compatible_models'),
@@ -274,6 +276,7 @@ function mapSubmissionRow(row: SubmissionRow): SubmissionRecord {
     summary: row.summary,
     category: row.category,
     tags: parseArray(row.tags_json),
+    proposedTags: parseArray(row.proposed_tags_json),
     tones: parseArray(row.tones_json),
     useCases: parseArray(row.use_cases_json),
     compatibleModels: parseArray(row.compatible_models_json),
@@ -363,6 +366,7 @@ function getSubmissionPayload(record: SubmissionRecord): SubmissionInput {
     summary: record.summary,
     category: record.category,
     tags: record.tags,
+    proposedTags: record.proposedTags,
     tones: record.tones,
     useCases: record.useCases,
     compatibleModels: record.compatibleModels,
@@ -382,6 +386,37 @@ function getSubmissionPayload(record: SubmissionRecord): SubmissionInput {
     rightsStatement: record.rightsStatement,
     submitterNote: record.submitterNote,
   };
+}
+
+function normalizeTagValue(value: string | null | undefined) {
+  if (!value) {
+    return null;
+  }
+
+  const normalized = value.trim().replace(/\s+/g, ' ');
+  return normalized.length > 0 ? normalized : null;
+}
+
+function dedupeNormalizedTags(values: string[]) {
+  const result: string[] = [];
+  const seen = new Set<string>();
+
+  for (const value of values) {
+    const normalized = normalizeTagValue(value);
+    if (!normalized) {
+      continue;
+    }
+
+    const key = normalized.toLowerCase();
+    if (seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    result.push(normalized);
+  }
+
+  return result;
 }
 
 function findSubmissionByPublicId(publicId: string) {
@@ -416,6 +451,7 @@ function serializeSubmissionInput(input: SubmissionInput) {
     summary: input.summary,
     category: input.category,
     tags_json: stringifyArray(input.tags),
+    proposed_tags_json: stringifyArray(input.proposedTags),
     tones_json: stringifyArray(input.tones),
     use_cases_json: stringifyArray(input.useCases),
     compatible_models_json: stringifyArray(input.compatibleModels),
@@ -484,7 +520,7 @@ export function createSubmission(input: SubmissionInput) {
       INSERT INTO soul_submissions (
         id, public_id, manage_token_hash, status,
         submission_type, title, summary, category,
-        tags_json, tones_json, use_cases_json, compatible_models_json,
+        tags_json, proposed_tags_json, tones_json, use_cases_json, compatible_models_json,
         preview_hook, preview_prompt, preview_response,
         intro, features_json, suggestions_json, raw_soul,
         author_name, contact_method, contact_value,
@@ -495,7 +531,7 @@ export function createSubmission(input: SubmissionInput) {
       ) VALUES (
         @id, @public_id, @manage_token_hash, @status,
         @submission_type, @title, @summary, @category,
-        @tags_json, @tones_json, @use_cases_json, @compatible_models_json,
+        @tags_json, @proposed_tags_json, @tones_json, @use_cases_json, @compatible_models_json,
         @preview_hook, @preview_prompt, @preview_response,
         @intro, @features_json, @suggestions_json, @raw_soul,
         @author_name, @contact_method, @contact_value,
@@ -569,6 +605,7 @@ export function updateSubmissionByManageToken(publicId: string, token: string, i
         summary = @summary,
         category = @category,
         tags_json = @tags_json,
+        proposed_tags_json = @proposed_tags_json,
         tones_json = @tones_json,
         use_cases_json = @use_cases_json,
         compatible_models_json = @compatible_models_json,
@@ -966,6 +1003,83 @@ export function decideSubmission(
     submission: updatedSubmission,
     publishedSoul: mapPublishedSoulRow(createdPublishedRow),
   };
+}
+
+export function applySubmissionTagAction(
+  id: string,
+  action: 'merge' | 'accept' | 'dismiss',
+  proposedTag: string,
+  targetTag?: string | null,
+): SubmissionRecord {
+  const db = database();
+  const submission = findSubmissionById(id);
+  if (!submission) {
+    throw new Error('submission_not_found');
+  }
+
+  const normalizedProposedTag = normalizeTagValue(proposedTag);
+  if (!normalizedProposedTag) {
+    throw new Error('invalid_proposed_tag');
+  }
+
+  const nextProposedTags = dedupeNormalizedTags(submission.proposedTags).filter(
+    (tag) => tag.toLowerCase() !== normalizedProposedTag.toLowerCase(),
+  );
+
+  if (nextProposedTags.length === submission.proposedTags.length) {
+    throw new Error('proposed_tag_not_found');
+  }
+
+  let nextTags = dedupeNormalizedTags(submission.tags);
+
+  if (action === 'merge') {
+    const normalizedTargetTag = normalizeTagValue(targetTag);
+    if (!normalizedTargetTag) {
+      throw new Error('invalid_target_tag');
+    }
+
+    nextTags = dedupeNormalizedTags([...nextTags, normalizedTargetTag]);
+  } else if (action === 'accept') {
+    nextTags = dedupeNormalizedTags([...nextTags, normalizedProposedTag]);
+  } else if (action !== 'dismiss') {
+    throw new Error('invalid_tag_action');
+  }
+
+  const nextPayload: SubmissionInput = {
+    ...getSubmissionPayload(submission),
+    tags: nextTags,
+    proposedTags: nextProposedTags,
+  };
+  const serialized = serializeSubmissionInput(nextPayload);
+  const now = new Date().toISOString();
+
+  const transaction = db.transaction(() => {
+    db.prepare(`
+      UPDATE soul_submissions
+      SET
+        tags_json = @tags_json,
+        proposed_tags_json = @proposed_tags_json,
+        updated_at = @updated_at,
+        reviewed_at = @reviewed_at
+      WHERE id = @id
+    `).run({
+      id: submission.id,
+      ...serialized,
+      updated_at: now,
+      reviewed_at: now,
+    });
+
+    writeRevision(db, submission.id, nextPayload, 'admin');
+  });
+
+  transaction();
+
+  const updatedSubmission = findSubmissionById(submission.id);
+  if (!updatedSubmission) {
+    throw new Error('submission_update_failed');
+  }
+
+  return updatedSubmission;
 }
 
 export function getPublishedSoulDocuments(): SoulDocument[] {

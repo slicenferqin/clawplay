@@ -3,11 +3,12 @@ import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 
 import { AdminDecisionForm } from '@/components/admin-decision-form';
+import { AdminTagGovernanceForm } from '@/components/admin-tag-governance-form';
 import { SiteHeader } from '@/components/site-header';
 import { SubmissionStatusBadge } from '@/components/submission-status-badge';
 import { CATEGORY_LABELS } from '@/lib/souls-types';
 import { isAdminAuthenticated } from '@/lib/submissions/admin';
-import { assessSubmissionContent } from '@/lib/content-rules';
+import { assessSubmissionContent, reviewTagVocabulary } from '@/lib/content-rules';
 import { buildNoIndexMetadata } from '@/lib/seo';
 import { getSubmissionQueueInsight } from '@/lib/submissions/review-queue';
 import { getSubmissionDetailForAdmin } from '@/lib/submissions/service';
@@ -79,6 +80,7 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
   const contentAssessment = assessSubmissionContent(detail.submission);
   const sourceReviewState = getSourceReviewState(detail.submission);
   const queueInsight = getSubmissionQueueInsight(detail.submission);
+  const tagReview = reviewTagVocabulary(detail.submission.tags);
 
   return (
     <>
@@ -246,6 +248,48 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
                   </ul>
                 </section>
               </div>
+            </article>
+
+            <article className="detail-panel">
+              <div className="detail-panel__header">
+                <div>
+                  <p className="detail-panel__eyebrow">Tag Governance</p>
+                  <h2 className="detail-panel__title detail-panel__title--small">标签治理</h2>
+                </div>
+                <p className="detail-panel__body">这里专门处理词表外的新标签建议，避免它们直接混进前台公开标签。</p>
+              </div>
+
+              <div className="detail-callout-grid">
+                <section className="detail-callout">
+                  <h3 className="detail-panel__subheading">当前正式标签</h3>
+                  {detail.submission.tags.length > 0 ? (
+                    <div className="detail-chip-list">
+                      {detail.submission.tags.map((tag) => <span key={tag} className="tag-pill">{tag}</span>)}
+                    </div>
+                  ) : (
+                    <p className="detail-panel__body">当前还没有正式标签，前台发布前建议至少收口 3-6 个。</p>
+                  )}
+                </section>
+
+                <section className="detail-callout">
+                  <h3 className="detail-panel__subheading">词表检查</h3>
+                  {(tagReview.aliasMappings.length > 0 || tagReview.duplicateTags.length > 0 || tagReview.offDictionaryTags.length > 0) ? (
+                    <ul className="detail-panel__list detail-panel__list--compact">
+                      {tagReview.aliasMappings.length > 0 ? <li>可归并同义词：{tagReview.aliasMappings.map((item) => `${item.input}→${item.canonical}`).join('，')}</li> : null}
+                      {tagReview.duplicateTags.length > 0 ? <li>存在重复或重叠标签：{tagReview.duplicateTags.join('，')}</li> : null}
+                      {tagReview.offDictionaryTags.length > 0 ? <li>还有词表外正式标签：{tagReview.offDictionaryTags.join('，')}</li> : null}
+                    </ul>
+                  ) : (
+                    <p className="detail-panel__body">当前正式标签结构比较干净，没有明显的同义词或词表外标签问题。</p>
+                  )}
+                </section>
+              </div>
+
+              <AdminTagGovernanceForm
+                submissionId={detail.submission.id}
+                currentTags={detail.submission.tags}
+                proposedTags={detail.submission.proposedTags}
+              />
             </article>
 
             <article className="detail-panel">
