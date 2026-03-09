@@ -392,7 +392,7 @@ async function main() {
     name: '新手专题页',
     pathname: '/collections/starter',
     titleIncludes: '新手首选专题',
-    bodyIncludes: ['为什么先看这组', '推荐灵魂'],
+    bodyIncludes: ['为什么先看这组', '推荐灵魂', '分享这组'],
     expectedCanonicalPath: '/collections/starter',
     expectedOgPath: '/collections/starter/opengraph-image',
   });

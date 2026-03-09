@@ -1,9 +1,17 @@
 import 'server-only';
 
 import { getHotlist } from '@/lib/analytics/hotlist';
+import { buildAbsoluteUrl } from '@/lib/seo';
 import { getAllSouls, type SoulDocument } from '@/lib/souls';
 
 export type GrowthCollectionKey = 'starter' | 'developer' | 'hot' | 'latest';
+
+export interface GrowthCollectionShareTemplate {
+  key: 'short' | 'long';
+  title: string;
+  description: string;
+  text: string;
+}
 
 export interface GrowthCollectionSection {
   key: GrowthCollectionKey;
@@ -18,8 +26,11 @@ export interface GrowthCollectionSection {
   highlights: string[];
   fitFor: string[];
   shareBadges: string[];
+  shareTemplates: GrowthCollectionShareTemplate[];
   souls: SoulDocument[];
 }
+
+type GrowthCollectionSeed = Omit<GrowthCollectionSection, 'shareTemplates'>;
 
 const STARTER_SLUGS = ['edict-counselor', 'catgirl-nova', 'socratic'];
 const DEVELOPER_SLUGS = ['code-reviewer', 'architect', 'grumpy-wang'];
@@ -87,6 +98,83 @@ async function getHotSouls(soulsBySlug: Map<string, SoulDocument>, featuredSouls
   };
 }
 
+function buildGrowthCollectionShareTemplates(collection: GrowthCollectionSeed): GrowthCollectionShareTemplate[] {
+  const collectionUrl = buildAbsoluteUrl(collection.pageHref);
+  const soulTitles = collection.souls.map((soul) => soul.title).join('、');
+
+  switch (collection.key) {
+    case 'starter':
+      return [
+        {
+          key: 'short',
+          title: '短文案',
+          description: '适合发群、私聊或评论区，先把链接丢出去。',
+          text: `第一次装 SOUL.md 不知道先从谁开始？可以先看 ClawPlay 的「${collection.title}」专题：3 个更稳妥、低门槛的中文 Soul，适合先建立使用预期。\n${collectionUrl}`,
+        },
+        {
+          key: 'long',
+          title: '长文案',
+          description: '适合发帖、写推荐说明，顺手把“为什么值得看”讲清楚。',
+          text: `如果你第一次尝试 OpenClaw / ClawPlay，最容易卡住的通常不是“没有 Soul”，而是候选太多、不知道先装哪个。这个「${collection.title}」专题先帮你收口到 3 个更容易上手的入口：${soulTitles}。可以先看简介、预览和原始 SOUL，再决定要不要替换。\n${collectionUrl}`,
+        },
+      ];
+    case 'developer':
+      return [
+        {
+          key: 'short',
+          title: '短文案',
+          description: '适合技术群 / 朋友圈，直接点明“能进工作流”。',
+          text: `如果你是拿 Soul 真做开发协作，不想只看人设，可以直接看 ClawPlay 的「${collection.title}」专题：更偏代码审查、架构判断和需求拆解。\n${collectionUrl}`,
+        },
+        {
+          key: 'long',
+          title: '长文案',
+          description: '适合写推荐贴，强调工程价值而不是角色氛围。',
+          text: `很多 Soul 看起来聪明，但未必真的适合开发工作流。ClawPlay 这组「${collection.title}」专题优先收口到更适合 review、架构拆解、需求判断的几个入口：${soulTitles}。如果你想找的是能进真实工作流的 Soul，可以先从这组开始。\n${collectionUrl}`,
+        },
+      ];
+    case 'hot':
+      return [
+        {
+          key: 'short',
+          title: '短文案',
+          description: '适合跟朋友说“最近大家都在看什么”。',
+          text: `不想自己慢慢挑的话，可以先看 ClawPlay 的「${collection.title}」专题：优先参考站内最近的查看、安装复制和原文下载信号。\n${collectionUrl}`,
+        },
+        {
+          key: 'long',
+          title: '长文案',
+          description: '适合强调这不是主观推荐，而是站内行为信号。',
+          text: `如果你只想先看“最近大家更常点开的那些 Soul”，可以直接看 ClawPlay 的「${collection.title}」专题。这组尽量复用站内真实行为信号，不是编辑拍脑袋说热门；当前收口到 ${soulTitles} 这几位，适合先快速试一轮。\n${collectionUrl}`,
+        },
+      ];
+    case 'latest':
+      return [
+        {
+          key: 'short',
+          title: '短文案',
+          description: '适合回访用户或老玩家互相安利。',
+          text: `最近想看看 ClawPlay 又收了什么新 Soul，可以直接翻「${collection.title}」专题。对已经装过几轮的人会比继续翻全库更高效。\n${collectionUrl}`,
+        },
+        {
+          key: 'long',
+          title: '长文案',
+          description: '适合发更新通知，突出“新内容”价值。',
+          text: `如果你已经装过几轮 Soul，继续从全量列表里翻会很慢。ClawPlay 现在把最近更新的内容先收在「${collection.title}」专题里，当前这组可以先从 ${soulTitles} 这些入口开始，适合回访、尝鲜和做第二轮替换比较。\n${collectionUrl}`,
+        },
+      ];
+    default:
+      return [];
+  }
+}
+
+function createGrowthCollection(collection: GrowthCollectionSeed): GrowthCollectionSection {
+  return {
+    ...collection,
+    shareTemplates: buildGrowthCollectionShareTemplates(collection),
+  };
+}
+
 export function getGrowthCollectionPath(key: GrowthCollectionKey) {
   return `/collections/${key}`;
 }
@@ -102,7 +190,7 @@ export async function getGrowthCollections(): Promise<GrowthCollectionSection[]>
   const hotSection = await getHotSouls(soulsBySlug, featuredSouls);
 
   return [
-    {
+    createGrowthCollection({
       key: 'starter',
       eyebrow: '第一次来先看这里',
       title: '新手首选',
@@ -116,8 +204,8 @@ export async function getGrowthCollections(): Promise<GrowthCollectionSection[]>
       fitFor: ['第一次替换本地 SOUL.md 的用户', '想先体验站内代表性 Soul 的用户', '还没形成明确角色偏好的用户'],
       shareBadges: ['新手首选', '低门槛', '先试这组'],
       souls: pickSoulsBySlugs(STARTER_SLUGS, soulsBySlug),
-    },
-    {
+    }),
+    createGrowthCollection({
       key: 'developer',
       eyebrow: '偏工程工作流',
       title: '开发首选',
@@ -131,8 +219,8 @@ export async function getGrowthCollections(): Promise<GrowthCollectionSection[]>
       fitFor: ['开发者 / 独立开发者', '需要代码审查与架构辅助的人', '希望把 Soul 直接嵌进工作流的人'],
       shareBadges: ['开发首选', '工程工作流', '代码审查'],
       souls: pickSoulsBySlugs(DEVELOPER_SLUGS, soulsBySlug),
-    },
-    {
+    }),
+    createGrowthCollection({
       key: 'hot',
       eyebrow: '近 30 天行为信号',
       title: '当前热门',
@@ -146,8 +234,8 @@ export async function getGrowthCollections(): Promise<GrowthCollectionSection[]>
       fitFor: ['不想花太多时间比较的人', '想直接看近期更受欢迎选择的人', '准备先装一个试试的用户'],
       shareBadges: ['当前热门', '行为信号', '近期趋势'],
       souls: hotSection.souls,
-    },
-    {
+    }),
+    createGrowthCollection({
       key: 'latest',
       eyebrow: '想尝鲜就看这里',
       title: '最近新增',
@@ -161,7 +249,7 @@ export async function getGrowthCollections(): Promise<GrowthCollectionSection[]>
       fitFor: ['已经使用过 ClawPlay 的回访用户', '喜欢尝鲜、想看最近变化的人', '准备做二次替换和比较的人'],
       shareBadges: ['最近新增', '想尝鲜', '新内容'],
       souls: getLatestSouls(souls),
-    },
+    }),
   ];
 }
 

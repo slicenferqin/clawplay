@@ -2,10 +2,11 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { CopyButton } from '@/components/copy-button';
 import { SiteHeader } from '@/components/site-header';
 import { SoulCard } from '@/components/soul-card';
+import { buildAbsoluteUrl, buildNoIndexMetadata, buildPageMetadata } from '@/lib/seo';
 import { getGrowthCollectionByKey, getGrowthCollectionKeys } from '@/lib/collections';
-import { buildNoIndexMetadata, buildPageMetadata } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -40,6 +41,8 @@ export default async function CollectionDetailPage({ params }: { params: Promise
   if (!collection) {
     notFound();
   }
+
+  const collectionUrl = buildAbsoluteUrl(collection.pageHref);
 
   return (
     <>
@@ -94,6 +97,35 @@ export default async function CollectionDetailPage({ params }: { params: Promise
           <div className="soul-grid soul-grid--three">
             {collection.souls.map((soul) => (
               <SoulCard key={`${collection.key}-${soul.slug}`} soul={soul} />
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <div className="section-heading-row growth-detail-page__section-row growth-detail-share__row">
+            <div className="growth-detail-share__heading">
+              <h2>分享这组</h2>
+              <p>专题页已经是可单独传播的落点。这里给你准备了可直接外发的链接和文案，等域名放开后就能直接拿去发群、发帖或私聊。</p>
+            </div>
+            <div className="growth-detail-share__actions">
+              <CopyButton text={collectionUrl} label="复制专题链接" />
+              <Link href={`${collection.pageHref}/opengraph-image`} className="text-action-link" target="_blank" rel="noreferrer">
+                打开分享图
+              </Link>
+            </div>
+          </div>
+          <div className="prose-page__card-grid growth-detail-share__grid">
+            {collection.shareTemplates.map((template) => (
+              <article key={template.key} className="prose-page__mini-card growth-detail-share-card">
+                <div className="growth-detail-share-card__header">
+                  <p className="growth-detail-share-card__eyebrow">{template.title}</p>
+                  <p className="growth-detail-share-card__description">{template.description}</p>
+                </div>
+                <p className="growth-detail-share-card__content">{template.text}</p>
+                <div className="growth-detail-share-card__actions">
+                  <CopyButton text={template.text} label={`复制${template.title}`} />
+                </div>
+              </article>
             ))}
           </div>
         </section>
