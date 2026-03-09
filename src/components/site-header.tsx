@@ -4,7 +4,7 @@ import { ArrowRightIcon, SparkIcon } from '@/components/icons';
 
 const navItems = [
   { href: '/souls', label: '灵魂库' },
-  { href: '/#collections', label: '合集' },
+  { href: '/collections', label: '合集' },
   { href: '/install', label: '安装' },
   { href: '/submit', label: '投稿' },
   { href: '/about', label: '关于' },

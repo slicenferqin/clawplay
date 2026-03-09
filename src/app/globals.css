@@ -896,6 +896,97 @@ pre {
   text-transform: uppercase;
 }
 
+.toolbar-row__actions {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.growth-page__hero {
+  gap: 14px;
+}
+
+.growth-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 12px;
+}
+
+.growth-overview-card {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.growth-overview-card:hover,
+.growth-overview-card:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(186, 176, 159, 0.96);
+  background: rgba(255, 253, 248, 0.98);
+  box-shadow: 0 14px 26px rgba(18, 20, 18, 0.055);
+}
+
+.growth-overview-card__eyebrow {
+  color: var(--text-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.growth-overview-card__title {
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+.growth-overview-card__summary,
+.growth-section__description,
+.growth-section__note {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.growth-overview-card__meta {
+  color: var(--accent);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.growth-section__row {
+  align-items: flex-end;
+}
+
+.growth-section__heading {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.growth-section__description {
+  max-width: 46rem;
+}
+
+.growth-section__note {
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px dashed rgba(112, 138, 68, 0.22);
+  background: rgba(223, 231, 207, 0.3);
+}
+
+.growth-page__closing {
+  margin-top: 44px;
+}
+
 .list-layout,
 .detail-layout {
   display: grid;
@@ -1308,14 +1399,16 @@ pre {
   .soul-grid--three,
   .detail-panel__columns,
   .journey-grid,
-  .prose-page__card-grid {
+  .prose-page__card-grid,
+  .growth-overview-grid {
     grid-template-columns: 1fr;
   }
 
   .toolbar-row,
   .detail-heading,
   .install-strip,
-  .section-heading-row {
+  .section-heading-row,
+  .growth-section__row {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -1349,7 +1442,8 @@ pre {
 
   .hero-grid__actions,
   .install-strip__actions,
-  .site-footer__inner {
+  .site-footer__inner,
+  .toolbar-row__actions {
     align-items: stretch;
   }
 

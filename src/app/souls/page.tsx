@@ -56,7 +56,12 @@ export default async function SoulsPage({ searchParams }: { searchParams?: Promi
             defaultValue={query}
             hiddenFields={{ category: category || undefined, sourceType: sourceType || undefined }}
           />
-          <span className="toolbar-row__sort">排序：精选</span>
+          <div className="toolbar-row__actions">
+            <span className="toolbar-row__sort">排序：精选</span>
+            <Link href="/collections" className="section-link">
+              不知道怎么选？看合集
+            </Link>
+          </div>
         </div>
 
         <section className="list-layout">

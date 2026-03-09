@@ -11,6 +11,7 @@ export function SiteFooter() {
 
         <nav className="site-footer__nav" aria-label="页脚导航">
           <Link href="/souls">灵魂库</Link>
+          <Link href="/collections">合集</Link>
           <Link href="/install">安装</Link>
           <Link href="/submit">投稿</Link>
           <Link href="/about">关于</Link>

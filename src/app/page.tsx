@@ -112,7 +112,12 @@ export default async function HomePage() {
         </section>
 
         <section className="content-section" id="collections">
-          <h2 className="section-title">按用途浏览</h2>
+          <div className="section-heading-row">
+            <h2 className="section-title">按用途浏览</h2>
+            <Link href="/collections" className="section-link">
+              先看推荐合集
+            </Link>
+          </div>
           <div className="collection-grid">
             {collections.map((collection) => (
               <Link

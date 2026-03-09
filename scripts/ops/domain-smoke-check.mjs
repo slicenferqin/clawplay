@@ -382,6 +382,13 @@ async function main() {
     expectedCanonicalPath: '/souls',
   });
   await checkHtmlPage({
+    name: '推荐合集页',
+    pathname: '/collections',
+    titleIncludes: '推荐合集',
+    bodyIncludes: ['新手首选', '当前热门'],
+    expectedCanonicalPath: '/collections',
+  });
+  await checkHtmlPage({
     name: 'Soul 详情页',
     pathname: `/souls/${detailSlug}`,
     titleIncludes: 'ClawPlay',
