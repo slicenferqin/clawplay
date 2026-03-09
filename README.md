@@ -137,7 +137,7 @@ scripts/                  运维与内容治理脚本
 - `P2` 后台审核效率优化：已完成
 - `P3` 标签治理闭环：已完成
 - `P4` 发布前内容资产准备：已完成第二刀
-- `P5` 站点可信度补强：已完成第一刀，继续收尾中
+- `P5` 站点可信度补强：已完成第二刀，进入长期细修
 - `P6` 增长侧准备：下一阶段
 
 路线图文档：[`docs/execution/08-filing-wait-priority-roadmap.md`](docs/execution/08-filing-wait-priority-roadmap.md)
@@ -151,6 +151,7 @@ scripts/                  运维与内容治理脚本
 - [`docs/execution/13-page-copy-rollout.md`](docs/execution/13-page-copy-rollout.md)
 - [`docs/execution/14-site-trust-foundation.md`](docs/execution/14-site-trust-foundation.md)
 - [`docs/execution/15-readme-premium-polish.md`](docs/execution/15-readme-premium-polish.md)
+- [`docs/execution/16-ops-health-and-recovery.md`](docs/execution/16-ops-health-and-recovery.md)
 
 ### 内容治理
 

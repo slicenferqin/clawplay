@@ -274,6 +274,34 @@ async function checkXml({ name, pathname, expectedMarkers = [] }) {
   return checkPlainText({ name, pathname, expectedMarkers });
 }
 
+async function checkHealthJson({ name, pathname }) {
+  const url = buildActiveUrl(pathname);
+
+  try {
+    const response = await fetchResponse(url);
+    if (!response.ok) {
+      pushResult('FAIL', name, `${url} 返回 ${response.status}。`);
+      return;
+    }
+
+    const payload = await response.json();
+    if (payload?.status !== 'ok') {
+      pushResult('FAIL', name, `${url} 返回 status=${payload?.status ?? '空'}。`);
+      return;
+    }
+
+    const failedChecks = Number(payload?.summary?.failedChecks ?? 0);
+    if (failedChecks > 0) {
+      pushResult('FAIL', name, `${url} 存在 ${failedChecks} 个失败检查项。`);
+      return;
+    }
+
+    pushResult('PASS', name, `${url} 正常，健康检查返回 ok。`);
+  } catch (error) {
+    pushResult('FAIL', name, `${url} 访问失败：${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+
 async function checkOgRoute(name, ogPath) {
   const expectedOgImage = buildExpectedUrl(ogPath);
   const urlToFetch = getOrigin(activeHost) === getOrigin(expectedSiteUrl)
@@ -374,6 +402,10 @@ async function main() {
     titleIncludes: '管理员登录',
     bodyIncludes: ['管理员登录'],
     expectedRobots: 'noindex, nofollow',
+  });
+  await checkHealthJson({
+    name: '健康检查',
+    pathname: '/api/health',
   });
   await checkPlainText({
     name: 'robots.txt',

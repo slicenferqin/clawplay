@@ -8,7 +8,8 @@
     "start": "next start",
     "audit:translated-categories": "node scripts/content/translated-category-migration.mjs",
     "cleanup:translated-categories": "node scripts/content/translated-category-migration.mjs --write",
-    "smoke:domain": "node scripts/ops/domain-smoke-check.mjs"
+    "smoke:domain": "node scripts/ops/domain-smoke-check.mjs",
+    "backup:data": "node scripts/ops/backup-data.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^12.6.2",
