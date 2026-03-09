@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "audit:translated-categories": "node scripts/content/translated-category-migration.mjs",
-    "cleanup:translated-categories": "node scripts/content/translated-category-migration.mjs --write"
+    "cleanup:translated-categories": "node scripts/content/translated-category-migration.mjs --write",
+    "smoke:domain": "node scripts/ops/domain-smoke-check.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^12.6.2",
