@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>面向 OpenClaw 的中文 <code>SOUL.md</code> 目录与分享站</strong>
+  <strong>面向 OpenClaw 的中文 <code>SOUL.md</code> 目录与人格分享站</strong>
   <br />
   把零散的 Soul 整理成一个可浏览、可比较、可安装、可投稿的产品入口。
 </p>
@@ -49,6 +49,7 @@ ClawPlay 当前已经打通的主链路：
 - 管理后台审核、修订、发布与标签治理
 - 基础 SEO、OG 图、`robots.txt`、`sitemap.xml`
 - 基础分析、热度榜与域名 smoke 检查
+- 下一版本方向已确定：Soul 人格维度、雷达图、AI 辅助分析
 
 当前对外状态：
 
@@ -139,6 +140,7 @@ scripts/                  运维与内容治理脚本
 - `P4` 发布前内容资产准备：已完成第二刀
 - `P5` 站点可信度补强：已完成第二刀，进入长期细修
 - `P6` 增长侧准备：已完成第三刀
+- `P7` Soul as Persona：版本 PRD 与技术设计已完成，子项文档已拆分，待实施
 
 路线图文档：[`docs/execution/08-filing-wait-priority-roadmap.md`](docs/execution/08-filing-wait-priority-roadmap.md)
 
@@ -155,6 +157,8 @@ scripts/                  运维与内容治理脚本
 - [`docs/execution/17-growth-entry-prep.md`](docs/execution/17-growth-entry-prep.md)
 - [`docs/execution/18-shareable-collection-pages.md`](docs/execution/18-shareable-collection-pages.md)
 - [`docs/execution/19-collection-share-copy.md`](docs/execution/19-collection-share-copy.md)
+- [`docs/execution/20-soul-as-persona-vnext.md`](docs/execution/20-soul-as-persona-vnext.md)
+- [`docs/execution/21-persona-analysis-foundation.md`](docs/execution/21-persona-analysis-foundation.md)
 
 ### 内容治理
 
