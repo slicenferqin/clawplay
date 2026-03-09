@@ -1,0 +1,22 @@
+import Link from 'next/link';
+
+export function SiteFooter() {
+  return (
+    <footer className="site-footer">
+      <div className="site-footer__inner page-shell">
+        <div className="site-footer__brand">
+          <strong>ClawPlay</strong>
+          <p>把零散的中文 `SOUL.md` 整理成可浏览、可比较、可安装、可投稿的目录站。</p>
+        </div>
+
+        <nav className="site-footer__nav" aria-label="页脚导航">
+          <Link href="/souls">灵魂库</Link>
+          <Link href="/install">安装</Link>
+          <Link href="/submit">投稿</Link>
+          <Link href="/about">关于</Link>
+          <a href="https://github.com/slicenferqin/clawplay" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+  );
+}

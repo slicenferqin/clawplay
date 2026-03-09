@@ -333,11 +333,11 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
     <form className="submission-form" onSubmit={handleSubmit}>
       <section className="submission-form__section submission-intake">
         <div className="submission-form__section-header">
-          <h2>{mode === 'revision' ? '按审核意见补资料' : '先交首稿，剩下的后面再补'}</h2>
+          <h2>{mode === 'revision' ? '按审核意见补资料' : '先交首稿，剩下的展示信息后面再补'}</h2>
           <p>
             {mode === 'revision'
               ? '这次不需要再从头填写。优先把审核里点名的问题补齐，其他展示信息可以顺手完善。'
-              : '这页现在只收最关键的信息，先让你顺利投稿。标签、预览示例、风格说明这些都可以展开补充。'}
+              : '这页先收最关键的信息，目的是让你顺利把首稿投进来。标签、预览示例、风格说明和联系方式，都可以后面再补。'}
           </p>
         </div>
 
@@ -362,14 +362,14 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
             ) : null}
           </div>
         ) : (
-          <p className="submission-form__hint">前台不会因为展示字段没填完整就拦你；真正的发布底线放在后台审核阶段。</p>
+          <p className="submission-form__hint">前台不会因为展示字段没填完整就拦你；后台审核真正优先看的是内容是否可信、是否可安装、来源是否清楚。</p>
         )}
       </section>
 
       <section className="submission-form__section submission-form__section--compact">
         <div className="submission-form__section-header">
           <h2>核心信息</h2>
-          <p>这部分是首稿必填，控制在 1-2 分钟内能完成。</p>
+          <p>这部分是首稿必填，尽量控制在 1-2 分钟内完成。</p>
         </div>
 
         <div className="submission-form__grid submission-form__grid--core">
@@ -425,7 +425,7 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
                 <label className="submission-form__label" htmlFor="source-url">来源链接</label>
                 <input id="source-url" className="submission-form__input" value={values.sourceUrl} onChange={(event) => updateValue('sourceUrl', event.target.value)} required={requiresSourceAttribution} />
                 <p className={`submission-form__assist submission-form__assist--${values.sourceUrl.trim() ? 'pass' : 'warning'}`}>
-                  {values.sourceUrl.trim() ? '来源链接已提供。' : '翻译或改编稿件至少要提供原始来源链接。'}
+                  {values.sourceUrl.trim() ? '来源链接已提供。' : '翻译或改编稿件至少要提供原始来源链接，最好还能补清原作者。'}
                 </p>
               </div>
 
@@ -465,14 +465,14 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
                 <p className="submission-form__file-dropzone-meta">
                   {rawSoulImportedFileName
                     ? `已导入 ${rawSoulImportedFileName}，现在还可以继续手动编辑。`
-                    : '导入后会自动填充到下方文本框，省掉复制粘贴。'}
+                    : '导入后会自动填充到下方文本框，省掉复制粘贴；有原始 `.md` 就可以先投。'}
                 </p>
               </div>
               <textarea id="raw-soul" className="submission-form__textarea submission-form__textarea--code" rows={16} value={values.rawSoul} onChange={(event) => updateValue('rawSoul', event.target.value)} required />
             </div>
 
             <p className={`submission-form__assist submission-form__assist--${rawSoulImportError ? 'warning' : 'neutral'}`}>
-              {rawSoulImportError || '尽量贴接近最终安装态的版本。预览示例和标签这次没写全也没关系。'}
+              {rawSoulImportError || '尽量贴接近最终安装态的版本。先把能安装的内容交上来，比把展示文案一次写满更重要。'}
             </p>
           </div>
         </div>
@@ -482,7 +482,7 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
         <div className="submission-form__toolbar">
           <div>
             <h2 className="submission-form__toolbar-title">补充展示信息</h2>
-            <p className="submission-form__hint">这部分不是首稿门槛，但会影响审核效率、列表页观感和后续 SEO。</p>
+            <p className="submission-form__hint">这部分不是首稿门槛，但会明显影响审核效率、列表页观感和后续 SEO。</p>
           </div>
           <button
             type="button"
@@ -623,7 +623,7 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
 
       {errorMessage ? <p className="submission-form__error">{errorMessage}</p> : null}
       <div className="submission-form__footer">
-        <p className="submission-form__hint">提交后会进入人工审核队列。需要补资料时，你会通过私密管理链接继续补，而不是这次一次写完。</p>
+        <p className="submission-form__hint">提交后会进入人工审核队列。需要补资料时，你会通过私密管理链接继续补，不要求这次一次写完。</p>
         <button type="submit" className="submission-form__submit" disabled={isSubmitting}>
           {isSubmitting ? '提交中…' : mode === 'revision' ? '提交补充版本' : '提交首稿'}
         </button>

@@ -7,6 +7,7 @@ const navItems = [
   { href: '/#collections', label: '合集' },
   { href: '/install', label: '安装' },
   { href: '/submit', label: '投稿' },
+  { href: '/about', label: '关于' },
 ];
 
 export function SiteHeader() {

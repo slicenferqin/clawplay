@@ -1,8 +1,10 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 
 import { FeaturedSoulCardContent } from '@/components/featured-soul-card';
+import { ArrowRightIcon } from '@/components/icons';
 import { SiteSearchForm } from '@/components/site-search-form';
 import { trackClientEventOnce } from '@/lib/analytics/client';
 
@@ -141,7 +143,7 @@ export function HeroShowcase({ soulCount, souls }: HeroShowcaseProps) {
       <div className="hero-grid__content">
         <p className="eyebrow">为 OpenClaw 精选的中文 Soul</p>
         <h1 className="hero-grid__title">
-          <span className="hero-grid__title-prefix">先看感觉，再决定装</span>
+          <span className="hero-grid__title-prefix">先看预览，再决定装</span>
           <span className="hero-grid__title-dynamic">
             <span className={`rotating-soul-name${prefersReducedMotion || items.length <= 1 ? ' rotating-soul-name--static' : ''}`}>
               <span className="rotating-soul-name__visual" aria-hidden="true">
@@ -154,13 +156,21 @@ export function HeroShowcase({ soulCount, souls }: HeroShowcaseProps) {
           </span>
         </h1>
         <p className="hero-grid__description">
-          ClawPlay 把零散的 <code>SOUL.md</code> 整理成可浏览、可比较、可安装的中文目录站。
+          ClawPlay 把零散的 <code>SOUL.md</code> 整理成可浏览、可比较、可安装的中文目录站。看简介、看标签、看预览，再复制命令安装。
         </p>
+        <div className="hero-grid__actions">
+          <Link href="/souls" className="header-cta">
+            <span>先去挑一个灵魂</span>
+            <ArrowRightIcon className="header-cta__icon" />
+          </Link>
+          <Link href="/submit" className="text-action-link">我也想投稿</Link>
+        </div>
+        <p className="hero-grid__support">如果你还没准备好完整展示文案，也可以先在投稿页上传原始 `.md` 文件，把能安装的版本先投进来。</p>
         <SiteSearchForm placeholder="搜索灵魂、角色、使用场景" />
         <div className="hero-stats">
           <span>{soulCount} 个已收录灵魂</span>
-          <span>3 条核心路径</span>
-          <span>curl 安装</span>
+          <span>先看预览再安装</span>
+          <span>支持上传 `.md` 投稿</span>
         </div>
       </div>
       <div className="hero-grid__spotlight">
