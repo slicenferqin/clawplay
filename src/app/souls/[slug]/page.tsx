@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { AnalyticsViewTracker } from '@/components/analytics-view-tracker';
 import { CopyButton } from '@/components/copy-button';
+import { PersonaAnalysisPanel } from '@/components/persona-analysis-panel';
 import { ArrowRightIcon, DownloadIcon } from '@/components/icons';
 import { InstallCommand } from '@/components/install-command';
 import { SiteHeader } from '@/components/site-header';
@@ -110,6 +111,8 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
                 适合场景：{soul.useCases.join('、')}。语气偏向 {soul.tones.join(' / ')}，兼容 {soul.compatibleModels.join('、')}。
               </p>
             </article>
+
+            {soul.personaAnalysis ? <PersonaAnalysisPanel analysis={soul.personaAnalysis} /> : null}
 
             <article className="detail-panel">
               <h2 className="detail-panel__title detail-panel__title--small">示例对话</h2>

@@ -3,6 +3,7 @@ import 'server-only';
 import { randomUUID } from 'node:crypto';
 
 import { getAnalyticsDatabase } from '@/lib/analytics/db';
+import { cloneConfirmedSubmissionPersonaToSoul } from '@/lib/persona/service';
 import { assessSubmissionContent } from '@/lib/content-rules';
 import { CATEGORY_LABELS, type SoulDocument, type SoulSourceType } from '@/lib/souls-types';
 import { STATIC_SOUL_SLUGS } from '@/lib/static-soul-refs';
@@ -998,6 +999,8 @@ export function decideSubmission(
   if (!updatedSubmission || !createdPublishedRow) {
     throw new Error('submission_publish_failed');
   }
+
+  cloneConfirmedSubmissionPersonaToSoul(id, slug);
 
   return {
     submission: updatedSubmission,

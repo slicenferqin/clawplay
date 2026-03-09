@@ -1,3 +1,5 @@
+import type { PersonaAnalysisRecord } from '@/lib/persona/schema';
+
 export type PublicSoulCategoryKey = 'work' | 'dev' | 'learning' | 'creative';
 export type SoulCategoryKey = PublicSoulCategoryKey | 'translated';
 export type SoulSourceType = '原创' | '翻译' | '改编';
@@ -31,6 +33,7 @@ export interface SoulDocument extends SoulMeta {
   authorLines: string[];
   rawMarkdown: string;
   rawSoul: string;
+  personaAnalysis?: PersonaAnalysisRecord | null;
 }
 
 export const CATEGORY_ORDER: PublicSoulCategoryKey[] = ['work', 'creative', 'learning', 'dev'];

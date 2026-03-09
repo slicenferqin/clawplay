@@ -3,10 +3,12 @@ import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 
 import { AdminDecisionForm } from '@/components/admin-decision-form';
+import { AdminPersonaAnalysisCard } from '@/components/admin-persona-analysis-card';
 import { AdminTagGovernanceForm } from '@/components/admin-tag-governance-form';
 import { SiteHeader } from '@/components/site-header';
 import { SubmissionStatusBadge } from '@/components/submission-status-badge';
 import { CATEGORY_LABELS } from '@/lib/souls-types';
+import { getLatestPersonaAnalysisJob, getPersonaAnalysisBySubject } from '@/lib/persona/service';
 import { isAdminAuthenticated } from '@/lib/submissions/admin';
 import { assessSubmissionContent, reviewTagVocabulary } from '@/lib/content-rules';
 import { buildNoIndexMetadata } from '@/lib/seo';
@@ -81,6 +83,8 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
   const sourceReviewState = getSourceReviewState(detail.submission);
   const queueInsight = getSubmissionQueueInsight(detail.submission);
   const tagReview = reviewTagVocabulary(detail.submission.tags);
+  const personaAnalysis = getPersonaAnalysisBySubject('submission', detail.submission.id);
+  const latestPersonaJob = getLatestPersonaAnalysisJob('submission', detail.submission.id);
 
   return (
     <>
@@ -357,6 +361,13 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
                 ))}
               </ul>
             </article>
+
+
+            <AdminPersonaAnalysisCard
+              submissionId={detail.submission.id}
+              initialAnalysis={personaAnalysis}
+              latestJob={latestPersonaJob}
+            />
 
             <article className="detail-panel detail-panel--side">
               <div className="detail-panel__header">

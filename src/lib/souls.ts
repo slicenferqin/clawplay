@@ -2,6 +2,7 @@ import { cache } from 'react';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
+import { getConfirmedPersonaAnalysesForSoulSlugs } from '@/lib/persona/service';
 import { getPublishedSoulBySlug, getPublishedSoulDocuments } from '@/lib/submissions/service';
 import { CATEGORY_ORDER, SOURCE_TYPE_ORDER, getCategorySortIndex, type SoulCategoryKey, type SoulDocument, type SoulMeta, type SoulSourceType } from '@/lib/souls-types';
 
@@ -256,6 +257,15 @@ async function readSoul(meta: SoulMeta): Promise<SoulDocument> {
   };
 }
 
+
+function attachPersonaAnalyses(souls: SoulDocument[]) {
+  const personaMap = getConfirmedPersonaAnalysesForSoulSlugs(souls.map((soul) => soul.slug));
+  return souls.map((soul) => ({
+    ...soul,
+    personaAnalysis: personaMap.get(soul.slug) ?? null,
+  }));
+}
+
 const getStaticSouls = cache(async (): Promise<SoulDocument[]> => {
   const docs = await Promise.all(SOULS.map(readSoul));
 
@@ -306,7 +316,7 @@ export async function getAllSouls(): Promise<SoulDocument[]> {
     mergedSouls.set(soul.slug, soul);
   }
 
-  return Array.from(mergedSouls.values()).sort(sortSouls);
+  return attachPersonaAnalyses(Array.from(mergedSouls.values()).sort(sortSouls));
 }
 
 export async function getFeaturedSouls(): Promise<SoulDocument[]> {
@@ -318,10 +328,11 @@ export async function getSoulBySlug(slug: string): Promise<SoulDocument | undefi
   const staticSouls = await getStaticSouls();
   const staticSoul = staticSouls.find((soul) => soul.slug === slug);
   if (staticSoul) {
-    return staticSoul;
+    return attachPersonaAnalyses([staticSoul])[0];
   }
 
-  return getPublishedSoulBySlug(slug);
+  const publishedSoul = getPublishedSoulBySlug(slug);
+  return publishedSoul ? attachPersonaAnalyses([publishedSoul])[0] : undefined;
 }
 
 export async function getRelatedSouls(slug: string): Promise<SoulDocument[]> {

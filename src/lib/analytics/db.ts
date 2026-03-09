@@ -155,6 +155,46 @@ function initializeAnalyticsDatabase(database: Database.Database) {
 
     CREATE INDEX IF NOT EXISTS idx_published_souls_published_at
       ON published_souls (published_at);
+
+    CREATE TABLE IF NOT EXISTS persona_analyses (
+      id TEXT PRIMARY KEY,
+      subject_type TEXT NOT NULL,
+      subject_key TEXT NOT NULL,
+      version TEXT NOT NULL,
+      status TEXT NOT NULL,
+      summary TEXT NOT NULL,
+      public_scores_json TEXT NOT NULL,
+      public_reasons_json TEXT NOT NULL,
+      public_confidence_json TEXT NOT NULL,
+      internal_review_json TEXT NOT NULL,
+      source TEXT NOT NULL,
+      reviewed_by TEXT,
+      reviewed_at TEXT,
+      raw_response_json TEXT,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL,
+      UNIQUE(subject_type, subject_key)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_persona_analyses_subject
+      ON persona_analyses (subject_type, subject_key);
+
+    CREATE TABLE IF NOT EXISTS persona_analysis_jobs (
+      id TEXT PRIMARY KEY,
+      subject_type TEXT NOT NULL,
+      subject_key TEXT NOT NULL,
+      status TEXT NOT NULL,
+      attempts INTEGER NOT NULL DEFAULT 0,
+      priority INTEGER NOT NULL DEFAULT 100,
+      last_error TEXT,
+      queued_by TEXT,
+      run_after TEXT,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_persona_analysis_jobs_status_priority
+      ON persona_analysis_jobs (status, priority, created_at);
   `);
 
   ensureColumnExists(database, 'soul_submissions', 'proposed_tags_json', "TEXT NOT NULL DEFAULT '[]'");

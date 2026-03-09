@@ -5,7 +5,7 @@
 <p align="center">
   <strong>面向 OpenClaw 的中文 <code>SOUL.md</code> 目录与人格分享站</strong>
   <br />
-  把零散的 Soul 整理成一个可浏览、可比较、可安装、可投稿的产品入口。
+  把零散的 Soul 整理成一个可浏览、可比较、可导入、可投稿的人格分享入口。
 </p>
 
 <p align="center">
@@ -21,15 +21,15 @@
 ClawPlay 不是单纯把一堆 `SOUL.md` 扔进仓库，而是尝试把“给 OpenClaw 换灵魂”这件事整理成一个顺手的产品流程：
 
 - 先浏览 Soul，而不是到处翻群聊历史消息
-- 先比较简介、标签、预览和原文，再决定装哪个
-- 喜欢就复制命令安装，不喜欢也能快速回滚
+- 先比较简介、标签、人格画像、预览和原文，再决定导入哪个
+- 喜欢就复制命令导入，不喜欢也能快速回滚
 - 调教出了新 Soul，可以直接投稿分享，而不是只能发散落链接
 
 ## 为什么是 ClawPlay
 
-| 浏览 | 比较 | 安装 / 投稿 |
+| 浏览 | 比较 | 导入 / 投稿 |
 | --- | --- | --- |
-| 先看简介、标签、用途和来源类型，把零散内容放回一个能浏览的目录里。 | 先看预览和原文，再决定它是不是你的菜，而不是装了再碰运气。 | 找到喜欢的 Soul 后直接复制命令安装；如果你也调教好了一个版本，也能上传 `.md` 继续分享。 |
+| 先看简介、标签、用途和来源类型，把零散内容放回一个能浏览的目录里。 | 先看人格画像、预览和原文，再决定它适不适合你的龙虾，而不是替换了再碰运气。 | 找到喜欢的 Soul 后直接复制命令导入；如果你也调教好了一个版本，也能上传 `.md` 继续分享。 |
 
 ## 页面预览
 
@@ -44,12 +44,12 @@ ClawPlay 不是单纯把一堆 `SOUL.md` 扔进仓库，而是尝试把“给 Op
 ClawPlay 当前已经打通的主链路：
 
 - Soul 列表、分类、标签、来源类型浏览
-- Soul 详情、原文查看、下载与安装命令
+- Soul 详情、原文查看、下载与导入命令
+- Soul 详情页已新增人格画像、6 维雷达图与维度理由
 - 用户投稿，支持直接上传 `.md` 文件
-- 管理后台审核、修订、发布与标签治理
+- 管理后台审核、修订、发布、标签治理与人格分析确认
 - 基础 SEO、OG 图、`robots.txt`、`sitemap.xml`
-- 基础分析、热度榜与域名 smoke 检查
-- 下一版本方向已确定：Soul 人格维度、雷达图、AI 辅助分析
+- 基础分析、热度榜、人格 bootstrap 与域名 smoke 检查
 
 当前对外状态：
 
@@ -100,6 +100,9 @@ npm run cleanup:translated-categories
 | `CLAWPLAY_ANALYTICS_SALT` | 分析事件 IP hash 的盐值 |
 | `CLAWPLAY_ADMIN_PASSWORD` | 后台登录密码 |
 | `CLAWPLAY_ADMIN_SESSION_SECRET` | 后台 session 签名密钥 |
+| `CLAWPLAY_PERSONA_API_BASE_URL` | 可选的 OpenAI-compatible 人格分析接口地址 |
+| `CLAWPLAY_PERSONA_API_KEY` | 人格分析接口密钥 |
+| `CLAWPLAY_PERSONA_MODEL` | 人格分析模型名，默认 `gpt-4.1-mini` |
 
 完整示例见：[`.env.example`](.env.example)
 
@@ -140,7 +143,7 @@ scripts/                  运维与内容治理脚本
 - `P4` 发布前内容资产准备：已完成第二刀
 - `P5` 站点可信度补强：已完成第二刀，进入长期细修
 - `P6` 增长侧准备：已完成第三刀
-- `P7` Soul as Persona：版本 PRD 与技术设计已完成，子项文档已拆分，待实施
+- `P7` Soul as Persona：N1 文案定位与 N2 人格分析基础已完成，继续推进 N3 / N4 / N5
 
 路线图文档：[`docs/execution/08-filing-wait-priority-roadmap.md`](docs/execution/08-filing-wait-priority-roadmap.md)
 
@@ -176,5 +179,5 @@ scripts/                  运维与内容治理脚本
 ---
 
 <p align="center">
-  <sub>ClawPlay 现在更重视产品清晰度，而不是热闹感：少一点噪音，多一点浏览 / 比较 / 安装。</sub>
+  <sub>ClawPlay 现在更重视产品清晰度，而不是热闹感：少一点噪音，多一点浏览 / 比较 / 理解 / 导入。</sub>
 </p>
