@@ -1,0 +1,88 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#141612"/>
+      <stop offset="0.55" stop-color="#1B1D18"/>
+      <stop offset="1" stop-color="#0F100E"/>
+    </linearGradient>
+    <linearGradient id="accentGlow" x1="320" y1="140" x2="920" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#95B45B" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#95B45B" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="0" y="0" width="1280" height="640" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="42"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="640" rx="32" fill="url(#bg)"/>
+  <g opacity="0.9" filter="url(#blur)">
+    <ellipse cx="945" cy="136" rx="250" ry="120" fill="#87A84E" fill-opacity="0.24"/>
+    <ellipse cx="346" cy="515" rx="270" ry="130" fill="#708A44" fill-opacity="0.18"/>
+  </g>
+  <rect x="48" y="48" width="1184" height="544" rx="28" stroke="rgba(255,255,255,0.10)" stroke-width="1"/>
+  <rect x="66" y="66" width="1148" height="508" rx="24" fill="url(#accentGlow)" fill-opacity="0.08"/>
+
+  <g transform="translate(92 96)">
+    <circle cx="18" cy="18" r="18" fill="#DDE8C7" fill-opacity="0.16"/>
+    <path d="M18 0L23.5 12.5L36 18L23.5 23.5L18 36L12.5 23.5L0 18L12.5 12.5L18 0Z" fill="#95B45B"/>
+    <text x="54" y="25" fill="#F6F2E8" font-size="28" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700" letter-spacing="8">CLAWPLAY</text>
+  </g>
+
+  <text x="92" y="212" fill="#B8B2A6" font-size="22" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="600" letter-spacing="4">OPENCLAW · 中文 SOUL 目录与分享站</text>
+  <text x="92" y="306" fill="#F6F2E8" font-size="68" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="800">浏览、比较、安装，</text>
+  <text x="92" y="386" fill="#F6F2E8" font-size="68" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="800">让换灵魂这件事更顺手。</text>
+
+  <text x="92" y="456" fill="#CEC7B9" font-size="28" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="500">把零散的 SOUL.md 整理成一个可浏览、可比较、可安装、可投稿的产品入口。</text>
+
+  <g transform="translate(92 506)">
+    <rect width="108" height="42" rx="21" fill="#DDE8C7" fill-opacity="0.12" stroke="#95B45B" stroke-opacity="0.38"/>
+    <text x="54" y="27" text-anchor="middle" fill="#E4EFD0" font-size="18" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="600">浏览</text>
+  </g>
+  <g transform="translate(218 506)">
+    <rect width="108" height="42" rx="21" fill="#DDE8C7" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.12"/>
+    <text x="54" y="27" text-anchor="middle" fill="#F1ECDD" font-size="18" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="600">比较</text>
+  </g>
+  <g transform="translate(344 506)">
+    <rect width="108" height="42" rx="21" fill="#DDE8C7" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.12"/>
+    <text x="54" y="27" text-anchor="middle" fill="#F1ECDD" font-size="18" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="600">安装</text>
+  </g>
+  <g transform="translate(470 506)">
+    <rect width="108" height="42" rx="21" fill="#DDE8C7" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.12"/>
+    <text x="54" y="27" text-anchor="middle" fill="#F1ECDD" font-size="18" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="600">投稿</text>
+  </g>
+
+  <g transform="translate(824 136)">
+    <rect width="332" height="368" rx="26" fill="#0E100E" fill-opacity="0.92" stroke="#2D312B"/>
+    <text x="28" y="44" fill="#8F9584" font-size="16" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="600">精选灵魂</text>
+    <text x="28" y="94" fill="#F6F2E8" font-size="42" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="800">代码审查官</text>
+
+    <g transform="translate(28 122)">
+      <rect width="84" height="30" rx="15" fill="#708A44" fill-opacity="0.18" stroke="#95B45B" stroke-opacity="0.40"/>
+      <text x="42" y="20" text-anchor="middle" fill="#DDE8C7" font-size="14" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="600">代码审查</text>
+    </g>
+    <g transform="translate(122 122)">
+      <rect width="48" height="30" rx="15" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12"/>
+      <text x="24" y="20" text-anchor="middle" fill="#EEE8DC" font-size="14" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="600">测试</text>
+    </g>
+    <g transform="translate(180 122)">
+      <rect width="48" height="30" rx="15" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12"/>
+      <text x="24" y="20" text-anchor="middle" fill="#EEE8DC" font-size="14" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="600">调试</text>
+    </g>
+
+    <text x="28" y="190" fill="#B9B2A6" font-size="22" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="500">专门看 diff、抓风险和指出漏测，</text>
+    <text x="28" y="220" fill="#B9B2A6" font-size="22" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="500">适合需要快速质量判断的开发场景。</text>
+
+    <rect x="28" y="264" width="276" height="74" rx="18" fill="#121512" stroke="#30342F"/>
+    <text x="44" y="304" fill="#F6F2E8" font-size="22" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="500">curl -fsSL /api/raw/</text>
+    <text x="44" y="330" fill="#F6F2E8" font-size="22" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-weight="500">code-reviewer</text>
+
+    <g transform="translate(28 354)">
+      <rect width="96" height="42" rx="21" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12"/>
+      <text x="48" y="27" text-anchor="middle" fill="#F6F2E8" font-size="18" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700">复制安装</text>
+    </g>
+    <g transform="translate(136 354)">
+      <rect width="84" height="42" rx="21" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12"/>
+      <text x="42" y="27" text-anchor="middle" fill="#F6F2E8" font-size="18" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700">看预览</text>
+    </g>
+  </g>
+</svg>
