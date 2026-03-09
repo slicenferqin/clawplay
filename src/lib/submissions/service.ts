@@ -113,6 +113,7 @@ interface PublishedSoulRow {
 
 interface SubmissionListOptions {
   status?: SubmissionStatus;
+  submissionType?: SubmissionType;
   query?: string;
   page?: number;
   pageSize?: number;
@@ -643,6 +644,32 @@ export function getSubmissionStatusSummary(): {
   return { total, counts };
 }
 
+export function getSubmissionTypeSummary(): {
+  total: number;
+  counts: Record<SubmissionType, number>;
+} {
+  const counts = submissionTypes.reduce<Record<SubmissionType, number>>((result, type) => {
+    result[type] = 0;
+    return result;
+  }, {} as Record<SubmissionType, number>);
+
+  const rows = database().prepare(`
+    SELECT submission_type, COUNT(*) AS count
+    FROM soul_submissions
+    GROUP BY submission_type
+  `).all() as Array<{ submission_type: SubmissionType; count: number }>;
+
+  let total = 0;
+  for (const row of rows) {
+    if (row.submission_type in counts) {
+      counts[row.submission_type] = row.count;
+      total += row.count;
+    }
+  }
+
+  return { total, counts };
+}
+
 export function listSubmissions(options: SubmissionListOptions = {}): SubmissionListResult {
   const page = normalizePage(options.page);
   const pageSize = normalizePageSize(options.pageSize);
@@ -652,6 +679,11 @@ export function listSubmissions(options: SubmissionListOptions = {}): Submission
   if (options.status && submissionStatusSet.has(options.status)) {
     clauses.push('status = ?');
     values.push(options.status);
+  }
+
+  if (options.submissionType && submissionTypeSet.has(options.submissionType)) {
+    clauses.push('submission_type = ?');
+    values.push(options.submissionType);
   }
 
   if (options.query?.trim()) {

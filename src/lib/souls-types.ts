@@ -1,4 +1,5 @@
-export type SoulCategoryKey = 'work' | 'dev' | 'learning' | 'creative' | 'translated';
+export type PublicSoulCategoryKey = 'work' | 'dev' | 'learning' | 'creative';
+export type SoulCategoryKey = PublicSoulCategoryKey | 'translated';
 export type SoulSourceType = '原创' | '翻译' | '改编';
 
 export interface SoulMeta {
@@ -32,12 +33,24 @@ export interface SoulDocument extends SoulMeta {
   rawSoul: string;
 }
 
-export const CATEGORY_ORDER: SoulCategoryKey[] = ['work', 'creative', 'translated', 'learning', 'dev'];
+export const CATEGORY_ORDER: PublicSoulCategoryKey[] = ['work', 'creative', 'learning', 'dev'];
 
 export const CATEGORY_LABELS: Record<SoulCategoryKey, string> = {
   work: '工作助手',
   creative: '个性人格',
-  translated: '翻译精选',
   learning: '学习伙伴',
   dev: '开发专家',
+  translated: '翻译精选',
 };
+
+export const SOURCE_TYPE_ORDER: SoulSourceType[] = ['原创', '翻译', '改编'];
+
+export const PUBLIC_CATEGORY_OPTIONS: Array<{ key: PublicSoulCategoryKey; label: string }> = CATEGORY_ORDER.map((key) => ({
+  key,
+  label: CATEGORY_LABELS[key],
+}));
+
+export function getCategorySortIndex(category: SoulCategoryKey) {
+  const index = CATEGORY_ORDER.indexOf(category as PublicSoulCategoryKey);
+  return index === -1 ? CATEGORY_ORDER.length : index;
+}

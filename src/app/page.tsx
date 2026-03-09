@@ -5,7 +5,7 @@ import { HeroShowcase } from '@/components/hero-showcase';
 import { SiteHeader } from '@/components/site-header';
 import { SoulCard } from '@/components/soul-card';
 import { buildPageMetadata } from '@/lib/seo';
-import { getAllSouls, getCategoryCounts, getFeaturedSouls } from '@/lib/souls';
+import { getAllSouls, getCategoryCounts, getFeaturedSouls, getSourceTypeCounts } from '@/lib/souls';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = buildPageMetadata({
@@ -16,7 +16,12 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default async function HomePage() {
-  const [allSouls, featuredSouls, collections] = await Promise.all([getAllSouls(), getFeaturedSouls(), getCategoryCounts()]);
+  const [allSouls, featuredSouls, collections, sourceCollections] = await Promise.all([
+    getAllSouls(),
+    getFeaturedSouls(),
+    getCategoryCounts(),
+    getSourceTypeCounts(),
+  ]);
   const heroSoulDefinitions = [
     { slug: 'edict-counselor', displayName: '御用谋士' },
     { slug: 'grumpy-wang', displayName: '暴躁老王' },
@@ -63,12 +68,28 @@ export default async function HomePage() {
         </section>
 
         <section className="content-section" id="collections">
-          <h2 className="section-title">按合集浏览</h2>
+          <h2 className="section-title">按用途浏览</h2>
           <div className="collection-grid">
             {collections.map((collection) => (
               <Link
                 key={collection.key}
                 href={`/souls?category=${collection.key}`}
+                className="collection-card"
+              >
+                <span className="collection-card__title">{collection.label}</span>
+                <span className="collection-card__count">{collection.count} 个灵魂</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="content-section">
+          <h2 className="section-title">按来源浏览</h2>
+          <div className="collection-grid">
+            {sourceCollections.map((collection) => (
+              <Link
+                key={collection.key}
+                href={`/souls?sourceType=${encodeURIComponent(collection.key)}`}
                 className="collection-card"
               >
                 <span className="collection-card__title">{collection.label}</span>

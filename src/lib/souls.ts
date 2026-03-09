@@ -3,7 +3,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 import { getPublishedSoulBySlug, getPublishedSoulDocuments } from '@/lib/submissions/service';
-import { CATEGORY_ORDER, type SoulCategoryKey, type SoulDocument, type SoulMeta, type SoulSourceType } from '@/lib/souls-types';
+import { CATEGORY_ORDER, SOURCE_TYPE_ORDER, getCategorySortIndex, type SoulCategoryKey, type SoulDocument, type SoulMeta, type SoulSourceType } from '@/lib/souls-types';
 
 export type { SoulCategoryKey, SoulDocument, SoulMeta, SoulSourceType } from '@/lib/souls-types';
 
@@ -115,8 +115,8 @@ const SOULS: SoulMeta[] = [
     filePath: 'translated/architect.md',
     title: '软件架构师',
     summary: '看问题更关注长期结构和扩展性，适合架构决策、系统边界和演进路线。',
-    category: 'translated',
-    categoryLabel: '翻译精选',
+    category: 'dev',
+    categoryLabel: '开发专家',
     sourceType: '翻译',
     tags: ['架构', '系统设计', '策略'],
     tones: ['理性', '前瞻', '工程化'],
@@ -135,8 +135,8 @@ const SOULS: SoulMeta[] = [
     filePath: 'translated/code-reviewer.md',
     title: '代码审查官',
     summary: '专门看 diff、抓风险和指出漏测，适合需要快速质量判断的开发场景。',
-    category: 'translated',
-    categoryLabel: '翻译精选',
+    category: 'dev',
+    categoryLabel: '开发专家',
     sourceType: '翻译',
     featured: true,
     tags: ['代码审查', '测试', '调试'],
@@ -156,8 +156,8 @@ const SOULS: SoulMeta[] = [
     filePath: 'translated/pirate-captain.md',
     title: '海盗船长',
     summary: '用海盗口吻做技术解释和协作，适合轻松氛围下的代码审查、部署和概念讲解。',
-    category: 'translated',
-    categoryLabel: '翻译精选',
+    category: 'creative',
+    categoryLabel: '个性人格',
     sourceType: '翻译',
     tags: ['角色扮演', '技术讲解', '开发'],
     tones: ['戏剧化', '热情', '有趣'],
@@ -268,7 +268,7 @@ const getStaticSouls = cache(async (): Promise<SoulDocument[]> => {
       return 1;
     }
 
-    const categoryGap = CATEGORY_ORDER.indexOf(left.category) - CATEGORY_ORDER.indexOf(right.category);
+    const categoryGap = getCategorySortIndex(left.category) - getCategorySortIndex(right.category);
     if (categoryGap !== 0) {
       return categoryGap;
     }
@@ -286,7 +286,7 @@ function sortSouls(left: SoulDocument, right: SoulDocument) {
     return 1;
   }
 
-  const categoryGap = CATEGORY_ORDER.indexOf(left.category) - CATEGORY_ORDER.indexOf(right.category);
+  const categoryGap = getCategorySortIndex(left.category) - getCategorySortIndex(right.category);
   if (categoryGap !== 0) {
     return categoryGap;
   }
@@ -350,16 +350,32 @@ export async function getCategoryCounts(): Promise<Array<{ key: SoulCategoryKey;
   })).filter((item) => item.count > 0);
 }
 
+export async function getSourceTypeCounts(): Promise<Array<{ key: SoulSourceType; label: string; count: number }>> {
+  const souls = await getAllSouls();
+
+  return SOURCE_TYPE_ORDER.map((key) => ({
+    key,
+    label: key,
+    count: souls.filter((soul) => soul.sourceType === key).length,
+  })).filter((item) => item.count > 0);
+}
+
 export function filterSouls(
   souls: SoulDocument[],
-  params: { query?: string; category?: string },
+  params: { query?: string; category?: string; sourceType?: string },
 ): SoulDocument[] {
   const query = params.query?.trim().toLowerCase();
   const category = params.category?.trim();
+  const sourceType = params.sourceType?.trim();
 
   return souls.filter((soul) => {
     const matchesCategory = category ? soul.category === category : true;
     if (!matchesCategory) {
+      return false;
+    }
+
+    const matchesSourceType = sourceType ? soul.sourceType === sourceType : true;
+    if (!matchesSourceType) {
       return false;
     }
 

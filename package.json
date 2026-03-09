@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "audit:translated-categories": "node scripts/content/translated-category-migration.mjs",
+    "cleanup:translated-categories": "node scripts/content/translated-category-migration.mjs --write"
   },
   "dependencies": {
     "better-sqlite3": "^12.6.2",

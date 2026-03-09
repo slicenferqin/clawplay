@@ -5,6 +5,7 @@ import { AnalyticsViewTracker } from '@/components/analytics-view-tracker';
 import { SiteHeader } from '@/components/site-header';
 import { SoulSubmissionForm, type SubmissionFormValues } from '@/components/soul-submission-form';
 import { SubmissionStatusBadge } from '@/components/submission-status-badge';
+import { CATEGORY_LABELS } from '@/lib/souls-types';
 import { buildNoIndexMetadata } from '@/lib/seo';
 import { getPublicSubmissionView } from '@/lib/submissions/service';
 
@@ -120,7 +121,7 @@ export default async function SubmissionDetailPage({
               <p className="detail-panel__body">{view.submission.summary}</p>
               <ul className="detail-panel__list detail-panel__list--compact">
                 <li>类型：{view.submission.submissionType}</li>
-                <li>分类：{view.submission.category}</li>
+                <li>分类：{CATEGORY_LABELS[view.submission.category]}</li>
                 <li>作者：{view.submission.authorName}</li>
                 <li>协议：{view.submission.license}</li>
               </ul>

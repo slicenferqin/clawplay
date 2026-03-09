@@ -10,6 +10,7 @@ import { isAdminAuthenticated } from '@/lib/submissions/admin';
 import { assessSubmissionContent } from '@/lib/content-rules';
 import { buildNoIndexMetadata } from '@/lib/seo';
 import { getSubmissionDetailForAdmin } from '@/lib/submissions/service';
+import type { SubmissionRecord } from '@/lib/submissions/schema';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = buildNoIndexMetadata({
@@ -34,6 +35,35 @@ function formatTime(value: string | null) {
   return value ? new Date(value).toLocaleString('zh-CN') : '—';
 }
 
+function getSourceReviewState(submission: SubmissionRecord) {
+  if (submission.submissionType === '原创') {
+    return {
+      tone: 'is-ready' as const,
+      pillLabel: '原创稿',
+      title: '原创稿无需补外部来源，重点核作者与协议',
+      description: '原创投稿不要求填写原始来源链接，但仍应核对作者署名、协议与版权声明是否自洽。',
+    };
+  }
+
+  if (submission.sourceUrl?.trim()) {
+    return {
+      tone: 'is-ready' as const,
+      pillLabel: '来源已提供',
+      title: submission.sourceAuthor?.trim() ? '来源链路已基本完整，可继续核内容质量' : '来源链接已提供，建议补齐原作者信息',
+      description: submission.sourceAuthor?.trim()
+        ? '这类稿件已带原始来源与原作者信息，下一步重点看翻译 / 改编质量与授权边界。'
+        : '原始链接已附上，但原作者信息仍建议补齐，方便后续公开展示与版权说明。',
+    };
+  }
+
+  return {
+    tone: 'is-blocked' as const,
+    pillLabel: '来源待补齐',
+    title: '来源链路不完整，发布前需要补齐原始来源',
+    description: '翻译或改编稿件至少应提供原始来源链接，否则很难判断授权、改写范围和公开发布风险。',
+  };
+}
+
 export default async function AdminSubmissionDetailPage({ params }: { params: Promise<{ id: string }> }) {
   if (!(await isAdminAuthenticated())) {
     redirect('/admin/login');
@@ -46,6 +76,7 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
   }
 
   const contentAssessment = assessSubmissionContent(detail.submission);
+  const sourceReviewState = getSourceReviewState(detail.submission);
 
   return (
     <>
@@ -66,7 +97,9 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
             <div className="detail-chip-list detail-chip-list--hero">
               <span className="tag-pill">{detail.submission.submissionType}</span>
               <span className="tag-pill">{CATEGORY_LABELS[detail.submission.category]}</span>
+              <span className={`admin-table__signal is-${sourceReviewState.tone === 'is-ready' ? 'ready' : 'warning'}`}>{sourceReviewState.pillLabel}</span>
               <span className="tag-pill">作者：{detail.submission.authorName}</span>
+              {detail.submission.sourceAuthor ? <span className="tag-pill">原作者：{detail.submission.sourceAuthor}</span> : null}
               <span className="tag-pill">创建于 {formatTime(detail.submission.createdAt)}</span>
             </div>
           </div>
@@ -106,6 +139,54 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
             <article className="detail-panel">
               <div className="detail-panel__header">
                 <div>
+                  <p className="detail-panel__eyebrow">Source Provenance</p>
+                  <h2 className="detail-panel__title detail-panel__title--small">来源与授权</h2>
+                </div>
+                <p className="detail-panel__body">把来源链路提到前面，审核时能更快判断这份稿件是否具备继续进入发布流程的基础。</p>
+              </div>
+
+              <div className={`content-audit-summary ${sourceReviewState.tone}`}>
+                <strong>{sourceReviewState.title}</strong>
+                <span>{sourceReviewState.description}</span>
+              </div>
+
+              <div className="detail-callout-grid">
+                <section className="detail-callout">
+                  <h3 className="detail-panel__subheading">投稿类型</h3>
+                  <p className="detail-panel__body">{detail.submission.submissionType}</p>
+                </section>
+                <section className="detail-callout">
+                  <h3 className="detail-panel__subheading">公开分类</h3>
+                  <p className="detail-panel__body">{CATEGORY_LABELS[detail.submission.category]}</p>
+                </section>
+                <section className="detail-callout">
+                  <h3 className="detail-panel__subheading">原作者</h3>
+                  <p className="detail-panel__body">{detail.submission.sourceAuthor || '未提供'}</p>
+                </section>
+                <section className="detail-callout">
+                  <h3 className="detail-panel__subheading">协议</h3>
+                  <p className="detail-panel__body">{detail.submission.license}</p>
+                </section>
+                <section className="detail-callout detail-callout--full">
+                  <h3 className="detail-panel__subheading">原始来源</h3>
+                  {detail.submission.sourceUrl ? (
+                    <a href={detail.submission.sourceUrl} target="_blank" rel="noreferrer" className="text-action-link detail-source-link">
+                      {detail.submission.sourceUrl}
+                    </a>
+                  ) : (
+                    <p className="detail-panel__body">{detail.submission.submissionType === '原创' ? '原创稿件无需外部来源链接。' : '未提供原始来源链接。'}</p>
+                  )}
+                </section>
+                <section className="detail-callout detail-callout--full">
+                  <h3 className="detail-panel__subheading">版权声明</h3>
+                  <p className="detail-panel__body">{detail.submission.rightsStatement}</p>
+                </section>
+              </div>
+            </article>
+
+            <article className="detail-panel">
+              <div className="detail-panel__header">
+                <div>
                   <p className="detail-panel__eyebrow">Listing Content</p>
                   <h2 className="detail-panel__title detail-panel__title--small">展示信息</h2>
                 </div>
@@ -125,8 +206,12 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
                     {detail.submission.tones.map((tone) => <span key={tone} className="tag-pill">{tone}</span>)}
                   </div>
                 </section>
+                <section className="detail-field detail-field--full">
+                  <h3 className="detail-panel__subheading">一句话简介</h3>
+                  <p className="detail-panel__body">{detail.submission.summary}</p>
+                </section>
                 <section className="detail-field">
-                  <h3 className="detail-panel__subheading">场景</h3>
+                  <h3 className="detail-panel__subheading">适用场景</h3>
                   <div className="detail-chip-list">
                     {detail.submission.useCases.map((useCase) => <span key={useCase} className="tag-pill">{useCase}</span>)}
                   </div>
@@ -142,7 +227,7 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
                   <p className="detail-panel__body">{detail.submission.intro}</p>
                 </section>
                 <section className="detail-field">
-                  <h3 className="detail-panel__subheading">亮点</h3>
+                  <h3 className="detail-panel__subheading">特色功能</h3>
                   <ul className="detail-panel__list detail-panel__list--compact">
                     {detail.submission.features.map((feature) => <li key={feature}>{feature}</li>)}
                   </ul>
@@ -221,11 +306,12 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
                 ))}
               </ul>
             </article>
+
             <article className="detail-panel detail-panel--side">
               <div className="detail-panel__header">
                 <div>
-                  <p className="detail-panel__eyebrow">Ownership</p>
-                  <h2 className="detail-panel__title detail-panel__title--small">版权与联系</h2>
+                  <p className="detail-panel__eyebrow">Contact & Notes</p>
+                  <h2 className="detail-panel__title detail-panel__title--small">联系与备注</h2>
                 </div>
               </div>
 
@@ -239,10 +325,6 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
                   <dd>{detail.submission.authorName}</dd>
                 </div>
                 <div>
-                  <dt>协议</dt>
-                  <dd>{detail.submission.license}</dd>
-                </div>
-                <div>
                   <dt>联系方式</dt>
                   <dd>
                     {detail.submission.contactMethod
@@ -251,26 +333,12 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
                   </dd>
                 </div>
                 <div>
-                  <dt>原作者</dt>
-                  <dd>{detail.submission.sourceAuthor || '未提供'}</dd>
-                </div>
-                <div>
-                  <dt>来源</dt>
-                  <dd>
-                    {detail.submission.sourceUrl ? (
-                      <a href={detail.submission.sourceUrl} target="_blank" rel="noreferrer" className="text-action-link">
-                        打开原始来源
-                      </a>
-                    ) : '未提供'}
-                  </dd>
+                  <dt>协议</dt>
+                  <dd>{detail.submission.license}</dd>
                 </div>
               </dl>
 
               <div className="detail-note-stack">
-                <section className="detail-note-card">
-                  <h3 className="detail-panel__subheading">版权声明</h3>
-                  <p className="detail-panel__body">{detail.submission.rightsStatement}</p>
-                </section>
                 {detail.submission.submitterNote ? (
                   <section className="detail-note-card">
                     <h3 className="detail-panel__subheading">投稿人备注</h3>

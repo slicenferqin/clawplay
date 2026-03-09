@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { trackClientEvent, trackClientEventOnce } from '@/lib/analytics/client';
 import { RECOMMENDED_TAGS, assessSubmissionContent, getTagInputHint, getTextRangeHint } from '@/lib/content-rules';
+import { CATEGORY_LABELS, PUBLIC_CATEGORY_OPTIONS, type SoulCategoryKey } from '@/lib/souls-types';
 
 interface SoulSubmissionFormProps {
   mode?: 'create' | 'revision';
@@ -17,7 +18,7 @@ export interface SubmissionFormValues {
   submissionType: '原创' | '翻译' | '改编';
   title: string;
   summary: string;
-  category: 'work' | 'creative' | 'translated' | 'learning' | 'dev';
+  category: SoulCategoryKey;
   tags: string;
   tones: string;
   useCases: string;
@@ -165,6 +166,7 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
   const summaryHint = useMemo(() => getTextRangeHint(values.summary, 24, 100), [values.summary]);
   const selectedTags = useMemo(() => new Set(draftPayload.tags), [draftPayload.tags]);
   const requiresSourceAttribution = values.submissionType !== '原创';
+  const isLegacyTranslatedCategory = values.category === 'translated';
   const requiredItemsText = requiresSourceAttribution
     ? '投稿类型、分类、标题、简介、SOUL 原文、作者、协议、来源链接'
     : '投稿类型、分类、标题、简介、SOUL 原文、作者、协议';
@@ -379,12 +381,16 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
           <div className="submission-form__group">
             <label className="submission-form__label" htmlFor="category">分类</label>
             <select id="category" className="submission-form__input" value={values.category} onChange={(event) => updateValue('category', event.target.value as SubmissionFormValues['category'])}>
-              <option value="work">工作助手</option>
-              <option value="creative">个性人格</option>
-              <option value="translated">翻译精选</option>
-              <option value="learning">学习伙伴</option>
-              <option value="dev">开发专家</option>
+              {isLegacyTranslatedCategory ? <option value="translated">{CATEGORY_LABELS.translated}（旧分类，建议调整）</option> : null}
+              {PUBLIC_CATEGORY_OPTIONS.map((option) => (
+                <option key={option.key} value={option.key}>{option.label}</option>
+              ))}
             </select>
+            {isLegacyTranslatedCategory ? (
+              <p className="submission-form__assist submission-form__assist--warning">
+                “翻译精选”已不再作为公开分类，建议改成更贴近用途的分类，例如开发专家或个性人格。
+              </p>
+            ) : null}
           </div>
 
           <div className="submission-form__group submission-form__group--full">
