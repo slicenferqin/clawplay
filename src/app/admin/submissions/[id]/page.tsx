@@ -9,6 +9,7 @@ import { CATEGORY_LABELS } from '@/lib/souls-types';
 import { isAdminAuthenticated } from '@/lib/submissions/admin';
 import { assessSubmissionContent } from '@/lib/content-rules';
 import { buildNoIndexMetadata } from '@/lib/seo';
+import { getSubmissionQueueInsight } from '@/lib/submissions/review-queue';
 import { getSubmissionDetailForAdmin } from '@/lib/submissions/service';
 import type { SubmissionRecord } from '@/lib/submissions/schema';
 
@@ -77,6 +78,7 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
 
   const contentAssessment = assessSubmissionContent(detail.submission);
   const sourceReviewState = getSourceReviewState(detail.submission);
+  const queueInsight = getSubmissionQueueInsight(detail.submission);
 
   return (
     <>
@@ -119,6 +121,11 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
               <span className="admin-kpi-card__label">发布时间</span>
               <strong className="admin-kpi-card__value admin-kpi-card__value--small">{formatTime(detail.submission.publishedAt)}</strong>
               <span className="admin-kpi-card__hint">只有发布后才会出现在站点</span>
+            </div>
+            <div className={"admin-kpi-card admin-kpi-card--compact admin-kpi-card--queue is-" + queueInsight.priorityTone}>
+              <span className="admin-kpi-card__label">审核优先级</span>
+              <strong className="admin-kpi-card__value admin-kpi-card__value--small">{queueInsight.priorityLabel}</strong>
+              <span className="admin-kpi-card__hint">{queueInsight.priorityDescription}</span>
             </div>
           </div>
         </section>

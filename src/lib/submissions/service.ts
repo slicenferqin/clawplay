@@ -981,3 +981,8 @@ export function getPublishedSoulBySlug(slug: string): SoulDocument | undefined {
 export function getSubmissionByPublicIdForApi(publicId: string, token: string) {
   return getPublicSubmissionView(publicId, token);
 }
+
+export function listAllSubmissions(): SubmissionRecord[] {
+  const rows = database().prepare('SELECT * FROM soul_submissions ORDER BY created_at DESC').all() as SubmissionRow[];
+  return rows.map(mapSubmissionRow);
+}
