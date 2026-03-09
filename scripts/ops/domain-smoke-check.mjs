@@ -389,6 +389,14 @@ async function main() {
     expectedCanonicalPath: '/collections',
   });
   await checkHtmlPage({
+    name: '新手专题页',
+    pathname: '/collections/starter',
+    titleIncludes: '新手首选专题',
+    bodyIncludes: ['为什么先看这组', '推荐灵魂'],
+    expectedCanonicalPath: '/collections/starter',
+    expectedOgPath: '/collections/starter/opengraph-image',
+  });
+  await checkHtmlPage({
     name: 'Soul 详情页',
     pathname: `/souls/${detailSlug}`,
     titleIncludes: 'ClawPlay',
@@ -426,6 +434,7 @@ async function main() {
   });
   await checkOgRoute('首页 OG 图', '/opengraph-image');
   await checkOgRoute('Soul 详情页 OG 图', `/souls/${detailSlug}/opengraph-image`);
+  await checkOgRoute('新手专题页 OG 图', '/collections/starter/opengraph-image');
   checkPm2Process();
 
   const summary = results.reduce(

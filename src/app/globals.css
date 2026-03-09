@@ -983,6 +983,32 @@ pre {
   background: rgba(223, 231, 207, 0.3);
 }
 
+.growth-section__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 18px;
+}
+
+.growth-detail-page__hero {
+  gap: 14px;
+}
+
+.growth-detail-highlight-card {
+  gap: 10px;
+}
+
+.growth-detail-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.growth-detail-page__section-row {
+  margin-bottom: 18px;
+}
+
 .growth-page__closing {
   margin-top: 44px;
 }

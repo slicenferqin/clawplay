@@ -29,12 +29,12 @@ export default async function CollectionsPage() {
           </p>
           <div className="growth-overview-grid">
             {collections.map((collection) => (
-              <a key={collection.key} href={`#${collection.key}`} className="growth-overview-card">
+              <Link key={collection.key} href={collection.pageHref} className="growth-overview-card">
                 <span className="growth-overview-card__eyebrow">{collection.eyebrow}</span>
                 <strong className="growth-overview-card__title">{collection.title}</strong>
                 <p className="growth-overview-card__summary">{collection.summary}</p>
                 <span className="growth-overview-card__meta">{collection.souls.length} 个推荐入口</span>
-              </a>
+              </Link>
             ))}
           </div>
         </section>
@@ -47,11 +47,16 @@ export default async function CollectionsPage() {
                 <h2 className="section-title">{collection.title}</h2>
                 <p className="growth-section__description">{collection.summary}</p>
               </div>
-              <Link href={collection.ctaHref} className="section-link">
-                {collection.ctaLabel}
+              <Link href={collection.pageHref} className="section-link">
+                打开专题页
               </Link>
             </div>
             <p className="growth-section__note">{collection.note}</p>
+            <div className="growth-section__actions">
+              <Link href={collection.browseHref} className="text-action-link">
+                {collection.browseLabel}
+              </Link>
+            </div>
             <div className="soul-grid soul-grid--three">
               {collection.souls.map((soul) => (
                 <SoulCard key={`${collection.key}-${soul.slug}`} soul={soul} />
