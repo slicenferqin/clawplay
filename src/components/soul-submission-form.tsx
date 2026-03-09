@@ -333,18 +333,18 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
     <form className="submission-form" onSubmit={handleSubmit}>
       <section className="submission-form__section submission-intake">
         <div className="submission-form__section-header">
-          <h2>{mode === 'revision' ? '按审核意见补资料' : '先交首稿，剩下的展示信息后面再补'}</h2>
+          <h2>{mode === 'revision' ? '按审核意见补资料' : '先交一个起始 Soul，剩下的展示信息后面再补'}</h2>
           <p>
             {mode === 'revision'
               ? '这次不需要再从头填写。优先把审核里点名的问题补齐，其他展示信息可以顺手完善。'
-              : '这页先收最关键的信息，目的是让你顺利把首稿投进来。标签、预览示例、风格说明和联系方式，都可以后面再补。'}
+              : '这页先收最关键的信息，目的是让你顺利把这个灵魂起点投进来。标签、预览示例、风格说明和联系方式，都可以后面再补。'}
           </p>
         </div>
 
         <div className="submission-intake__meta">
           <span className="admin-meta-pill"><strong>首稿必填</strong><span>{requiresSourceAttribution ? '8 项' : '7 项'}</span></span>
           <span className="admin-meta-pill"><strong>现在要填</strong><span>{requiredItemsText}</span></span>
-          <span className="admin-meta-pill"><strong>可后补</strong><span>标签、预览、联系方式、展示文案</span></span>
+          <span className="admin-meta-pill"><strong>可后补</strong><span>标签、预览、人格描述、联系方式</span></span>
         </div>
 
         {mode === 'revision' ? (
@@ -362,7 +362,7 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
             ) : null}
           </div>
         ) : (
-          <p className="submission-form__hint">前台不会因为展示字段没填完整就拦你；后台审核真正优先看的是内容是否可信、是否可安装、来源是否清楚。</p>
+          <p className="submission-form__hint">前台不会因为展示字段没填完整就拦你；后台审核真正优先看的是这个人格起点是否可信、可导入、来源是否清楚。</p>
         )}
       </section>
 
@@ -472,7 +472,7 @@ export function SoulSubmissionForm({ mode = 'create', publicId, manageToken, ini
             </div>
 
             <p className={`submission-form__assist submission-form__assist--${rawSoulImportError ? 'warning' : 'neutral'}`}>
-              {rawSoulImportError || '尽量贴接近最终安装态的版本。先把能安装的内容交上来，比把展示文案一次写满更重要。'}
+              {rawSoulImportError || '尽量贴接近最终导入态的版本。先把能导入的内容交上来，比把展示文案一次写满更重要。'}
             </p>
           </div>
         </div>

@@ -40,7 +40,7 @@ export function FeaturedSoulCardContent({ soul }: FeaturedSoulCardContentProps) 
   return (
     <>
       <div className="spotlight-soul-card__header">
-        <div className="spotlight-soul-card__eyebrow">精选灵魂</div>
+        <div className="spotlight-soul-card__eyebrow">精选人格</div>
         <h2 className="spotlight-soul-card__title">{soul.title}</h2>
         <FeaturedSoulCardTags soul={soul} />
       </div>
@@ -57,7 +57,7 @@ export function FeaturedSoulCardContent({ soul }: FeaturedSoulCardContentProps) 
             slug={soul.slug}
             showCode={false}
             showCopyButton
-            copyLabel="复制安装"
+            copyLabel="复制导入"
             copyVariant="dark"
             analyticsEventName="hero_install_copy"
             analyticsSource="home_hero"
@@ -75,7 +75,7 @@ export function FeaturedSoulCardContent({ soul }: FeaturedSoulCardContentProps) 
               });
             }}
           >
-            看预览
+            看人格页
           </Link>
         </div>
       </div>

@@ -9,7 +9,7 @@ import { getGrowthCollections } from '@/lib/collections';
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = buildPageMetadata({
   title: '推荐合集',
-  description: '如果你第一次来不知道先装哪个 Soul，就从新手首选、开发首选、当前热门和最近新增开始。',
+  description: '如果你第一次来不知道先导入哪种灵魂人格，就从新手首选、开发首选、当前热门和最近新增开始。',
   pathname: '/collections',
   keywords: ['推荐合集', '新手首选', '开发首选', '当前热门', '最近新增'],
 });
@@ -23,9 +23,9 @@ export default async function CollectionsPage() {
       <main className="page-shell growth-page">
         <section className="page-heading growth-page__hero">
           <p className="eyebrow">给第一次选择更低的门槛</p>
-          <h1 className="page-heading__title">不知道先装哪个 Soul，就先从这些合集开始</h1>
+          <h1 className="page-heading__title">不知道先导入哪种 Soul，就先从这些合集开始</h1>
           <p className="page-heading__description">
-            ClawPlay 先不做复杂推荐系统。第一刀只做几组低认知成本、可直接上手的入口，帮你更快找到第一批值得试的 Soul。
+            ClawPlay 先不做复杂推荐系统。第一刀只做几组低认知成本、可直接上手的入口，帮你更快找到第一批值得理解和试用的 Soul 人格。
           </p>
           <div className="growth-overview-grid">
             {collections.map((collection) => (
@@ -67,12 +67,12 @@ export default async function CollectionsPage() {
 
         <section className="install-strip growth-page__closing">
           <div className="install-strip__content">
-            <p className="install-strip__title">先从合集挑一个，再去详情页看预览和原始 SOUL。</p>
-            <p>合集页负责降低第一次选择成本；真正决定要不要装，还是建议你点进详情页看预览卡、示例对话和原始内容。</p>
+            <p className="install-strip__title">先从合集挑一个，再去详情页看人格预览和原始 SOUL。</p>
+            <p>合集页负责降低第一次选择成本；真正决定要不要导入，还是建议你点进详情页看预览卡、示例对话和原始内容。</p>
           </div>
           <div className="install-strip__actions">
             <Link href="/souls">回到灵魂库</Link>
-            <Link href="/install">查看安装指南</Link>
+            <Link href="/install">查看导入说明</Link>
           </div>
         </section>
       </main>

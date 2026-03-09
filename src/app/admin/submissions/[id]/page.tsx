@@ -323,7 +323,7 @@ export default async function AdminSubmissionDetailPage({ params }: { params: Pr
                   <p className="detail-panel__eyebrow">SOUL Source</p>
                   <h2 className="detail-panel__title detail-panel__title--small">原始 SOUL</h2>
                 </div>
-                <p className="detail-panel__body">保留完整原文，便于核对格式、语气和安装后真正会落到用户机器上的内容。</p>
+                <p className="detail-panel__body">保留完整原文，便于核对格式、语气和导入后真正会落到用户机器上的内容。</p>
               </div>
               <pre className="raw-details__pre">{detail.submission.rawSoul}</pre>
             </article>

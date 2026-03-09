@@ -1,6 +1,6 @@
 export const SITE_NAME = 'ClawPlay';
-export const SITE_TITLE = 'ClawPlay · OpenClaw 中文 SOUL 灵魂库';
-export const SITE_DESCRIPTION = 'OpenClaw 中文 SOUL.md 目录站，支持浏览、预览、原始内容查看与 curl 安装。';
+export const SITE_TITLE = 'ClawPlay · OpenClaw Soul 人格分享平台';
+export const SITE_DESCRIPTION = '发现、比较并导入 OpenClaw 的 Soul preset。先理解一种灵魂的人格气质与边界，再决定是否替换到自己的龙虾里。';
 export const DEFAULT_SITE_URL = 'https://clawplay.club';
 export const DEFAULT_OG_IMAGE_PATH = '/opengraph-image';
 export const PUBLIC_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL;

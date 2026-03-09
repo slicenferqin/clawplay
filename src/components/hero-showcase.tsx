@@ -141,9 +141,9 @@ export function HeroShowcase({ soulCount, souls }: HeroShowcaseProps) {
   return (
     <section className="hero-grid">
       <div className="hero-grid__content">
-        <p className="eyebrow">为 OpenClaw 精选的中文 Soul</p>
+        <p className="eyebrow">为 OpenClaw 收录的中文灵魂人格</p>
         <h1 className="hero-grid__title">
-          <span className="hero-grid__title-prefix">先看预览，再决定装</span>
+          <span className="hero-grid__title-prefix">先理解这种灵魂，再决定是否导入</span>
           <span className="hero-grid__title-dynamic">
             <span className={`rotating-soul-name${prefersReducedMotion || items.length <= 1 ? ' rotating-soul-name--static' : ''}`}>
               <span className="rotating-soul-name__visual" aria-hidden="true">
@@ -156,20 +156,20 @@ export function HeroShowcase({ soulCount, souls }: HeroShowcaseProps) {
           </span>
         </h1>
         <p className="hero-grid__description">
-          ClawPlay 把零散的 <code>SOUL.md</code> 整理成可浏览、可比较、可安装的中文目录站。看简介、看标签、看预览，再复制命令安装。
+          ClawPlay 把零散的 <code>SOUL.md</code> 整理成可浏览、可比较的 Soul preset 目录。先看气质、边界和原始 SOUL，再决定是否替换进自己的 OpenClaw。
         </p>
         <div className="hero-grid__actions">
           <Link href="/souls" className="header-cta">
-            <span>先去挑一个灵魂</span>
+            <span>先去挑一个人格</span>
             <ArrowRightIcon className="header-cta__icon" />
           </Link>
-          <Link href="/submit" className="text-action-link">我也想投稿</Link>
+          <Link href="/submit" className="text-action-link">分享我的 Soul</Link>
         </div>
-        <p className="hero-grid__support">如果你还没准备好完整展示文案，也可以先在投稿页上传原始 `.md` 文件，把能安装的版本先投进来。</p>
+        <p className="hero-grid__support">如果你现在只有原始 `.md`，也可以先在投稿页上传一个可导入的起始 Soul，展示信息后面再慢慢补。</p>
         <SiteSearchForm placeholder="搜索灵魂、角色、使用场景" />
         <div className="hero-stats">
           <span>{soulCount} 个已收录灵魂</span>
-          <span>先看预览再安装</span>
+          <span>先理解再导入</span>
           <span>支持上传 `.md` 投稿</span>
         </div>
       </div>

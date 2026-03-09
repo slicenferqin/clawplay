@@ -10,9 +10,9 @@ export default function OpenGraphImage() {
   return new ImageResponse(
     renderOgCard({
       eyebrow: 'ClawPlay',
-      title: 'OpenClaw 中文 SOUL 灵魂库',
-      description: '浏览灵魂、查看预览、复制安装命令、下载原始 SOUL.md，也支持匿名投稿与审核发布。',
-      badges: ['灵魂库', '一键安装', '投稿收录'],
+      title: 'OpenClaw Soul 人格分享平台',
+      description: '发现灵魂、理解人格气质、复制导入命令、下载原始 SOUL.md，也支持匿名投稿与审核发布。',
+      badges: ['Soul 人格', '导入说明', '投稿收录'],
     }),
     size,
   );

@@ -5,7 +5,7 @@ import { ArrowRightIcon, SparkIcon } from '@/components/icons';
 const navItems = [
   { href: '/souls', label: '灵魂库' },
   { href: '/collections', label: '合集' },
-  { href: '/install', label: '安装' },
+  { href: '/install', label: '导入' },
   { href: '/submit', label: '投稿' },
   { href: '/about', label: '关于' },
 ];
@@ -28,7 +28,7 @@ export function SiteHeader() {
         </nav>
 
         <Link href="/install" className="header-cta">
-          <span>查看安装指南</span>
+          <span>查看导入说明</span>
           <ArrowRightIcon className="header-cta__icon" />
         </Link>
       </div>

@@ -73,7 +73,7 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
           storageKey={`soul_detail_view:${soul.slug}`}
         />
 
-        <p className="breadcrumb">灵魂库 / {soul.categoryLabel} / {soul.title}</p>
+        <p className="breadcrumb">灵魂人格库 / {soul.categoryLabel} / {soul.title}</p>
 
         <section className="detail-heading">
           <div className="detail-heading__content">
@@ -89,7 +89,7 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
               slug={soul.slug}
               showCode={false}
               showCopyButton
-              copyLabel="复制安装命令"
+              copyLabel="复制导入命令"
               analyticsEventName="detail_install_copy"
               analyticsSource="soul_detail"
               analyticsPlacement="header_install"
@@ -104,7 +104,7 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
         <section className="detail-layout">
           <div className="detail-layout__main">
             <article className="detail-panel detail-panel--tinted">
-              <p className="detail-panel__eyebrow">预览卡</p>
+              <p className="detail-panel__eyebrow">人格预览</p>
               <h2 className="detail-panel__title">{soul.previewHook}</h2>
               <p className="detail-panel__body">
                 适合场景：{soul.useCases.join('、')}。语气偏向 {soul.tones.join(' / ')}，兼容 {soul.compatibleModels.join('、')}。
@@ -124,11 +124,11 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
             </article>
 
             <article className="detail-panel">
-              <h2 className="detail-panel__title detail-panel__title--small">简介</h2>
+              <h2 className="detail-panel__title detail-panel__title--small">人格简介</h2>
               <p className="detail-panel__body">{soul.intro}</p>
               <div className="detail-panel__columns">
                 <div>
-                  <h3 className="detail-panel__subheading">特色功能</h3>
+                  <h3 className="detail-panel__subheading">这个灵魂擅长什么</h3>
                   <ul className="detail-panel__list">
                     {soul.features.map((item) => (
                       <li key={item}>{item}</li>
@@ -136,7 +136,7 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
                   </ul>
                 </div>
                 <div>
-                  <h3 className="detail-panel__subheading">使用建议</h3>
+                  <h3 className="detail-panel__subheading">导入前建议</h3>
                   <ul className="detail-panel__list">
                     {soul.suggestions.map((item) => (
                       <li key={item}>{item}</li>
@@ -150,9 +150,9 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
               <summary className="raw-details__summary">
                 <span className="raw-details__summary-main">
                   <ArrowRightIcon className="raw-details__summary-icon" />
-                  <span>展开查看原始 SOUL 内容</span>
+                  <span>展开查看原始 SOUL.md</span>
                 </span>
-                <span className="raw-details__summary-note">复制前先核对结构</span>
+                <span className="raw-details__summary-note">导入前先核对结构</span>
               </summary>
               <div className="raw-details__actions">
                 <CopyButton
@@ -174,21 +174,21 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
 
           <aside className="detail-layout__side">
             <article className="install-panel">
-              <p className="install-panel__eyebrow">一键安装</p>
+              <p className="install-panel__eyebrow">导入这个 Soul</p>
               <InstallCommand slug={soul.slug} codeClassName="install-panel__command" />
               <p className="install-panel__body">
-                这条命令会直接把当前 soul 写入本地 <code>SOUL.md</code>。如果你想稳一点，先手动备份，再执行安装。
+                这条命令会直接用这个 Soul preset 替换本地 <code>SOUL.md</code>。如果你想稳一点，先手动备份，再执行导入。
               </p>
               <ol className="install-panel__steps">
                 <li>先备份当前灵魂</li>
-                <li>执行 curl 安装命令</li>
+                <li>执行 curl 导入命令</li>
                 <li>重启 OpenClaw 并试跑一个会话</li>
               </ol>
               <InstallCommand
                 slug={soul.slug}
                 showCode={false}
                 showCopyButton
-                copyLabel="复制命令"
+                copyLabel="复制导入命令"
                 copyVariant="dark"
                 analyticsEventName="detail_install_copy"
                 analyticsSource="soul_detail"
@@ -197,15 +197,15 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
             </article>
 
             <article className="detail-panel detail-panel--side">
-              <h2 className="detail-panel__title detail-panel__title--small">备份建议</h2>
-              <p className="detail-panel__body">覆盖前先把本地的 <code>SOUL.md</code> 复制一份，回滚会轻松很多。</p>
+              <h2 className="detail-panel__title detail-panel__title--small">备份当前灵魂</h2>
+              <p className="detail-panel__body">替换前先把本地的 <code>SOUL.md</code> 复制一份，回滚会轻松很多。</p>
               <code className="command-block">{backupCommand}</code>
               <CopyButton text={backupCommand} label="复制备份命令" />
             </article>
 
             <article className="detail-panel detail-panel--side">
-              <h2 className="detail-panel__title detail-panel__title--small">原始内容</h2>
-              <p className="detail-panel__body">可以直接查看原始 <code>SOUL.md</code>，核对提示结构，或复制、下载到本地后手动替换。</p>
+              <h2 className="detail-panel__title detail-panel__title--small">原始 SOUL.md</h2>
+              <p className="detail-panel__body">可以直接查看这份原始 <code>SOUL.md</code>，核对人格结构，再复制、下载到本地后手动替换。</p>
               <div className="detail-panel__actions">
                 <a href={sidebarRawSoulUrl} className="text-action-link">
                   <span>打开原始 SOUL</span>

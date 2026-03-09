@@ -15,7 +15,7 @@ interface OgCardOptions {
   footer?: string;
 }
 
-export function renderOgCard({ eyebrow, title, description, badges, footer = '浏览灵魂 · 一键安装 · 投稿收录' }: OgCardOptions): ReactElement {
+export function renderOgCard({ eyebrow, title, description, badges, footer = '发现灵魂 · 比较人格 · 投稿共建' }: OgCardOptions): ReactElement {
   return (
     <div
       style={{
