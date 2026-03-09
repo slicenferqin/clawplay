@@ -1,4 +1,4 @@
-# 21 Persona Analysis Foundation Technical Design
+# 22 Persona Analysis Foundation Technical Design
 
 - Status: Ready
 - Depends On: `docs/execution/20-soul-as-persona-vnext.md`

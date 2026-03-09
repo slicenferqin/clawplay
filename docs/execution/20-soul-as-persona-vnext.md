@@ -316,12 +316,13 @@ ClawPlay 这一期已经完成了 `SOUL.md` 目录与分享 MVP：
 
 当前已明确的子项文档：
 
-- `docs/execution/21-persona-analysis-foundation.md`
+- `docs/execution/21-positioning-and-copy-reset.md`
+  - 对应：`N1` 定位与文案重构
+- `docs/execution/22-persona-analysis-foundation.md`
   - 对应：`N2 + N3` 里的人格分析、雷达图、AI 后台评分基础设施
 
 后续如果需要，还可以继续拆：
 
-- `N1` 文案重构子文档
 - `N4` Soul Pack manifest 子文档
 - `N5` 人格导向合集子文档
 
@@ -338,7 +339,7 @@ ClawPlay 这一期已经完成了 `SOUL.md` 目录与分享 MVP：
 
 ## 13. 结果记录
 
-- 人格分析基础设施见：`docs/execution/21-persona-analysis-foundation.md`
+- 人格分析基础设施见：`docs/execution/22-persona-analysis-foundation.md`
 - 本版本技术落地设计见：`docs/execution/20-soul-as-persona-vnext-implementation.md`
 
 

@@ -7,13 +7,15 @@
 
 ## 1. 关键决策收口
 
-### 1.1 `20` 是版本总规划，`21` 是子项基础设施
+### 1.1 `20` 是版本总规划，`21 / 22` 是后续子项基础设施
 
 本次文档层级明确分成两层：
 
 - `20-soul-as-persona-vnext.md`
   - 负责定义下一版本的整体方向、工作流、边界与优先级
-- `21-persona-analysis-foundation.md`
+- `21-positioning-and-copy-reset.md`
+  - 负责定义 N1 的定位与文案重构
+- `22-persona-analysis-foundation.md`
   - 负责定义人格分析、雷达图、AI 评分、后台确认这条子能力链路
 
 这样：
@@ -45,6 +47,11 @@
 ## 2. 工作流与模块映射
 
 ### N1：定位与文案重构
+
+#### 子项文档
+
+- `docs/execution/21-positioning-and-copy-reset.md`
+- `docs/execution/21-positioning-and-copy-reset-implementation.md`
 
 #### 目标模块
 
@@ -226,7 +233,7 @@ interface SoulPackManifest {
 
 ### 3.1 `21` 覆盖的内容
 
-`21-persona-analysis-foundation.md` 负责覆盖：
+`22-persona-analysis-foundation.md` 负责覆盖：
 
 - 人格分析结果存储
 - AI provider
@@ -273,6 +280,8 @@ interface SoulPackManifest {
 
 ### 交付包 A：N1
 
+- `docs/execution/21-positioning-and-copy-reset.md`
+- `docs/execution/21-positioning-and-copy-reset-implementation.md`
 - 新版文案基线
 - 统一术语词表
 - 首页 / About / 投稿页 / 安装页改稿
@@ -349,4 +358,4 @@ interface SoulPackManifest {
 ## 8. 结果记录
 
 - 版本 PRD：`docs/execution/20-soul-as-persona-vnext.md`
-- 人格分析子项：`docs/execution/21-persona-analysis-foundation.md`
+- 人格分析子项：`docs/execution/22-persona-analysis-foundation.md`

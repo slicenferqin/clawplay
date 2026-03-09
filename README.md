@@ -158,7 +158,8 @@ scripts/                  运维与内容治理脚本
 - [`docs/execution/18-shareable-collection-pages.md`](docs/execution/18-shareable-collection-pages.md)
 - [`docs/execution/19-collection-share-copy.md`](docs/execution/19-collection-share-copy.md)
 - [`docs/execution/20-soul-as-persona-vnext.md`](docs/execution/20-soul-as-persona-vnext.md)
-- [`docs/execution/21-persona-analysis-foundation.md`](docs/execution/21-persona-analysis-foundation.md)
+- [`docs/execution/21-positioning-and-copy-reset.md`](docs/execution/21-positioning-and-copy-reset.md)
+- [`docs/execution/22-persona-analysis-foundation.md`](docs/execution/22-persona-analysis-foundation.md)
 
 ### 内容治理
 

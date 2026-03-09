@@ -1,4 +1,4 @@
-# 21 Persona Analysis Foundation PRD
+# 22 Persona Analysis Foundation PRD
 
 - Status: Ready
 - Depends On: `docs/execution/20-soul-as-persona-vnext.md`
