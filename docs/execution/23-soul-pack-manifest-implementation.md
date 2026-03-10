@@ -1,6 +1,6 @@
 # 23 Soul Pack Manifest Implementation Design
 
-- Status: Ready
+- Status: Done
 - Depends On: `docs/execution/23-soul-pack-manifest.md`
 - Owner: Codex + slicenfer
 - Last Updated: 2026-03-10
@@ -335,8 +335,8 @@ N4 必须是叠加层，而不是改写当前主链路。
 
 ### 阶段 C：前台最小落点
 
-8. 新增 detail 页 `Soul Pack` 面板
-9. 显示推荐模型 / 技能 / 备注
+ 8. 新增 detail 页 `Soul Pack` 面板
+ 9. 显示推荐模型 / 技能 / 备注
 10. 提供“查看 JSON / 下载 Pack”按钮
 
 ### 阶段 D：文档与示例
@@ -403,5 +403,9 @@ N4 必须是叠加层，而不是改写当前主链路。
 
 ## 12. 结果记录
 
-- 待实施
+- 已新增 `src/lib/soul-pack/schema.ts`
+- 已新增 `src/lib/soul-pack/service.ts`
+- 已新增 `src/lib/soul-pack/overrides.ts`
+- 已新增 `src/app/api/packs/[slug]/route.ts`
+- 已新增 `src/components/soul-pack-panel.tsx`
 - 对应 PRD：`docs/execution/23-soul-pack-manifest.md`

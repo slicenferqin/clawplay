@@ -342,6 +342,7 @@ ClawPlay 这一期已经完成了 `SOUL.md` 目录与分享 MVP：
 
 - 人格分析基础设施见：`docs/execution/22-persona-analysis-foundation.md`
 - Soul Pack 规划见：`docs/execution/23-soul-pack-manifest.md`
+- Soul Pack Manifest v1 已落地：schema / service / API / detail panel
 - 本版本技术落地设计见：`docs/execution/20-soul-as-persona-vnext-implementation.md`
 
 

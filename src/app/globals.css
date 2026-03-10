@@ -3716,3 +3716,21 @@ textarea {
     justify-content: flex-start;
   }
 }
+
+.soul-pack-panel,
+.soul-pack-panel__section {
+  display: grid;
+}
+
+.soul-pack-panel {
+  gap: 16px;
+  background: linear-gradient(180deg, rgba(223, 231, 207, 0.34), rgba(255, 253, 248, 0.98));
+}
+
+.soul-pack-panel__section {
+  gap: 10px;
+}
+
+.soul-pack-panel__actions {
+  margin-top: 4px;
+}

@@ -10,8 +10,10 @@ import { PersonaAnalysisPanel } from '@/components/persona-analysis-panel';
 import { ArrowRightIcon, DownloadIcon } from '@/components/icons';
 import { InstallCommand } from '@/components/install-command';
 import { SiteHeader } from '@/components/site-header';
+import { SoulPackPanel } from '@/components/soul-pack-panel';
 import { getBackupCommand, getRawSoulPath } from '@/lib/install';
 import { buildPersonaProfile } from '@/lib/persona/profile';
+import { buildSoulPackManifest } from '@/lib/soul-pack/service';
 import { buildNoIndexMetadata, buildSoulMetadata } from '@/lib/seo';
 import { getAllSouls, getRelatedSouls, getSoulBySlug } from '@/lib/souls';
 
@@ -47,6 +49,7 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
   const relatedSouls = await getRelatedSouls(soul.slug);
   const backupCommand = getBackupCommand();
   const personaProfile = buildPersonaProfile(soul);
+  const soulPackManifest = buildSoulPackManifest(soul);
   const rawSoulUrl = getRawSoulPath(soul.slug, {
     source: 'soul_detail',
     placement: 'header_raw_link',
@@ -199,6 +202,8 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
                 analyticsPlacement="sidebar_install"
               />
             </article>
+
+            <SoulPackPanel slug={soul.slug} manifest={soulPackManifest} />
 
             <article className="detail-panel detail-panel--side">
               <h2 className="detail-panel__title detail-panel__title--small">备份当前灵魂</h2>

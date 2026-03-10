@@ -1,6 +1,6 @@
 # 23 Soul Pack Manifest PRD
 
-- Status: Ready
+- Status: Done
 - Depends On: `docs/execution/20-soul-as-persona-vnext.md`
 - Owner: Codex + slicenfer
 - Last Updated: 2026-03-10
@@ -129,33 +129,33 @@ ClawPlay 已经完成：
 
 也就是说：
 
-**Soul Pack 是围绕 `SOUL.md` 的结构层，不是新的正文格式。**
+**Soul Pack 是围绕** `SOUL.md` 的结构层，不是新的正文格式。
 
 ### 7.3 Manifest v1 的最小结构
 
 建议 `Soul Pack Manifest v1` 至少包含以下字段：
 
-1. `version`
-2. `packSlug`
-3. `soulSlug`
-4. `title`
-5. `summary`
-6. `soul`
-   - 原始 `SOUL.md` 入口与校验信息
-7. `persona`
-   - archetype
-   - tagline
-   - traitChips
-   - fitFor
-   - notFitFor
-8. `runtime`
-   - recommendedModels
-   - recommendedSkillsOrTools
-9. `install`
-   - method
-   - rawSoulUrl
-   - command
-   - installNotes
+ 1. `version`
+ 2. `packSlug`
+ 3. `soulSlug`
+ 4. `title`
+ 5. `summary`
+ 6. `soul`
+    - 原始 `SOUL.md` 入口与校验信息
+ 7. `persona`
+    - archetype
+    - tagline
+    - traitChips
+    - fitFor
+    - notFitFor
+ 8. `runtime`
+    - recommendedModels
+    - recommendedSkillsOrTools
+ 9. `install`
+    - method
+    - rawSoulUrl
+    - command
+    - installNotes
 10. `preview`
     - sampleDialogues
 11. `provenance`
@@ -350,5 +350,7 @@ V1 建议按如下顺序自动生成：
 
 ## 12. 结果记录
 
-- 待实施
+- `Soul Pack Manifest v1` schema 已落地
+- `/api/packs/[slug]` JSON 导出已落地
+- Soul 详情页已新增 `Soul Pack` 面板
 - 对应技术设计：`docs/execution/23-soul-pack-manifest-implementation.md`

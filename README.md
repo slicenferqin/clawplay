@@ -45,7 +45,7 @@ ClawPlay 当前已经打通的主链路：
 
 - Soul 列表、分类、标签、来源类型浏览
 - Soul 详情、原文查看、下载与导入命令
-- Soul 详情页已新增人格画像、6 维雷达图与维度理由
+- Soul 详情页已新增人格画像、6 维雷达图、结构化人格摘要与 Soul Pack 面板
 - 用户投稿，支持直接上传 `.md` 文件
 - 管理后台审核、修订、发布、标签治理与人格分析确认
 - 基础 SEO、OG 图、`robots.txt`、`sitemap.xml`
@@ -143,7 +143,7 @@ scripts/                  运维与内容治理脚本
 - `P4` 发布前内容资产准备：已完成第二刀
 - `P5` 站点可信度补强：已完成第二刀，进入长期细修
 - `P6` 增长侧准备：已完成第三刀
-- `P7` Soul as Persona：N1 文案定位、N2 人格分析基础、N3 详情页结构化升级已完成；N4 Soul Pack manifest 已完成规划，待实施
+- `P7` Soul as Persona：N1 文案定位、N2 人格分析基础、N3 详情页结构化升级、N4 Soul Pack manifest v1 已完成，继续推进 N5
 
 路线图文档：[`docs/execution/08-filing-wait-priority-roadmap.md`](docs/execution/08-filing-wait-priority-roadmap.md)
 
