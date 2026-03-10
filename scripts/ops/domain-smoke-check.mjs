@@ -382,9 +382,9 @@ async function main() {
     expectedCanonicalPath: '/souls',
   });
   await checkHtmlPage({
-    name: '推荐合集页',
+    name: '专题合集页',
     pathname: '/collections',
-    titleIncludes: '推荐合集',
+    titleIncludes: '专题合集',
     bodyIncludes: ['新手首选', '当前热门'],
     expectedCanonicalPath: '/collections',
   });
@@ -407,7 +407,7 @@ async function main() {
   await checkHtmlPage({
     name: '投稿页',
     pathname: '/submit',
-    titleIncludes: '投稿你的 Soul',
+    titleIncludes: '投稿一个 Soul preset',
     bodyIncludes: ['投稿入口'],
     expectedCanonicalPath: '/submit',
   });
