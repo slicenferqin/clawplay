@@ -143,7 +143,7 @@ scripts/                  运维与内容治理脚本
 - `P4` 发布前内容资产准备：已完成第二刀
 - `P5` 站点可信度补强：已完成第二刀，进入长期细修
 - `P6` 增长侧准备：已完成第三刀
-- `P7` Soul as Persona：N1 文案定位与 N2 人格分析基础已完成，继续推进 N3 / N4 / N5
+- `P7` Soul as Persona：N1 文案定位、N2 人格分析基础、N3 详情页结构化升级已完成，继续推进 N4 / N5
 
 路线图文档：[`docs/execution/08-filing-wait-priority-roadmap.md`](docs/execution/08-filing-wait-priority-roadmap.md)
 

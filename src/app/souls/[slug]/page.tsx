@@ -4,11 +4,14 @@ import { notFound } from 'next/navigation';
 
 import { AnalyticsViewTracker } from '@/components/analytics-view-tracker';
 import { CopyButton } from '@/components/copy-button';
+import { PersonaFitPanel } from '@/components/persona-fit-panel';
+import { PersonaProfile } from '@/components/persona-profile';
 import { PersonaAnalysisPanel } from '@/components/persona-analysis-panel';
 import { ArrowRightIcon, DownloadIcon } from '@/components/icons';
 import { InstallCommand } from '@/components/install-command';
 import { SiteHeader } from '@/components/site-header';
 import { getBackupCommand, getRawSoulPath } from '@/lib/install';
+import { buildPersonaProfile } from '@/lib/persona/profile';
 import { buildNoIndexMetadata, buildSoulMetadata } from '@/lib/seo';
 import { getAllSouls, getRelatedSouls, getSoulBySlug } from '@/lib/souls';
 
@@ -43,6 +46,7 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
 
   const relatedSouls = await getRelatedSouls(soul.slug);
   const backupCommand = getBackupCommand();
+  const personaProfile = buildPersonaProfile(soul);
   const rawSoulUrl = getRawSoulPath(soul.slug, {
     source: 'soul_detail',
     placement: 'header_raw_link',
@@ -112,10 +116,12 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
               </p>
             </article>
 
+            <PersonaProfile soul={soul} profile={personaProfile} />
+            <PersonaFitPanel profile={personaProfile} />
             {soul.personaAnalysis ? <PersonaAnalysisPanel analysis={soul.personaAnalysis} /> : null}
 
             <article className="detail-panel">
-              <h2 className="detail-panel__title detail-panel__title--small">示例对话</h2>
+              <h2 className="detail-panel__title detail-panel__title--small">示例对话与行为预期</h2>
               <p className="detail-panel__dialogue">
                 <strong>用户：</strong>
                 {soul.previewPrompt}
@@ -124,11 +130,6 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
                 <strong>{soul.title}：</strong>
                 {soul.previewResponse}
               </p>
-            </article>
-
-            <article className="detail-panel">
-              <h2 className="detail-panel__title detail-panel__title--small">人格简介</h2>
-              <p className="detail-panel__body">{soul.intro}</p>
               <div className="detail-panel__columns">
                 <div>
                   <h3 className="detail-panel__subheading">这个灵魂擅长什么</h3>

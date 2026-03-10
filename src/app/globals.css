@@ -3596,3 +3596,123 @@ textarea {
     grid-template-columns: 1fr;
   }
 }
+
+.detail-panel--persona-profile {
+  gap: 20px;
+}
+
+.persona-profile__hero,
+.persona-profile__chips,
+.persona-profile__footer,
+.persona-fit-panel__grid,
+.persona-fit-panel__header,
+.persona-structure-grid {
+  display: grid;
+}
+
+.persona-profile__hero {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: start;
+}
+
+.persona-profile__lead,
+.persona-profile__intro {
+  margin: 0;
+}
+
+.persona-profile__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.persona-profile__pill,
+.persona-profile__chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.persona-profile__pill {
+  background: rgba(240, 235, 224, 0.9);
+  color: var(--text-soft);
+}
+
+.persona-profile__pill--accent {
+  background: rgba(112, 138, 68, 0.14);
+  color: #5f7241;
+}
+
+.persona-profile__chips {
+  grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
+  gap: 10px;
+}
+
+.persona-profile__chip {
+  justify-content: center;
+  background: rgba(255, 253, 248, 0.92);
+  border: 1px solid rgba(216, 208, 195, 0.9);
+  color: var(--text);
+}
+
+.persona-structure-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.persona-structure-card,
+.persona-fit-panel__column {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(216, 208, 195, 0.9);
+  background: rgba(255, 253, 248, 0.9);
+}
+
+.persona-structure-card__eyebrow {
+  color: var(--text-soft);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.persona-fit-panel {
+  gap: 18px;
+}
+
+.persona-fit-panel__grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.persona-fit-panel__column--fit {
+  background: linear-gradient(180deg, rgba(223, 231, 207, 0.34), rgba(255, 253, 248, 0.96));
+}
+
+.persona-fit-panel__column--not-fit {
+  background: linear-gradient(180deg, rgba(240, 235, 224, 0.64), rgba(255, 253, 248, 0.96));
+}
+
+.persona-fit-panel__list {
+  line-height: 1.8;
+}
+
+@media (max-width: 960px) {
+  .persona-profile__hero,
+  .persona-fit-panel__grid,
+  .persona-structure-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .persona-profile__meta {
+    justify-content: flex-start;
+  }
+}
