@@ -359,3 +359,4 @@ interface SoulPackManifest {
 
 - 版本 PRD：`docs/execution/20-soul-as-persona-vnext.md`
 - 人格分析子项：`docs/execution/22-persona-analysis-foundation.md`
+- Soul Pack 子项：`docs/execution/23-soul-pack-manifest.md`
