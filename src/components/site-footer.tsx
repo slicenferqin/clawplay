@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { GITHUB_REPO_URL } from '@/lib/site-config';
+
 export function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -15,7 +17,7 @@ export function SiteFooter() {
           <Link href="/install">导入</Link>
           <Link href="/submit">投稿</Link>
           <Link href="/about">关于</Link>
-          <a href="https://github.com/slicenferqin/clawplay" target="_blank" rel="noreferrer">GitHub</a>
+          <a href={GITHUB_REPO_URL} target="_blank" rel="noreferrer">ClawPlay GitHub 仓库</a>
         </nav>
       </div>
     </footer>

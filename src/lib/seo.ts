@@ -2,7 +2,7 @@ import 'server-only';
 
 import type { Metadata } from 'next';
 
-import { DEFAULT_OG_IMAGE_PATH, DEFAULT_SITE_URL, PUBLIC_SITE_URL, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from '@/lib/site-config';
+import { DEFAULT_OG_IMAGE_PATH, DEFAULT_SITE_URL, GITHUB_REPO_URL, PUBLIC_SITE_URL, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from '@/lib/site-config';
 import type { SoulDocument } from '@/lib/souls-types';
 
 function normalizeSiteUrl(value: string) {
@@ -34,7 +34,7 @@ function buildTitle(title?: string) {
 }
 
 function buildPageKeywords(values: string[] = []) {
-  return dedupe([SITE_NAME, 'OpenClaw', 'SOUL.md', '灵魂库', 'AI 灵魂', 'OpenClaw Soul', ...values]);
+  return dedupe([SITE_NAME, 'ClawPlay GitHub', 'OpenClaw', 'SOUL.md', '灵魂库', 'AI 灵魂', 'OpenClaw Soul', ...values]);
 }
 
 export function getBaseMetadata(): Metadata {
@@ -43,6 +43,17 @@ export function getBaseMetadata(): Metadata {
     applicationName: SITE_NAME,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    keywords: buildPageKeywords(['OpenClaw preset', 'Soul 分享平台', 'GitHub repository']),
+    authors: [{ name: 'slicenferqin', url: GITHUB_REPO_URL }],
+    creator: 'slicenferqin',
+    publisher: SITE_NAME,
+    alternates: {
+      canonical: '/',
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
     icons: {
       icon: [
         { url: '/favicon.ico' },
@@ -56,6 +67,7 @@ export function getBaseMetadata(): Metadata {
       siteName: SITE_NAME,
       title: SITE_TITLE,
       description: SITE_DESCRIPTION,
+      url: '/',
       images: [DEFAULT_OG_IMAGE_PATH],
     },
     twitter: {
@@ -65,6 +77,36 @@ export function getBaseMetadata(): Metadata {
       images: [DEFAULT_OG_IMAGE_PATH],
     },
   };
+}
+
+export function getSiteStructuredData() {
+  const siteUrl = getSiteUrl();
+
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      name: SITE_NAME,
+      url: siteUrl,
+      description: SITE_DESCRIPTION,
+      inLanguage: 'zh-CN',
+      sameAs: [GITHUB_REPO_URL],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareSourceCode',
+      '@id': `${siteUrl}/#source-code`,
+      name: SITE_NAME,
+      codeRepository: GITHUB_REPO_URL,
+      url: siteUrl,
+      description: SITE_DESCRIPTION,
+      license: 'https://spdx.org/licenses/MIT.html',
+      programmingLanguage: ['TypeScript'],
+      runtimePlatform: 'Node.js',
+      keywords: buildPageKeywords(['GitHub repository', 'OpenClaw Souls']),
+    },
+  ];
 }
 
 interface BuildPageMetadataOptions {

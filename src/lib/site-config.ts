@@ -4,3 +4,4 @@ export const SITE_DESCRIPTION = '发现、比较并导入 OpenClaw 的 Soul pres
 export const DEFAULT_SITE_URL = 'https://clawplay.club';
 export const DEFAULT_OG_IMAGE_PATH = '/opengraph-image';
 export const PUBLIC_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL;
+export const GITHUB_REPO_URL = 'https://github.com/slicenferqin/clawplay';

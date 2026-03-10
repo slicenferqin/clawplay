@@ -2,6 +2,10 @@
   <img src="docs/assets/readme-banner.svg" alt="ClawPlay banner" width="100%" />
 </p>
 
+# ClawPlay
+
+> Official GitHub repository for ClawPlay, an OpenClaw Chinese `SOUL.md` directory and sharing platform.
+
 <p align="center">
   <strong>面向 OpenClaw 的中文 <code>SOUL.md</code> 目录与人格分享站</strong>
   <br />
@@ -15,6 +19,10 @@
   <img src="https://img.shields.io/badge/license-MIT-708A44?style=flat-square" alt="MIT License" />
   <img src="https://img.shields.io/badge/domain-clawplay.club%20备案中-8d877d?style=flat-square" alt="Domain filing in progress" />
 </p>
+
+官方仓库地址：`https://github.com/slicenferqin/clawplay`
+
+如果你是通过搜索引擎搜索 `clawplay github`、`OpenClaw soul github` 或 `ClawPlay 仓库` 来到这里，这个仓库就是官方地址。
 
 ## ClawPlay 是什么
 

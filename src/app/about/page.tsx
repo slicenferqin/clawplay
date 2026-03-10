@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 
 import { SiteHeader } from '@/components/site-header';
 import { buildPageMetadata } from '@/lib/seo';
+import { GITHUB_REPO_URL } from '@/lib/site-config';
 
 export const metadata: Metadata = buildPageMetadata({
   title: '关于 ClawPlay',
@@ -61,12 +62,22 @@ export default function AboutPage() {
         </section>
 
         <section>
+          <h2>官方仓库</h2>
+          <p>
+            ClawPlay 的官方 GitHub 仓库地址是
+            {' '}
+            <a href={GITHUB_REPO_URL} target="_blank" rel="noreferrer" className="text-action-link">{GITHUB_REPO_URL}</a>
+            。如果你是通过搜索来到这里，优先认这个地址即可。
+          </p>
+        </section>
+
+        <section>
           <h2>联系与反馈</h2>
           <p>如果你想反馈问题、讨论方案或报告安全风险，可以使用下面这些入口：</p>
           <div className="prose-page__actions">
-            <a href="https://github.com/slicenferqin/clawplay/issues" target="_blank" rel="noreferrer" className="text-action-link">GitHub Issues</a>
-            <a href="https://github.com/slicenferqin/clawplay/discussions" target="_blank" rel="noreferrer" className="text-action-link">GitHub Discussions</a>
-            <a href="https://github.com/slicenferqin/clawplay/blob/main/SECURITY.md" target="_blank" rel="noreferrer" className="text-action-link">安全反馈说明</a>
+            <a href={`${GITHUB_REPO_URL}/issues`} target="_blank" rel="noreferrer" className="text-action-link">ClawPlay GitHub 仓库 Issues</a>
+            <a href={`${GITHUB_REPO_URL}/discussions`} target="_blank" rel="noreferrer" className="text-action-link">ClawPlay GitHub 仓库 Discussions</a>
+            <a href={`${GITHUB_REPO_URL}/blob/main/SECURITY.md`} target="_blank" rel="noreferrer" className="text-action-link">ClawPlay 安全反馈说明</a>
           </div>
         </section>
 
