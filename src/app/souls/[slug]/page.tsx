@@ -59,11 +59,11 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
     source: 'soul_detail_raw_panel',
     placement: 'inline_download',
   });
-  const sidebarRawSoulUrl = getRawSoulPath(soul.slug, {
+  const installRawSoulUrl = getRawSoulPath(soul.slug, {
     source: 'soul_detail_raw_panel',
     placement: 'sidebar_raw_link',
   });
-  const sidebarRawSoulDownloadUrl = getRawSoulPath(soul.slug, {
+  const installRawSoulDownloadUrl = getRawSoulPath(soul.slug, {
     download: true,
     source: 'soul_detail_raw_panel',
     placement: 'sidebar_download',
@@ -87,21 +87,22 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
           <div className="detail-heading__content">
             <h1 className="detail-heading__title">{soul.title}</h1>
             <p className="detail-heading__description">{soul.summary}</p>
-            <p className="detail-heading__meta">
-              标签：{soul.tags.join(' / ')} &nbsp;&nbsp; 作者：{soul.author} &nbsp;&nbsp; 协议：{soul.license}
-              &nbsp;&nbsp; 更新：{soul.updatedAt}
-            </p>
+            <p className="detail-heading__preview">一句话感受：{soul.previewHook}</p>
+            <div className="detail-heading__meta-strip">
+              <span className="detail-heading__meta-pill">{soul.categoryLabel} · {soul.sourceType}</span>
+              <span className="detail-heading__meta-pill">作者：{soul.author}</span>
+              <span className="detail-heading__meta-pill">协议：{soul.license}</span>
+              <span className="detail-heading__meta-pill">更新：{soul.updatedAt}</span>
+            </div>
+            <div className="detail-chip-list detail-chip-list--hero">
+              {soul.tags.map((tag) => <span key={tag} className="tag-pill">{tag}</span>)}
+            </div>
           </div>
           <div className="detail-heading__actions">
-            <InstallCommand
-              slug={soul.slug}
-              showCode={false}
-              showCopyButton
-              copyLabel="复制导入命令"
-              analyticsEventName="detail_install_copy"
-              analyticsSource="soul_detail"
-              analyticsPlacement="header_install"
-            />
+            <Link href="/install" className="text-action-link">
+              <span>查看导入说明</span>
+              <ArrowRightIcon className="text-action-link__icon" />
+            </Link>
             <a href={rawSoulUrl} className="text-action-link">
               <span>查看原始 SOUL</span>
               <ArrowRightIcon className="text-action-link__icon" />
@@ -111,20 +112,12 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
 
         <section className="detail-layout">
           <div className="detail-layout__main">
-            <article className="detail-panel detail-panel--tinted">
-              <p className="detail-panel__eyebrow">人格预览</p>
-              <h2 className="detail-panel__title">{soul.previewHook}</h2>
-              <p className="detail-panel__body">
-                适合场景：{soul.useCases.join('、')}。语气偏向 {soul.tones.join(' / ')}，兼容 {soul.compatibleModels.join('、')}。
-              </p>
-            </article>
-
             <PersonaProfile soul={soul} profile={personaProfile} />
             <PersonaFitPanel profile={personaProfile} />
-            {soul.personaAnalysis ? <PersonaAnalysisPanel analysis={soul.personaAnalysis} /> : null}
 
-            <article className="detail-panel">
-              <h2 className="detail-panel__title detail-panel__title--small">示例对话与行为预期</h2>
+            <article className="detail-panel detail-panel--tinted">
+              <p className="detail-panel__eyebrow">示例对话</p>
+              <h2 className="detail-panel__title detail-panel__title--small">先看它怎么说话，再决定要不要继续深挖</h2>
               <p className="detail-panel__dialogue">
                 <strong>用户：</strong>
                 {soul.previewPrompt}
@@ -152,6 +145,8 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
                 </div>
               </div>
             </article>
+
+            {soul.personaAnalysis ? <PersonaAnalysisPanel analysis={soul.personaAnalysis} /> : null}
 
             <details className="raw-details">
               <summary className="raw-details__summary">
@@ -184,7 +179,7 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
               <p className="install-panel__eyebrow">导入这个 Soul</p>
               <InstallCommand slug={soul.slug} codeClassName="install-panel__command" />
               <p className="install-panel__body">
-                这条命令会直接用这个 Soul preset 替换本地 <code>SOUL.md</code>。如果你想稳一点，先手动备份，再执行导入。
+                这条命令会直接用这个 Soul preset 替换本地 <code>SOUL.md</code>。先看清人格方向，再决定是否替换进自己的龙虾。
               </p>
               <ol className="install-panel__steps">
                 <li>先备份当前灵魂</li>
@@ -201,38 +196,45 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
                 analyticsSource="soul_detail"
                 analyticsPlacement="sidebar_install"
               />
-            </article>
 
-            <SoulPackPanel slug={soul.slug} manifest={soulPackManifest} />
+              <details className="detail-disclosure detail-disclosure--dark install-panel__details">
+                <summary className="detail-disclosure__summary">
+                  <span className="detail-disclosure__summary-block">
+                    <span className="detail-disclosure__summary-title">备份与原文操作</span>
+                    <span className="detail-disclosure__summary-note">默认先收起来，避免右侧信息太满</span>
+                  </span>
+                </summary>
+                <div className="detail-disclosure__content install-panel__helper-stack">
+                  <section className="install-panel__helper">
+                    <h3 className="detail-panel__subheading">先备份当前灵魂</h3>
+                    <code className="command-block command-block--dark">{backupCommand}</code>
+                    <CopyButton text={backupCommand} label="复制备份命令" variant="dark" />
+                  </section>
 
-            <article className="detail-panel detail-panel--side">
-              <h2 className="detail-panel__title detail-panel__title--small">备份当前灵魂</h2>
-              <p className="detail-panel__body">替换前先把本地的 <code>SOUL.md</code> 复制一份，回滚会轻松很多。</p>
-              <code className="command-block">{backupCommand}</code>
-              <CopyButton text={backupCommand} label="复制备份命令" />
-            </article>
-
-            <article className="detail-panel detail-panel--side">
-              <h2 className="detail-panel__title detail-panel__title--small">原始 SOUL.md</h2>
-              <p className="detail-panel__body">可以直接查看这份原始 <code>SOUL.md</code>，核对人格结构，再复制、下载到本地后手动替换。</p>
-              <div className="detail-panel__actions">
-                <a href={sidebarRawSoulUrl} className="text-action-link">
-                  <span>打开原始 SOUL</span>
-                  <ArrowRightIcon className="text-action-link__icon" />
-                </a>
-                <CopyButton
-                  text={soul.rawSoul}
-                  label="复制原文"
-                  analyticsEventName="detail_raw_copy"
-                  analyticsSource="soul_detail_raw_panel"
-                  analyticsPlacement="sidebar_raw_copy"
-                  analyticsSlug={soul.slug}
-                />
-                <a href={sidebarRawSoulDownloadUrl} className="text-action-link" download>
-                  <DownloadIcon className="text-action-link__icon" />
-                  <span>下载 SOUL.md</span>
-                </a>
-              </div>
+                  <section className="install-panel__helper">
+                    <h3 className="detail-panel__subheading">再核对原始 SOUL</h3>
+                    <div className="detail-panel__actions install-panel__helper-actions">
+                      <a href={installRawSoulUrl} className="text-action-link">
+                        <span>打开原始 SOUL</span>
+                        <ArrowRightIcon className="text-action-link__icon" />
+                      </a>
+                      <CopyButton
+                        text={soul.rawSoul}
+                        label="复制原文"
+                        variant="dark"
+                        analyticsEventName="detail_raw_copy"
+                        analyticsSource="soul_detail_raw_panel"
+                        analyticsPlacement="sidebar_raw_copy"
+                        analyticsSlug={soul.slug}
+                      />
+                      <a href={installRawSoulDownloadUrl} className="text-action-link" download>
+                        <DownloadIcon className="text-action-link__icon" />
+                        <span>下载 SOUL.md</span>
+                      </a>
+                    </div>
+                  </section>
+                </div>
+              </details>
             </article>
 
             <article className="detail-panel detail-panel--side">
@@ -252,6 +254,8 @@ export default async function SoulDetailPage({ params }: { params: Promise<{ slu
                 ))}
               </ul>
             </article>
+
+            <SoulPackPanel slug={soul.slug} manifest={soulPackManifest} />
           </aside>
         </section>
       </main>
