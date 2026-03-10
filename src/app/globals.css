@@ -3734,3 +3734,40 @@ textarea {
 .soul-pack-panel__actions {
   margin-top: 4px;
 }
+
+.growth-group,
+.growth-group__header,
+.growth-group__collections,
+.growth-collection-block {
+  display: grid;
+}
+
+.growth-group {
+  gap: 26px;
+}
+
+.growth-group__header {
+  gap: 10px;
+  max-width: 48rem;
+}
+
+.growth-group__description {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.growth-group__collections {
+  gap: 30px;
+}
+
+.growth-collection-block {
+  gap: 0;
+  padding-top: 30px;
+  border-top: 1px solid rgba(216, 208, 195, 0.72);
+}
+
+.growth-collection-block:first-child {
+  padding-top: 0;
+  border-top: none;
+}

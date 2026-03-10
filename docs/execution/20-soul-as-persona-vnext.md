@@ -220,6 +220,13 @@ ClawPlay 这一期已经完成了 `SOUL.md` 目录与分享 MVP：
 - 陪伴系
 - 毒舌系
 
+当前第一版先稳妥落地为：
+
+- 谋士系
+- 温润陪伴系
+- 毒舌直给系
+- 角色感拉满
+
 #### 验收结果
 
 - 合集不再只是功能导航
@@ -325,7 +332,8 @@ ClawPlay 这一期已经完成了 `SOUL.md` 目录与分享 MVP：
 
 后续如果需要，还可以继续拆：
 
-- `N5` 人格导向合集子文档
+- `docs/execution/24-persona-collections.md`
+  - 对应：`N5` 人格导向合集
 
 ## 12. 验收标准
 
@@ -343,6 +351,8 @@ ClawPlay 这一期已经完成了 `SOUL.md` 目录与分享 MVP：
 - 人格分析基础设施见：`docs/execution/22-persona-analysis-foundation.md`
 - Soul Pack 规划见：`docs/execution/23-soul-pack-manifest.md`
 - Soul Pack Manifest v1 已落地：schema / service / API / detail panel
+- N5 人格专题合集第一版已落地：入口型合集 + 人格专题双分组
+- 人格专题文档见：`docs/execution/24-persona-collections.md`
 - 本版本技术落地设计见：`docs/execution/20-soul-as-persona-vnext-implementation.md`
 
 

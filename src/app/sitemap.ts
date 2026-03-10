@@ -1,13 +1,13 @@
 import type { MetadataRoute } from 'next';
 
+import { getCollections } from '@/lib/collections';
 import { buildAbsoluteUrl } from '@/lib/seo';
-import { getGrowthCollections } from '@/lib/collections';
 import { getAllSouls } from '@/lib/souls';
 
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [souls, collections] = await Promise.all([getAllSouls(), getGrowthCollections()]);
+  const [souls, collections] = await Promise.all([getAllSouls(), getCollections()]);
   const now = new Date();
 
   return [

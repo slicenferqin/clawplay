@@ -5,18 +5,18 @@ import { notFound } from 'next/navigation';
 import { CopyButton } from '@/components/copy-button';
 import { SiteHeader } from '@/components/site-header';
 import { SoulCard } from '@/components/soul-card';
+import { getCollectionByKey, getCollectionKeys, getCollectionKindLabel } from '@/lib/collections';
 import { buildAbsoluteUrl, buildNoIndexMetadata, buildPageMetadata } from '@/lib/seo';
-import { getGrowthCollectionByKey, getGrowthCollectionKeys } from '@/lib/collections';
 
 export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
-  return getGrowthCollectionKeys().map((key) => ({ key }));
+  return getCollectionKeys().map((key) => ({ key }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ key: string }> }): Promise<Metadata> {
   const { key } = await params;
-  const collection = await getGrowthCollectionByKey(key);
+  const collection = await getCollectionByKey(key);
 
   if (!collection) {
     return buildNoIndexMetadata({
@@ -30,25 +30,26 @@ export async function generateMetadata({ params }: { params: Promise<{ key: stri
     description: collection.summary,
     pathname: collection.pageHref,
     ogImagePath: `${collection.pageHref}/opengraph-image`,
-    keywords: [collection.title, ...collection.shareBadges, ...collection.souls.flatMap((soul) => soul.tags.slice(0, 2))],
+    keywords: [collection.title, getCollectionKindLabel(collection.kind), ...collection.shareBadges, ...collection.souls.flatMap((soul) => soul.tags.slice(0, 2))],
   });
 }
 
 export default async function CollectionDetailPage({ params }: { params: Promise<{ key: string }> }) {
   const { key } = await params;
-  const collection = await getGrowthCollectionByKey(key);
+  const collection = await getCollectionByKey(key);
 
   if (!collection) {
     notFound();
   }
 
   const collectionUrl = buildAbsoluteUrl(collection.pageHref);
+  const kindLabel = getCollectionKindLabel(collection.kind);
 
   return (
     <>
       <SiteHeader />
       <main className="page-shell prose-page growth-detail-page">
-        <p className="breadcrumb">合集 / {collection.title}</p>
+        <p className="breadcrumb">合集 / {kindLabel} / {collection.title}</p>
 
         <section className="growth-detail-page__hero">
           <p className="eyebrow">{collection.eyebrow}</p>

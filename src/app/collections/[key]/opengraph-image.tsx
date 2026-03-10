@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-import { getGrowthCollectionByKey } from '@/lib/collections';
+import { getCollectionByKey } from '@/lib/collections';
 import { renderOgCard, OG_IMAGE_SIZE } from '@/lib/og-image';
 
 export const alt = '专题合集分享卡片';
@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function OpenGraphImage({ params }: { params: Promise<{ key: string }> }) {
   const { key } = await params;
-  const collection = await getGrowthCollectionByKey(key);
+  const collection = await getCollectionByKey(key);
 
   if (!collection) {
     return new ImageResponse(
