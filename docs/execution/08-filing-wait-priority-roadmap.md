@@ -3,12 +3,13 @@
 - Status: Ready
 - Depends On: `docs/execution/06-domain-launch-checklist.md`, `docs/execution/07-next-phase-optimization.md`
 - Owner: Codex + slicenfer
-- Last Updated: 2026-03-09
+- Last Updated: 2026-03-23
 
 ## 0. 状态更新
 
 - 这份文档对应的是“备案等待期”的阶段路线图。
-- 截至 2026-03-09，`P1 ~ P6` 已基本完成。
+- 截至 2026-03-23，`https://clawplay.club` 已上线，`HTTPS` 与备案号 `豫ICP备2026009939号-1` 已生效。
+- 截至 2026-03-23，`P1 ~ P6` 已基本完成。
 - 下一版本已转入：`docs/execution/20-soul-as-persona-vnext.md`。
 
 ## 1. 背景
@@ -338,4 +339,3 @@ ClawPlay 当前已经完成了主链路建设：
 - 对应实施文档链接
 - 真实顺序是否与原计划一致
 - 哪些优先级需要重新排序
-

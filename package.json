@@ -1,8 +1,8 @@
 {
   "name": "clawplay",
   "version": "0.1.0",
-  "description": "Official ClawPlay repository for the OpenClaw SOUL.md directory and sharing platform.",
-  "homepage": "https://github.com/slicenferqin/clawplay",
+  "description": "Official repository for 虾魂 (ClawPlay), an OpenClaw SOUL.md directory and sharing platform.",
+  "homepage": "https://clawplay.club",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/slicenferqin/clawplay.git"
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "clawplay",
+    "xiahun",
     "openclaw",
     "soul",
     "soul.md",

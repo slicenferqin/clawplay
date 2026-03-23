@@ -3,7 +3,7 @@
 - Status: Done
 - Depends On: `docs/execution/15-readme-premium-polish.md`
 - Owner: Codex + slicenfer
-- Last Updated: 2026-03-09
+- Last Updated: 2026-03-23
 
 ## 1. 关键决策收口
 
@@ -16,9 +16,9 @@
 - 少量 badge
 - 清晰的产品能力与贡献路径结构
 
-### 1.2 不依赖域名开放
+### 1.2 README 与当前线上状态保持一致
 
-因为 `clawplay.club` 仍在备案流程中，本次 README 不把“线上可访问地址”当作核心入口，而是保留为“正式域名已确定 / 备案中”的说明。
+现在 `https://clawplay.club` 已上线，`HTTPS` 与备案号 `豫ICP备2026009939号-1` 已生效，因此 README 需要从“备案等待期说明”切到“正式站点入口”。
 
 ## 2. 文件落点
 
@@ -47,6 +47,7 @@
 - 产品定位
 - Why ClawPlay
 - 页面预览
+- 正式站点与备案信息
 - 当前能力
 - 快速开始
 - 贡献路径
@@ -54,7 +55,7 @@
 
 ## 4. 验证结果
 
-- README 不依赖域名已开放
+- README 已同步正式站点地址、备案号与当前公开入口
 - 展示层更强，但结构仍然清晰
 - 素材均落在仓库内，可直接被 GitHub 渲染
 

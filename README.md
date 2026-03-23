@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="docs/assets/readme-banner.svg" alt="ClawPlay banner" width="100%" />
+  <img src="docs/assets/readme-banner.svg" alt="虾魂 banner" width="100%" />
 </p>
 
-# ClawPlay
+# 虾魂（ClawPlay）
 
-> Official GitHub repository for ClawPlay, an OpenClaw Chinese `SOUL.md` directory and sharing platform.
+> Official GitHub repository for 虾魂（ClawPlay）, an OpenClaw Chinese `SOUL.md` directory and sharing platform.
 
 <p align="center">
   <strong>面向 OpenClaw 的中文 <code>SOUL.md</code> 目录与人格分享站</strong>
@@ -17,23 +17,28 @@
   <img src="https://img.shields.io/badge/TypeScript-app-d8d0c3?style=flat-square&labelColor=171512&color=d8d0c3" alt="TypeScript" />
   <img src="https://img.shields.io/badge/SQLite-data-efe8dd?style=flat-square&labelColor=171512&color=efe8dd" alt="SQLite" />
   <img src="https://img.shields.io/badge/license-MIT-708A44?style=flat-square" alt="MIT License" />
-  <img src="https://img.shields.io/badge/domain-clawplay.club%20备案中-8d877d?style=flat-square" alt="Domain filing in progress" />
+  <img src="https://img.shields.io/badge/domain-clawplay.club-8d877d?style=flat-square" alt="clawplay.club" />
+  <img src="https://img.shields.io/badge/ICP-%E8%B1%ABICP%E5%A4%872026009939%E5%8F%B7--1-8d877d?style=flat-square" alt="豫ICP备2026009939号-1" />
 </p>
+
+正式站点：`https://clawplay.club`
+
+备案号：`豫ICP备2026009939号-1`
 
 官方仓库地址：`https://github.com/slicenferqin/clawplay`
 
 如果你是通过搜索引擎搜索 `clawplay github`、`OpenClaw soul github` 或 `ClawPlay 仓库` 来到这里，这个仓库就是官方地址。
 
-## ClawPlay 是什么
+## 虾魂是什么
 
-ClawPlay 不是单纯把一堆 `SOUL.md` 扔进仓库，而是尝试把“给 OpenClaw 换灵魂”这件事整理成一个顺手的产品流程：
+虾魂（ClawPlay）不是单纯把一堆 `SOUL.md` 扔进仓库，而是尝试把“给 OpenClaw 换灵魂”这件事整理成一个顺手的产品流程：
 
 - 先浏览 Soul，而不是到处翻群聊历史消息
 - 先比较简介、标签、人格画像、预览和原文，再决定导入哪个
 - 喜欢就复制命令导入，不喜欢也能快速回滚
 - 调教出了新 Soul，可以直接投稿分享，而不是只能发散落链接
 
-## 为什么是 ClawPlay
+## 为什么是虾魂
 
 | 浏览 | 比较 | 导入 / 投稿 |
 | --- | --- | --- |
@@ -41,15 +46,15 @@ ClawPlay 不是单纯把一堆 `SOUL.md` 扔进仓库，而是尝试把“给 Op
 
 ## 页面预览
 
-> 下图来自当前页面的真实界面截图。正式域名 `clawplay.club` 已确定，但仍在备案流程中。
+> 下图来自当前线上页面的真实界面截图。正式域名 `https://clawplay.club` 已上线，`HTTPS` 与备案号已生效。
 
 <p align="center">
-  <img src="docs/assets/readme-homepage.png" alt="ClawPlay homepage preview" width="100%" />
+  <img src="docs/assets/readme-homepage.png" alt="虾魂 homepage preview" width="100%" />
 </p>
 
 ## 当前状态
 
-ClawPlay 当前已经打通的主链路：
+虾魂当前已经打通的主链路：
 
 - Soul 列表、分类、标签、来源类型浏览
 - Soul 详情、原文查看、下载与导入命令
@@ -62,9 +67,10 @@ ClawPlay 当前已经打通的主链路：
 
 当前对外状态：
 
-- 正式域名：`clawplay.club`（备案进行中）
+- 正式域名：`https://clawplay.club`
+- 备案号：`豫ICP备2026009939号-1`
 - 仓库：`https://github.com/slicenferqin/clawplay`
-- 当前最稳定的公开入口：GitHub 仓库 + 本地运行方式
+- 当前公开入口：正式站点 + GitHub 仓库
 
 ## 快速开始
 
@@ -117,7 +123,7 @@ npm run cleanup:translated-categories
 
 ## 参与方式
 
-ClawPlay 现在有两条清晰的参与路径：
+虾魂现在有两条清晰的参与路径：
 
 | 你想做什么 | 推荐入口 |
 | --- | --- |
@@ -190,5 +196,5 @@ scripts/                  运维与内容治理脚本
 ---
 
 <p align="center">
-  <sub>ClawPlay 现在更重视产品清晰度，而不是热闹感：少一点噪音，多一点浏览 / 比较 / 理解 / 导入。</sub>
+  <sub>虾魂现在更重视产品清晰度，而不是热闹感：少一点噪音，多一点浏览 / 比较 / 理解 / 导入。</sub>
 </p>
