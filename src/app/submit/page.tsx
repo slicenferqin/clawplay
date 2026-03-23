@@ -5,6 +5,7 @@ import { AnalyticsViewTracker } from '@/components/analytics-view-tracker';
 import { SiteHeader } from '@/components/site-header';
 import { SoulSubmissionForm } from '@/components/soul-submission-form';
 import { buildPageMetadata } from '@/lib/seo';
+import { SITE_NAME } from '@/lib/site-config';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = buildPageMetadata({
@@ -50,7 +51,7 @@ export default function SubmitPage() {
         <section className="submission-form__section submission-guidance is-ready">
           <div className="submission-form__section-header">
             <h2>投稿前先知道这三件事</h2>
-            <p>ClawPlay 想做的不是把门槛拉高，而是先把值得保存的人格 preset 收进来，再慢慢补齐展示信息。</p>
+            <p>{SITE_NAME} 想做的不是把门槛拉高，而是先把值得保存的人格 preset 收进来，再慢慢补齐展示信息。</p>
           </div>
 
           <div className="submission-guidance__grid">

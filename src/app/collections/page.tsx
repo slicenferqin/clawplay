@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { SiteHeader } from '@/components/site-header';
 import { SoulCard } from '@/components/soul-card';
 import { buildPageMetadata } from '@/lib/seo';
+import { SITE_NAME } from '@/lib/site-config';
 import { getCollectionGroups, getCollectionKindLabel } from '@/lib/collections';
 
 export const dynamic = 'force-dynamic';
@@ -26,7 +27,7 @@ export default async function CollectionsPage() {
           <p className="eyebrow">先按入口收口，再按人格比较</p>
           <h1 className="page-heading__title">不知道先导入哪种 Soul，就先从这些专题开始</h1>
           <p className="page-heading__description">
-            ClawPlay 现在把合集分成两类：一类解决“第一次从哪组开始看”，另一类解决“我更喜欢哪种人格气质”。你可以先降低选择成本，再去比较灵魂之间真正的相处体感。
+            {SITE_NAME} 现在把合集分成两类：一类解决“第一次从哪组开始看”，另一类解决“我更喜欢哪种人格气质”。你可以先降低选择成本，再去比较灵魂之间真正的相处体感。
           </p>
           <div className="growth-overview-grid">
             {overviewCollections.map((collection) => (

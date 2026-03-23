@@ -2,7 +2,7 @@ import 'server-only';
 
 import type { Metadata } from 'next';
 
-import { DEFAULT_OG_IMAGE_PATH, DEFAULT_SITE_URL, GITHUB_REPO_URL, PUBLIC_SITE_URL, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from '@/lib/site-config';
+import { DEFAULT_OG_IMAGE_PATH, DEFAULT_SITE_URL, GITHUB_REPO_URL, PUBLIC_SITE_URL, SITE_ALTERNATE_NAME, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from '@/lib/site-config';
 import type { SoulDocument } from '@/lib/souls-types';
 
 function normalizeSiteUrl(value: string) {
@@ -34,7 +34,7 @@ function buildTitle(title?: string) {
 }
 
 function buildPageKeywords(values: string[] = []) {
-  return dedupe([SITE_NAME, 'ClawPlay GitHub', 'OpenClaw', 'SOUL.md', '灵魂库', 'AI 灵魂', 'OpenClaw Soul', ...values]);
+  return dedupe([SITE_NAME, SITE_ALTERNATE_NAME, 'ClawPlay GitHub', 'OpenClaw', 'SOUL.md', '灵魂库', 'AI 灵魂', 'OpenClaw Soul', ...values]);
 }
 
 export function getBaseMetadata(): Metadata {
@@ -88,6 +88,7 @@ export function getSiteStructuredData() {
       '@type': 'WebSite',
       '@id': `${siteUrl}/#website`,
       name: SITE_NAME,
+      alternateName: SITE_ALTERNATE_NAME,
       url: siteUrl,
       description: SITE_DESCRIPTION,
       inLanguage: 'zh-CN',
@@ -98,6 +99,7 @@ export function getSiteStructuredData() {
       '@type': 'SoftwareSourceCode',
       '@id': `${siteUrl}/#source-code`,
       name: SITE_NAME,
+      alternateName: SITE_ALTERNATE_NAME,
       codeRepository: GITHUB_REPO_URL,
       url: siteUrl,
       description: SITE_DESCRIPTION,

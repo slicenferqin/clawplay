@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { ArrowRightIcon, SparkIcon } from '@/components/icons';
+import { SITE_NAME } from '@/lib/site-config';
 
 const navItems = [
   { href: '/souls', label: '灵魂库' },
@@ -16,7 +17,7 @@ export function SiteHeader() {
       <div className="site-header__inner page-shell">
         <Link href="/" className="brand-mark">
           <SparkIcon className="brand-mark__icon" />
-          <span className="brand-mark__text">CLAWPLAY</span>
+          <span className="brand-mark__text">{SITE_NAME}</span>
         </Link>
 
         <nav className="site-nav" aria-label="主导航">

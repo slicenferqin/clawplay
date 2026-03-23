@@ -141,7 +141,7 @@ export function renderOgCard({ eyebrow, title, description, badges, footer = 'å
               }}
             >
               <span style={{ color: '#a9c76a' }}>+</span>
-              <span>{SITE_NAME.toUpperCase()}</span>
+              <span>{SITE_NAME}</span>
             </div>
           </div>
         </div>

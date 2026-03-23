@@ -1,14 +1,14 @@
 import Link from 'next/link';
 
-import { GITHUB_REPO_URL } from '@/lib/site-config';
+import { GITHUB_REPO_URL, ICP_LICENSE, MIIT_BEIAN_URL, SITE_ALTERNATE_NAME, SITE_NAME } from '@/lib/site-config';
 
 export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="site-footer__inner page-shell">
         <div className="site-footer__brand">
-          <strong>ClawPlay</strong>
-          <p>把零散的中文 `SOUL.md` 整理成可发现、可比较、可导入、可投稿的 Soul 人格分享平台。</p>
+          <strong>{SITE_NAME}</strong>
+          <p>{SITE_NAME} 把零散的中文 `SOUL.md` 整理成可发现、可比较、可导入、可投稿的 Soul 人格分享平台。</p>
         </div>
 
         <nav className="site-footer__nav" aria-label="页脚导航">
@@ -17,8 +17,16 @@ export function SiteFooter() {
           <Link href="/install">导入</Link>
           <Link href="/submit">投稿</Link>
           <Link href="/about">关于</Link>
-          <a href={GITHUB_REPO_URL} target="_blank" rel="noreferrer">ClawPlay GitHub 仓库</a>
+          <a href={GITHUB_REPO_URL} target="_blank" rel="noreferrer">{SITE_ALTERNATE_NAME} GitHub 仓库</a>
         </nav>
+      </div>
+      <div className="site-footer__compliance page-shell">
+        <a href={MIIT_BEIAN_URL} target="_blank" rel="noreferrer" className="site-footer__icp">
+          {ICP_LICENSE}
+        </a>
+        <a href={MIIT_BEIAN_URL} target="_blank" rel="noreferrer" className="site-footer__miit-link">
+          工业和信息化部备案管理系统
+        </a>
       </div>
     </footer>
   );

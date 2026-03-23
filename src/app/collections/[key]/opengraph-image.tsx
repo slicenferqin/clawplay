@@ -2,6 +2,7 @@ import { ImageResponse } from 'next/og';
 
 import { getCollectionByKey } from '@/lib/collections';
 import { renderOgCard, OG_IMAGE_SIZE } from '@/lib/og-image';
+import { SITE_NAME } from '@/lib/site-config';
 
 export const alt = '专题合集分享卡片';
 export const size = OG_IMAGE_SIZE;
@@ -19,7 +20,7 @@ export default async function OpenGraphImage({ params }: { params: Promise<{ key
         eyebrow: 'Collection Not Found',
         title: '这个专题合集暂时不存在',
         description: '它可能还没开放，或者地址已经变化。',
-        badges: ['ClawPlay', '合集'],
+        badges: [SITE_NAME, '合集'],
       }),
       size,
     );

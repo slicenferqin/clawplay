@@ -1,7 +1,10 @@
-export const SITE_NAME = 'ClawPlay';
-export const SITE_TITLE = 'ClawPlay · OpenClaw Soul 人格分享平台';
-export const SITE_DESCRIPTION = '发现、比较并导入 OpenClaw 的 Soul preset。先理解一种灵魂的人格气质与边界，再决定是否替换到自己的龙虾里。';
+export const SITE_NAME = '虾魂';
+export const SITE_ALTERNATE_NAME = 'ClawPlay';
+export const SITE_TITLE = '虾魂 · OpenClaw Soul 人格分享平台';
+export const SITE_DESCRIPTION = '虾魂是一个 OpenClaw Soul 人格分享平台，帮助你先发现、比较并理解不同 Soul 的气质与边界，再决定是否导入。';
 export const DEFAULT_SITE_URL = 'https://clawplay.club';
 export const DEFAULT_OG_IMAGE_PATH = '/opengraph-image';
 export const PUBLIC_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL;
 export const GITHUB_REPO_URL = 'https://github.com/slicenferqin/clawplay';
+export const MIIT_BEIAN_URL = 'https://beian.miit.gov.cn/';
+export const ICP_LICENSE = '豫ICP备2026009939号-1';

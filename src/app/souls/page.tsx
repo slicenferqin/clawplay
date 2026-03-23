@@ -4,12 +4,13 @@ import type { Metadata } from 'next';
 import { SiteHeader } from '@/components/site-header';
 import { SiteSearchForm } from '@/components/site-search-form';
 import { buildPageMetadata } from '@/lib/seo';
+import { SITE_NAME } from '@/lib/site-config';
 import { filterSouls, getAllSouls, getCategoryCounts, getSourceTypeCounts } from '@/lib/souls';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = buildPageMetadata({
   title: '全部灵魂',
-  description: '按标题、标签、场景、兼容模型和内容来源浏览 ClawPlay 收录的全部 Soul。',
+  description: `按标题、标签、场景、兼容模型和内容来源浏览${SITE_NAME}收录的全部 Soul。`,
   pathname: '/souls',
   keywords: ['全部灵魂', 'SOUL 列表', '标签筛选', '翻译 Soul', 'OpenClaw Soul'],
 });

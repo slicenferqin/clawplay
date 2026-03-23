@@ -12,6 +12,7 @@ import { getLatestPersonaAnalysisJob, getPersonaAnalysisBySubject } from '@/lib/
 import { isAdminAuthenticated } from '@/lib/submissions/admin';
 import { assessSubmissionContent, reviewTagVocabulary } from '@/lib/content-rules';
 import { buildNoIndexMetadata } from '@/lib/seo';
+import { SITE_NAME } from '@/lib/site-config';
 import { getSubmissionQueueInsight } from '@/lib/submissions/review-queue';
 import { getSubmissionDetailForAdmin } from '@/lib/submissions/service';
 import type { SubmissionRecord } from '@/lib/submissions/schema';
@@ -19,7 +20,7 @@ import type { SubmissionRecord } from '@/lib/submissions/schema';
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = buildNoIndexMetadata({
   title: '投稿审核详情',
-  description: 'ClawPlay 审核后台详情页不应被搜索引擎索引。',
+  description: `${SITE_NAME} 审核后台详情页不应被搜索引擎索引。`,
 });
 
 const actorLabels = {

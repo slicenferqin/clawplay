@@ -7,6 +7,7 @@ import { FeaturedSoulCardContent } from '@/components/featured-soul-card';
 import { ArrowRightIcon } from '@/components/icons';
 import { SiteSearchForm } from '@/components/site-search-form';
 import { trackClientEventOnce } from '@/lib/analytics/client';
+import { SITE_NAME } from '@/lib/site-config';
 
 export interface HeroShowcaseSoul {
   slug: string;
@@ -156,7 +157,7 @@ export function HeroShowcase({ soulCount, souls }: HeroShowcaseProps) {
           </span>
         </h1>
         <p className="hero-grid__description">
-          ClawPlay 把零散的 <code>SOUL.md</code> 整理成可浏览、可比较的 Soul preset 目录。先看气质、边界和原始 SOUL，再决定是否替换进自己的 OpenClaw。
+          {SITE_NAME} 把零散的 <code>SOUL.md</code> 整理成可浏览、可比较的 Soul preset 目录。先看气质、边界和原始 SOUL，再决定是否替换进自己的 OpenClaw。
         </p>
         <div className="hero-grid__actions">
           <Link href="/souls" className="header-cta">

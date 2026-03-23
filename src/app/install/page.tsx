@@ -6,10 +6,11 @@ import { InstallCommand } from '@/components/install-command';
 import { SiteHeader } from '@/components/site-header';
 import { getBackupCommand } from '@/lib/install';
 import { buildPageMetadata } from '@/lib/seo';
+import { SITE_NAME } from '@/lib/site-config';
 
 export const metadata: Metadata = buildPageMetadata({
   title: '导入说明',
-  description: 'ClawPlay 导入说明包含备份、替换、下载、回滚与常见问题。先理解一个 Soul 的人格气质，再决定是否导入。',
+  description: `${SITE_NAME} 导入说明包含备份、替换、下载、回滚与常见问题。先理解一个 Soul 的人格气质，再决定是否导入。`,
   pathname: '/install',
   keywords: ['导入说明', '导入 Soul', '替换 SOUL.md', 'OpenClaw Soul preset', '回滚'],
 });
@@ -24,7 +25,7 @@ export default function InstallPage() {
         <p className="eyebrow">导入指南</p>
         <h1>先理解这个灵魂，再决定要不要把它导入你的 OpenClaw</h1>
         <p className="prose-page__lead">
-          ClawPlay 当前优先提供基于原始 SOUL 的 <code>curl</code> 导入方式，不额外包一层 CLI。目标不是把命令藏起来，而是让你先看清楚这是一种什么人格，再决定是否替换进本地，必要时也能轻松回滚。
+          {SITE_NAME} 当前优先提供基于原始 SOUL 的 <code>curl</code> 导入方式，不额外包一层 CLI。目标不是把命令藏起来，而是让你先看清楚这是一种什么人格，再决定是否替换进本地，必要时也能轻松回滚。
         </p>
 
         <section>
@@ -82,10 +83,10 @@ export default function InstallPage() {
 
         <section>
           <h2>常见问题</h2>
-          <h3>为什么 ClawPlay 暂时不额外做一个导入 CLI？</h3>
+          <h3>为什么{SITE_NAME} 暂时不额外做一个导入 CLI？</h3>
           <p>当前阶段直接提供原始内容直链最稳，也最容易看清楚你实际导入本地的是什么人格 preset。</p>
           <h3>导入后不喜欢怎么办？</h3>
-          <p>按上面的备份流程把旧文件换回去即可。ClawPlay 的导入说明会优先把“怎么撤回”说清楚。</p>
+          <p>按上面的备份流程把旧文件换回去即可。{SITE_NAME} 的导入说明会优先把“怎么撤回”说清楚。</p>
           <h3>我能先看原文再决定吗？</h3>
           <p>可以。每个 Soul 详情页都支持查看原文和下载原文，先看清楚再装更稳。</p>
         </section>

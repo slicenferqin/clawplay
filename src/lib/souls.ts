@@ -3,10 +3,14 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 import { getConfirmedPersonaAnalysesForSoulSlugs } from '@/lib/persona/service';
+import { SITE_NAME } from '@/lib/site-config';
 import { getPublishedSoulBySlug, getPublishedSoulDocuments } from '@/lib/submissions/service';
 import { CATEGORY_ORDER, SOURCE_TYPE_ORDER, getCategorySortIndex, type SoulCategoryKey, type SoulDocument, type SoulMeta, type SoulSourceType } from '@/lib/souls-types';
 
 export type { SoulCategoryKey, SoulDocument, SoulMeta, SoulSourceType } from '@/lib/souls-types';
+
+const SITE_COMMUNITY_AUTHOR = `${SITE_NAME} 社区`;
+const SITE_TRANSLATION_AUTHOR = `David Dias / ${SITE_NAME} 社区翻译`;
 
 const SOULS: SoulMeta[] = [
   {
@@ -22,7 +26,7 @@ const SOULS: SoulMeta[] = [
     tones: ['活泼', '温暖', '有角色感'],
     useCases: ['日常聊天', '情绪陪伴', '创意写作', '技术讲解'],
     compatibleModels: ['Claude Sonnet', 'Claude Opus'],
-    author: 'ClawPlay 社区',
+    author: SITE_COMMUNITY_AUTHOR,
     license: 'CC BY 4.0',
     updatedAt: '2026-03-06',
     previewHook: '可爱，但不尴尬；有角色感，但遇到正经问题时仍然能说人话。',
@@ -42,7 +46,7 @@ const SOULS: SoulMeta[] = [
     tones: ['直给', '暴躁', '专业'],
     useCases: ['日常开发', '调试', '代码审查'],
     compatibleModels: ['Claude Sonnet', 'Claude Opus'],
-    author: 'ClawPlay 社区',
+    author: SITE_COMMUNITY_AUTHOR,
     license: 'CC BY 4.0',
     updatedAt: '2026-03-06',
     previewHook: '嘴上不客气，但会把问题说透、把代码改对。',
@@ -62,7 +66,7 @@ const SOULS: SoulMeta[] = [
     tones: ['克制', '思辨', '耐心'],
     useCases: ['自学', '概念理解', '思考训练'],
     compatibleModels: ['Claude Sonnet', 'Claude Opus'],
-    author: 'ClawPlay 社区',
+    author: SITE_COMMUNITY_AUTHOR,
     license: 'CC BY 4.0',
     updatedAt: '2026-03-06',
     previewHook: '不替你想，而是逼你把问题真正想清楚。',
@@ -82,7 +86,7 @@ const SOULS: SoulMeta[] = [
     tones: ['结构化', '务实', '推进'],
     useCases: ['拆需求', '优先级判断', '迭代规划'],
     compatibleModels: ['Claude Sonnet', 'Claude Opus'],
-    author: 'ClawPlay 社区',
+    author: SITE_COMMUNITY_AUTHOR,
     license: 'CC BY 4.0',
     updatedAt: '2026-03-06',
     previewHook: '像一个靠谱 PM 一样，帮你切任务、控风险、推进度。',
@@ -103,7 +107,7 @@ const SOULS: SoulMeta[] = [
     tones: ['克制', '结构化', '判断力'],
     useCases: ['项目方案', '架构思考', '决策支持'],
     compatibleModels: ['Claude Sonnet', 'Claude Opus'],
-    author: 'ClawPlay 社区',
+    author: SITE_COMMUNITY_AUTHOR,
     license: 'CC BY 4.0',
     updatedAt: '2026-03-06',
     previewHook: '先规划，再决策，再执行，适合不想让 AI 一上来就瞎做的人。',
@@ -123,7 +127,7 @@ const SOULS: SoulMeta[] = [
     tones: ['理性', '前瞻', '工程化'],
     useCases: ['系统设计', '边界划分', '技术选型'],
     compatibleModels: ['Claude Sonnet', 'Claude Opus'],
-    author: 'David Dias / ClawPlay 社区翻译',
+    author: SITE_TRANSLATION_AUTHOR,
     license: 'MIT',
     updatedAt: '2026-03-06',
     previewHook: '不是只看功能能不能做，而是看系统能不能活得久。',
@@ -144,7 +148,7 @@ const SOULS: SoulMeta[] = [
     tones: ['严格', '友好', '建设性'],
     useCases: ['代码审查', '风险排查', '测试缺口'],
     compatibleModels: ['Claude Sonnet', 'Claude Opus'],
-    author: 'David Dias / ClawPlay 社区翻译',
+    author: SITE_TRANSLATION_AUTHOR,
     license: 'MIT',
     updatedAt: '2026-03-06',
     previewHook: '先抓真正会出事的问题，再说风格建议。',
@@ -164,7 +168,7 @@ const SOULS: SoulMeta[] = [
     tones: ['戏剧化', '热情', '有趣'],
     useCases: ['轻松开发', '技术讲解', '团队活跃'],
     compatibleModels: ['Claude Sonnet', 'Claude Opus'],
-    author: 'David Dias / ClawPlay 社区翻译',
+    author: SITE_TRANSLATION_AUTHOR,
     license: 'MIT',
     updatedAt: '2026-03-06',
     previewHook: '让技术问题更好玩，但不牺牲专业度。',

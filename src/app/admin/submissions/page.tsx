@@ -12,13 +12,14 @@ import {
   type AdminQuickView,
 } from '@/lib/submissions/review-queue';
 import { buildNoIndexMetadata } from '@/lib/seo';
+import { SITE_NAME } from '@/lib/site-config';
 import { getSubmissionStatusSummary, getSubmissionTypeSummary } from '@/lib/submissions/service';
 import type { ContactMethod, SubmissionStatus, SubmissionType } from '@/lib/submissions/schema';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = buildNoIndexMetadata({
   title: '投稿审核队列',
-  description: 'ClawPlay 审核后台队列页不应被搜索引擎索引。',
+  description: `${SITE_NAME} 审核后台队列页不应被搜索引擎索引。`,
 });
 
 const statusOptions: Array<{ value?: SubmissionStatus; label: string; description: string }> = [

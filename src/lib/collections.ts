@@ -4,6 +4,7 @@ import type { PublicPersonaDimensionKey } from '@/lib/persona/constants';
 import { buildPersonaProfile } from '@/lib/persona/profile';
 import { getHotlist } from '@/lib/analytics/hotlist';
 import { buildAbsoluteUrl } from '@/lib/seo';
+import { SITE_NAME } from '@/lib/site-config';
 import { getAllSouls, type SoulDocument } from '@/lib/souls';
 
 export type CollectionKind = 'growth' | 'persona';
@@ -267,13 +268,13 @@ function buildCollectionShareTemplates(collection: CollectionSeed): CollectionSh
           key: 'short',
           title: '短文案',
           description: '适合发群、私聊或评论区，先把链接丢出去。',
-          text: `第一次替换 SOUL.md 不知道先从谁开始？可以先看 ClawPlay 的「${collection.title}」专题：3 个更稳妥、低门槛的中文 Soul，适合先建立使用预期。\n${collectionUrl}`,
+          text: `第一次替换 SOUL.md 不知道先从谁开始？可以先看${SITE_NAME}的「${collection.title}」专题：3 个更稳妥、低门槛的中文 Soul，适合先建立使用预期。\n${collectionUrl}`,
         },
         {
           key: 'long',
           title: '长文案',
           description: '适合发帖、写推荐说明，顺手把“为什么值得看”讲清楚。',
-          text: `如果你第一次尝试 OpenClaw / ClawPlay，最容易卡住的通常不是“没有 Soul”，而是候选太多、不知道先导入哪个。这个「${collection.title}」专题先帮你收口到 3 个更容易上手的入口：${soulTitles}。可以先看简介、人格预览和原始 SOUL，再决定要不要替换。\n${collectionUrl}`,
+          text: `如果你第一次尝试 OpenClaw / ${SITE_NAME}，最容易卡住的通常不是“没有 Soul”，而是候选太多、不知道先导入哪个。这个「${collection.title}」专题先帮你收口到 3 个更容易上手的入口：${soulTitles}。可以先看简介、人格预览和原始 SOUL，再决定要不要替换。\n${collectionUrl}`,
         },
       ];
     case 'developer':
@@ -282,13 +283,13 @@ function buildCollectionShareTemplates(collection: CollectionSeed): CollectionSh
           key: 'short',
           title: '短文案',
           description: '适合技术群 / 朋友圈，直接点明“能进工作流”。',
-          text: `如果你是拿 Soul 真做开发协作，不想只看人设，可以直接看 ClawPlay 的「${collection.title}」专题：更偏代码审查、架构判断和需求拆解。\n${collectionUrl}`,
+          text: `如果你是拿 Soul 真做开发协作，不想只看人设，可以直接看${SITE_NAME}的「${collection.title}」专题：更偏代码审查、架构判断和需求拆解。\n${collectionUrl}`,
         },
         {
           key: 'long',
           title: '长文案',
           description: '适合写推荐贴，强调工程价值而不是角色氛围。',
-          text: `很多 Soul 看起来聪明，但未必真的适合开发工作流。ClawPlay 这组「${collection.title}」专题优先收口到更适合 review、架构拆解、需求判断的几个入口：${soulTitles}。如果你想找的是能进真实工作流的 Soul，可以先从这组开始。\n${collectionUrl}`,
+          text: `很多 Soul 看起来聪明，但未必真的适合开发工作流。${SITE_NAME}这组「${collection.title}」专题优先收口到更适合 review、架构拆解、需求判断的几个入口：${soulTitles}。如果你想找的是能进真实工作流的 Soul，可以先从这组开始。\n${collectionUrl}`,
         },
       ];
     case 'hot':
@@ -297,13 +298,13 @@ function buildCollectionShareTemplates(collection: CollectionSeed): CollectionSh
           key: 'short',
           title: '短文案',
           description: '适合跟朋友说“最近大家都在看什么”。',
-          text: `不想自己慢慢挑的话，可以先看 ClawPlay 的「${collection.title}」专题：优先参考站内最近的查看、导入复制和原文下载信号。\n${collectionUrl}`,
+          text: `不想自己慢慢挑的话，可以先看${SITE_NAME}的「${collection.title}」专题：优先参考站内最近的查看、导入复制和原文下载信号。\n${collectionUrl}`,
         },
         {
           key: 'long',
           title: '长文案',
           description: '适合强调这不是主观推荐，而是站内行为信号。',
-          text: `如果你只想先看“最近大家更常点开的那些 Soul”，可以直接看 ClawPlay 的「${collection.title}」专题。这组尽量复用站内真实行为信号，不是编辑拍脑袋说热门；当前收口到 ${soulTitles} 这几位，适合先快速比较一轮。\n${collectionUrl}`,
+          text: `如果你只想先看“最近大家更常点开的那些 Soul”，可以直接看${SITE_NAME}的「${collection.title}」专题。这组尽量复用站内真实行为信号，不是编辑拍脑袋说热门；当前收口到 ${soulTitles} 这几位，适合先快速比较一轮。\n${collectionUrl}`,
         },
       ];
     case 'latest':
@@ -312,13 +313,13 @@ function buildCollectionShareTemplates(collection: CollectionSeed): CollectionSh
           key: 'short',
           title: '短文案',
           description: '适合回访用户或老玩家互相安利。',
-          text: `最近想看看 ClawPlay 又收了什么新 Soul，可以直接翻「${collection.title}」专题。对已经替换过几轮的人会比继续翻全库更高效。\n${collectionUrl}`,
+          text: `最近想看看${SITE_NAME}又收了什么新 Soul，可以直接翻「${collection.title}」专题。对已经替换过几轮的人会比继续翻全库更高效。\n${collectionUrl}`,
         },
         {
           key: 'long',
           title: '长文案',
           description: '适合发更新通知，突出“新内容”价值。',
-          text: `如果你已经装过几轮 Soul，继续从全量列表里翻会很慢。ClawPlay 现在把最近更新的内容先收在「${collection.title}」专题里，当前这组可以先从 ${soulTitles} 这些入口开始，适合回访、尝鲜和做第二轮人格比较。\n${collectionUrl}`,
+          text: `如果你已经装过几轮 Soul，继续从全量列表里翻会很慢。${SITE_NAME}现在把最近更新的内容先收在「${collection.title}」专题里，当前这组可以先从 ${soulTitles} 这些入口开始，适合回访、尝鲜和做第二轮人格比较。\n${collectionUrl}`,
         },
       ];
     case 'strategist':
@@ -327,13 +328,13 @@ function buildCollectionShareTemplates(collection: CollectionSeed): CollectionSh
           key: 'short',
           title: '短文案',
           description: '适合发给想找“谋士型人格”的朋友。',
-          text: `如果你挑 Soul 更看重判断力、结构感和边界感，可以先看 ClawPlay 的「${collection.title}」专题。更像先想清楚再动手的那一类人格。\n${collectionUrl}`,
+          text: `如果你挑 Soul 更看重判断力、结构感和边界感，可以先看${SITE_NAME}的「${collection.title}」专题。更像先想清楚再动手的那一类人格。\n${collectionUrl}`,
         },
         {
           key: 'long',
           title: '长文案',
           description: '适合做人格向推荐，强调不是“陪聊型”。',
-          text: `ClawPlay 现在不只按用途分 Soul，也开始按人格气质做专题了。如果你更喜欢“先规划、再判断、最后执行”的灵魂，可以直接看「${collection.title}」这组：${soulTitles}。这一组不是来给情绪价值的，而是帮你把问题收口、把边界说清楚。\n${collectionUrl}`,
+          text: `${SITE_NAME}现在不只按用途分 Soul，也开始按人格气质做专题了。如果你更喜欢“先规划、再判断、最后执行”的灵魂，可以直接看「${collection.title}」这组：${soulTitles}。这一组不是来给情绪价值的，而是帮你把问题收口、把边界说清楚。\n${collectionUrl}`,
         },
       ];
     case 'warm':
@@ -342,13 +343,13 @@ function buildCollectionShareTemplates(collection: CollectionSeed): CollectionSh
           key: 'short',
           title: '短文案',
           description: '适合发给想找温和陪伴型人格的人。',
-          text: `想找更温润、更容易把人接住的 Soul，可以先看 ClawPlay 的「${collection.title}」专题。适合先感受对话温度，而不是一上来就被怼。\n${collectionUrl}`,
+          text: `想找更温润、更容易把人接住的 Soul，可以先看${SITE_NAME}的「${collection.title}」专题。适合先感受对话温度，而不是一上来就被怼。\n${collectionUrl}`,
         },
         {
           key: 'long',
           title: '长文案',
           description: '适合发帖说明“这组更温和”。',
-          text: `如果你不是来找最锋利、最硬的 Soul，而是更在意温度感、陪伴感和对话舒适度，可以直接看 ClawPlay 的「${collection.title}」专题。当前这组先收口到 ${soulTitles} 这些更容易让人放松、也更容易长期相处的入口。\n${collectionUrl}`,
+          text: `如果你不是来找最锋利、最硬的 Soul，而是更在意温度感、陪伴感和对话舒适度，可以直接看${SITE_NAME}的「${collection.title}」专题。当前这组先收口到 ${soulTitles} 这些更容易让人放松、也更容易长期相处的入口。\n${collectionUrl}`,
         },
       ];
     case 'sharp':
@@ -357,13 +358,13 @@ function buildCollectionShareTemplates(collection: CollectionSeed): CollectionSh
           key: 'short',
           title: '短文案',
           description: '适合发给能接受直给反馈的人。',
-          text: `如果你能接受被直说、不想绕弯，可以先看 ClawPlay 的「${collection.title}」专题。这组更适合 review、挑错和快速收口。\n${collectionUrl}`,
+          text: `如果你能接受被直说、不想绕弯，可以先看${SITE_NAME}的「${collection.title}」专题。这组更适合 review、挑错和快速收口。\n${collectionUrl}`,
         },
         {
           key: 'long',
           title: '长文案',
           description: '适合发技术向人格推荐贴。',
-          text: `很多人挑 Soul 时其实不是想被哄，而是想尽快把问题说透。ClawPlay 这组「${collection.title}」专题会优先收口更锋利、更直给、更敢指出问题的几位：${soulTitles}。如果你要的是“把错挑出来”，这组更对味。\n${collectionUrl}`,
+          text: `很多人挑 Soul 时其实不是想被哄，而是想尽快把问题说透。${SITE_NAME}这组「${collection.title}」专题会优先收口更锋利、更直给、更敢指出问题的几位：${soulTitles}。如果你要的是“把错挑出来”，这组更对味。\n${collectionUrl}`,
         },
       ];
     case 'roleplay':
@@ -372,13 +373,13 @@ function buildCollectionShareTemplates(collection: CollectionSeed): CollectionSh
           key: 'short',
           title: '短文案',
           description: '适合发给想找鲜明人格而非中性工具的人。',
-          text: `如果你不想跟一个中性工具说话，而是想明显感受到“它是谁”，可以先看 ClawPlay 的「${collection.title}」专题。\n${collectionUrl}`,
+          text: `如果你不想跟一个中性工具说话，而是想明显感受到“它是谁”，可以先看${SITE_NAME}的「${collection.title}」专题。\n${collectionUrl}`,
         },
         {
           key: 'long',
           title: '长文案',
           description: '适合强调 Soul 的人格辨识度。',
-          text: `ClawPlay 下一步最有意思的一件事，不只是收更多 Soul，而是让你能比较不同人格气质。如果你更在意角色氛围和记忆点，可以直接看「${collection.title}」这组：${soulTitles}。这一组更容易让你感受到“导入的是谁”，而不是只装了个功能助手。\n${collectionUrl}`,
+          text: `${SITE_NAME}下一步最有意思的一件事，不只是收更多 Soul，而是让你能比较不同人格气质。如果你更在意角色氛围和记忆点，可以直接看「${collection.title}」这组：${soulTitles}。这一组更容易让你感受到“导入的是谁”，而不是只装了个功能助手。\n${collectionUrl}`,
         },
       ];
     default:
@@ -405,7 +406,7 @@ function buildGrowthCollections(souls: SoulDocument[], soulsBySlug: Map<string, 
       pageHref: getCollectionPath('starter'),
       browseLabel: '先去灵魂库继续挑',
       browseHref: '/souls',
-      detailLead: '如果你刚接触 ClawPlay，最容易卡住的不是“没有 Soul”，而是“候选太多，不知道先装哪个”。这组优先帮你降低第一次试错成本。',
+      detailLead: `如果你刚接触${SITE_NAME}，最容易卡住的不是“没有 Soul”，而是“候选太多，不知道先装哪个”。这组优先帮你降低第一次试错成本。`,
       highlights: ['风格更稳定，第一次上手不容易装到太偏门的角色。', '覆盖聊天、学习、规划三类常见起步场景。', '更适合先建立对 Soul 的使用预期，再决定后续偏好。'],
       fitFor: ['第一次替换本地 SOUL.md 的用户', '想先体验站内代表性 Soul 的用户', '还没形成明确角色偏好的用户'],
       shareBadges: ['新手首选', '低门槛', '先试这组'],
@@ -421,7 +422,7 @@ function buildGrowthCollections(souls: SoulDocument[], soulsBySlug: Map<string, 
       pageHref: getCollectionPath('developer'),
       browseLabel: '去开发向灵魂继续看',
       browseHref: '/souls?category=dev',
-      detailLead: '如果你来 ClawPlay 主要是为了代码审查、技术判断、架构拆解或项目推进，这组比“随机挑一个聪明人设”更适合直接进入工作流。',
+      detailLead: `如果你来${SITE_NAME}主要是为了代码审查、技术判断、架构拆解或项目推进，这组比“随机挑一个聪明人设”更适合直接进入工作流。`,
       highlights: ['更偏工程判断，而不是单纯陪聊或角色感。', '适合 review、架构、需求拆解、风险分析。', '更容易拿来做真正的工作输入，而不是一次性试玩。'],
       fitFor: ['开发者 / 独立开发者', '需要代码审查与架构辅助的人', '希望把 Soul 直接嵌进工作流的人'],
       shareBadges: ['开发首选', '工程工作流', '代码审查'],
@@ -455,7 +456,7 @@ function buildGrowthCollections(souls: SoulDocument[], soulsBySlug: Map<string, 
       browseHref: '/souls',
       detailLead: '如果你已经装过几轮 Soul，或者会定期回来逛一圈，那么“最近新增”往往比“继续翻全部列表”更有效率。',
       highlights: ['优先让老用户看到站里最近的新内容。', '更适合尝鲜，而不是稳定上手。', '为后续真正的“最近发布流”做结构铺垫。'],
-      fitFor: ['已经使用过 ClawPlay 的回访用户', '喜欢尝鲜、想看最近变化的人', '准备做二次替换和比较的人'],
+      fitFor: [`已经使用过${SITE_NAME}的回访用户`, '喜欢尝鲜、想看最近变化的人', '准备做二次替换和比较的人'],
       shareBadges: ['最近新增', '想尝鲜', '新内容'],
       souls: getLatestSouls(souls),
     }),

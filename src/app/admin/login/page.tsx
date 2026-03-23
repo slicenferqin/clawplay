@@ -4,12 +4,13 @@ import { redirect } from 'next/navigation';
 import { AdminLoginForm } from '@/components/admin-login-form';
 import { SiteHeader } from '@/components/site-header';
 import { buildNoIndexMetadata } from '@/lib/seo';
+import { SITE_NAME } from '@/lib/site-config';
 import { isAdminAuthenticated } from '@/lib/submissions/admin';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = buildNoIndexMetadata({
   title: '管理员登录',
-  description: 'ClawPlay 审核后台登录页不应被搜索引擎索引。',
+  description: `${SITE_NAME} 审核后台登录页不应被搜索引擎索引。`,
 });
 
 export default async function AdminLoginPage() {

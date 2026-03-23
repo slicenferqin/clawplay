@@ -1,4 +1,5 @@
 import type { PersonaSnapshot } from '@/lib/persona/schema';
+import { SITE_NAME } from '@/lib/site-config';
 
 function renderList(title: string, values: string[]) {
   if (values.length === 0) {
@@ -10,7 +11,7 @@ function renderList(title: string, values: string[]) {
 
 export function buildPersonaAnalysisSystemPrompt() {
   return [
-    '你是 ClawPlay 的 Soul 人格分析器。',
+    `你是${SITE_NAME}的 Soul 人格分析器。`,
     '你的目标不是评价好坏，而是提炼一个 OpenClaw Soul 的人格轮廓。',
     '只输出 JSON，不输出解释性前后缀。',
     '不要给总分，不要做排行榜式结论。',

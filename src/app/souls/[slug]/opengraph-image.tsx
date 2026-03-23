@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 import { renderOgCard, OG_IMAGE_SIZE } from '@/lib/og-image';
+import { SITE_NAME } from '@/lib/site-config';
 import { getSoulBySlug } from '@/lib/souls';
 
 export const alt = 'Soul 分享卡片';
@@ -19,7 +20,7 @@ export default async function OpenGraphImage({ params }: { params: Promise<{ slu
         eyebrow: 'Soul Not Found',
         title: '这个 Soul 暂时不存在',
         description: '它可能还没收录，或者 slug 已经变化。',
-        badges: ['ClawPlay', 'SOUL.md'],
+        badges: [SITE_NAME, 'SOUL.md'],
       }),
       size,
     );

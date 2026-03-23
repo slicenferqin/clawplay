@@ -6,6 +6,7 @@ import { HeroShowcase } from '@/components/hero-showcase';
 import { SiteHeader } from '@/components/site-header';
 import { SoulCard } from '@/components/soul-card';
 import { buildPageMetadata } from '@/lib/seo';
+import { SITE_NAME } from '@/lib/site-config';
 import { getAllSouls, getCategoryCounts, getFeaturedSouls, getSourceTypeCounts } from '@/lib/souls';
 
 export const dynamic = 'force-dynamic';
@@ -56,7 +57,7 @@ export default async function HomePage() {
 
         <section className="content-section">
           <div className="section-heading-row">
-            <h2 className="section-title">为什么先来 ClawPlay</h2>
+            <h2 className="section-title">为什么先来{SITE_NAME}</h2>
           </div>
           <div className="journey-grid">
             <article className="journey-card">
