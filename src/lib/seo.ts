@@ -2,7 +2,7 @@ import 'server-only';
 
 import type { Metadata } from 'next';
 
-import { DEFAULT_OG_IMAGE_PATH, DEFAULT_SITE_URL, GITHUB_REPO_URL, PUBLIC_SITE_URL, SITE_ALTERNATE_NAME, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from '@/lib/site-config';
+import { DEFAULT_OG_IMAGE_PATH, DEFAULT_SITE_URL, GITHUB_REPO_URL, PUBLIC_SITE_URL, SITE_ALTERNATE_NAME, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_TITLE_NAME } from '@/lib/site-config';
 import type { SoulDocument } from '@/lib/souls-types';
 
 function normalizeSiteUrl(value: string) {
@@ -30,7 +30,7 @@ function trimText(value: string, maxLength: number) {
 }
 
 function buildTitle(title?: string) {
-  return title ? `${title} · ${SITE_NAME}` : SITE_TITLE;
+  return title ? `${title} · ${SITE_TITLE_NAME}` : SITE_TITLE;
 }
 
 function buildPageKeywords(values: string[] = []) {
